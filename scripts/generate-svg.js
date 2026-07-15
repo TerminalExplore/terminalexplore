@@ -336,10 +336,13 @@ function render(user, aboutText) {
     parts.push(nameEl.svg);
     t = nameEl.end + 0.1;
 
-    const fillWidth = (460 * lang.percent) / 100;
+    // Bar track stops short of the 640 right margin (matching the stat
+    // values above) so the percentage label never overlaps a near-full bar.
+    const barTrackWidth = 440;
+    const fillWidth = (barTrackWidth * lang.percent) / 100;
     const trackBegin = t;
     parts.push(`
-      <rect x="140" y="${y - 10}" width="460" height="8" rx="2" fill="#ffffff" opacity="0">
+      <rect x="140" y="${y - 10}" width="${barTrackWidth}" height="8" rx="2" fill="#ffffff" opacity="0">
         <animate attributeName="opacity" begin="${trackBegin.toFixed(2)}s" dur="0.15s" values="0;0.1" fill="freeze" />
       </rect>`);
     const barBegin = trackBegin + 0.1;
@@ -353,7 +356,7 @@ function render(user, aboutText) {
 
     const pctBegin = t;
     parts.push(
-      `<text x="600" y="${y}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.15s" values="0;1" fill="freeze" /></text>`
+      `<text x="640" y="${y}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.15s" values="0;1" fill="freeze" /></text>`
     );
     t = pctBegin + 0.15 + 0.14;
   });

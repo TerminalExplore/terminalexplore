@@ -129,15 +129,15 @@
         fill="#ffffff" opacity="1" textLength="21.60" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#type-11)">C++</text>
 
-      <rect x="140" y="256" width="460" height="8" rx="2" fill="#ffffff" opacity="0">
+      <rect x="140" y="256" width="440" height="8" rx="2" fill="#ffffff" opacity="0">
         <animate attributeName="opacity" begin="6.32s" dur="0.15s" values="0;0.1" fill="freeze" />
       </rect>
 
       <rect x="140" y="256" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
         <animate attributeName="width" begin="6.42s" dur="0.6s"
-          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;446.20" fill="freeze" />
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;426.80" fill="freeze" />
       </rect>
-<text x="600" y="266" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">97%<animate attributeName="opacity" begin="7.10s" dur="0.15s" values="0;1" fill="freeze" /></text>
+<text x="640" y="266" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">97%<animate attributeName="opacity" begin="7.10s" dur="0.15s" values="0;1" fill="freeze" /></text>
 
       <clipPath id="type-12">
         <rect x="38.00" y="278" height="20" width="0">
@@ -149,15 +149,15 @@
         fill="#ffffff" opacity="1" textLength="43.20" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#type-12)">Python</text>
 
-      <rect x="140" y="280" width="460" height="8" rx="2" fill="#ffffff" opacity="0">
+      <rect x="140" y="280" width="440" height="8" rx="2" fill="#ffffff" opacity="0">
         <animate attributeName="opacity" begin="7.64s" dur="0.15s" values="0;0.1" fill="freeze" />
       </rect>
 
       <rect x="140" y="280" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
         <animate attributeName="width" begin="7.74s" dur="0.6s"
-          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;9.20" fill="freeze" />
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;8.80" fill="freeze" />
       </rect>
-<text x="600" y="290" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">2%<animate attributeName="opacity" begin="8.42s" dur="0.15s" values="0;1" fill="freeze" /></text>
+<text x="640" y="290" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">2%<animate attributeName="opacity" begin="8.42s" dur="0.15s" values="0;1" fill="freeze" /></text>
 
       <clipPath id="type-13">
         <rect x="38.00" y="302" height="20" width="0">
@@ -169,15 +169,15 @@
         fill="#ffffff" opacity="1" textLength="36.00" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#type-13)">CMake</text>
 
-      <rect x="140" y="304" width="460" height="8" rx="2" fill="#ffffff" opacity="0">
+      <rect x="140" y="304" width="440" height="8" rx="2" fill="#ffffff" opacity="0">
         <animate attributeName="opacity" begin="8.94s" dur="0.15s" values="0;0.1" fill="freeze" />
       </rect>
 
       <rect x="140" y="304" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
         <animate attributeName="width" begin="9.04s" dur="0.6s"
-          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;4.60" fill="freeze" />
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;4.40" fill="freeze" />
       </rect>
-<text x="600" y="314" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">1%<animate attributeName="opacity" begin="9.72s" dur="0.15s" values="0;1" fill="freeze" /></text>
+<text x="640" y="314" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">1%<animate attributeName="opacity" begin="9.72s" dur="0.15s" values="0;1" fill="freeze" /></text>
 <line x1="40" y1="336" x2="640" y2="336" stroke="#ffffff" stroke-width="0.5" opacity="0">
       <animate attributeName="opacity" begin="10.11s" dur="0.2s" values="0;0.12" fill="freeze" />
     </line>
