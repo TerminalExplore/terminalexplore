@@ -374,7 +374,7 @@ function render(user, aboutText) {
 
   // whoami -> name
   const whoami = typeLine({
-    text: "guest@terminalexplore:~$ whoami",
+    text: "root@terminalexplore:~$ whoami",
     x: 40,
     y,
     fontSize: 14,
@@ -661,7 +661,7 @@ function render(user, aboutText) {
   y += 26;
 
   const footerY = y;
-  const footerPrompt = "guest@terminalexplore:~$ ";
+  const footerPrompt = "root@terminalexplore:~$ ";
   const footerBegin = t;
   const cursorBegin = footerBegin + 0.15;
   const cursorX = 40 + footerPrompt.length * (12 * 0.6);
