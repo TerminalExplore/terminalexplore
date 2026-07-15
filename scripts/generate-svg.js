@@ -36,6 +36,8 @@ const QUERY = /* GraphQL */ `
       ) {
         totalCount
         nodes {
+          name
+          stargazerCount
           languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
             edges {
               size
@@ -43,6 +45,14 @@ const QUERY = /* GraphQL */ `
                 name
               }
             }
+          }
+        }
+      }
+      pinnedItems(first: 3, types: [REPOSITORY]) {
+        nodes {
+          ... on Repository {
+            name
+            stargazerCount
           }
         }
       }
@@ -109,6 +119,27 @@ function weeklyCommitTotals(calendar) {
   return calendar.weeks.map((w) =>
     w.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0)
   );
+}
+
+function commitSummary(calendar) {
+  const days = calendar.weeks.flatMap((w) => w.contributionDays);
+  const total = days.reduce((sum, d) => sum + d.contributionCount, 0);
+  const peak = days.reduce((best, d) => (d.contributionCount > best.contributionCount ? d : best), days[0]);
+  return { total, peakDate: peak.date, peakCount: peak.contributionCount };
+}
+
+function formatShortDate(dateStr) {
+  const d = new Date(`${dateStr}T00:00:00Z`);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+}
+
+function featuredRepos(user, limit = 3) {
+  const pinned = (user.pinnedItems?.nodes || []).filter(Boolean);
+  const source = pinned.length ? pinned : user.repositories.nodes;
+  return [...source]
+    .sort((a, b) => b.stargazerCount - a.stargazerCount)
+    .slice(0, limit)
+    .map((r) => ({ name: r.name, stars: r.stargazerCount }));
 }
 
 function computeStreak(calendar) {
@@ -440,7 +471,8 @@ function render(user, aboutText) {
   parts.push(fadeLine(40, 470, 640, t));
   t += 0.2;
 
-  // commit activity: type command, then wipe-reveal the weekly bar chart
+  // commit activity: type command, then a totals/peak-day summary line,
+  // then wipe-reveal the weekly bar chart
   const commitCmdY = 496;
   const commitCmd = typeLine({
     text: "git log --graph --since=1y",
@@ -454,10 +486,30 @@ function render(user, aboutText) {
     maxDur: 0.7,
   });
   parts.push(commitCmd.svg);
-  t = commitCmd.end + 0.2;
+  t = commitCmd.end + 0.15;
+
+  const summary = commitSummary(user.contributionsCollection.contributionCalendar);
+  const summaryY = commitCmdY + 24;
+  const summaryText =
+    summary.peakCount > 0
+      ? `${summary.total} commits this year · busiest ${formatShortDate(summary.peakDate)} (${summary.peakCount})`
+      : `${summary.total} commits this year`;
+  const summaryLine = typeLine({
+    text: summaryText,
+    x: 40,
+    y: summaryY,
+    fontSize: 12,
+    opacity: 1,
+    begin: t,
+    id: nextId("type"),
+    speed: 0.018,
+    maxDur: 0.9,
+  });
+  parts.push(summaryLine.svg);
+  t = summaryLine.end + 0.2;
 
   const chartHeight = 50;
-  const chartBaselineY = commitCmdY + 26 + chartHeight;
+  const chartBaselineY = summaryY + 26 + chartHeight;
   parts.push(fadeLine(40, chartBaselineY + 0.5, 640, t, 0.15));
   const chart = commitChart({
     weeklyTotals: weeklyCommitTotals(user.contributionsCollection.contributionCalendar),
@@ -473,9 +525,65 @@ function render(user, aboutText) {
 
   const commitSeparatorY = chartBaselineY + 18;
   parts.push(fadeLine(40, commitSeparatorY, 640, t));
+  t += 0.15;
+
+  // featured repositories: pinned repos if set, otherwise top-starred owned repos
+  const repos = featuredRepos(user);
+  const reposHeaderY = commitSeparatorY + 26;
+  const reposHeader = typeLine({
+    text: "featured repositories",
+    x: 40,
+    y: reposHeaderY,
+    fontSize: 12,
+    opacity: 0.45,
+    begin: t,
+    id: nextId("type"),
+    speed: 0.02,
+    maxDur: 0.6,
+  });
+  parts.push(reposHeader.svg);
+  t = reposHeader.end + 0.2;
+
+  let reposLastY = reposHeaderY;
+  repos.forEach((repo, i) => {
+    const y = reposHeaderY + 24 + i * 24;
+    reposLastY = y;
+    const nameEl = typeLine({
+      text: repo.name,
+      x: 40,
+      y,
+      fontSize: 12,
+      opacity: 1,
+      begin: t,
+      id: nextId("type"),
+      speed: 0.022,
+      maxDur: 0.5,
+    });
+    parts.push(nameEl.svg);
+    t = nameEl.end + 0.08;
+
+    const starsEl = typeLine({
+      text: `★ ${repo.stars}`,
+      x: 640,
+      y,
+      fontSize: 12,
+      opacity: 0.6,
+      begin: t,
+      id: nextId("type"),
+      anchorEnd: true,
+      speed: 0.03,
+      maxDur: 0.35,
+    });
+    parts.push(starsEl.svg);
+    t = starsEl.end + 0.16;
+  });
+  t += 0.1;
+
+  const reposSeparatorY = reposLastY + 22;
+  parts.push(fadeLine(40, reposSeparatorY, 640, t));
   t += 0.2;
 
-  const footerY = commitSeparatorY + 26;
+  const footerY = reposSeparatorY + 26;
   const footerPrompt = "guest@terminalexplore:~$ ";
   const footerBegin = t;
   const cursorBegin = footerBegin + 0.2;

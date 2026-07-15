@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 660">
-  <rect width="680" height="660" rx="10" fill="#0a0a0a" />
-  <rect width="680" height="660" rx="10" fill="#ffffff" opacity="0.015" />
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 756">
+  <rect width="680" height="756" rx="10" fill="#0a0a0a" />
+  <rect width="680" height="756" rx="10" fill="#ffffff" opacity="0.015" />
 
   
       <clipPath id="type-0">
@@ -224,23 +224,66 @@
       <text x="40" y="496" font-family="'JetBrains Mono', monospace" font-size="12"
         fill="#ffffff" opacity="0.45" textLength="187.20" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#type-17)">git log --graph --since=1y</text>
-<line x1="40" y1="572.5" x2="640" y2="572.5" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="13.78s" dur="0.15s" values="0;0.12" fill="freeze" />
+
+      <clipPath id="type-18">
+        <rect x="38.00" y="508" height="20" width="0">
+          <animate attributeName="width" begin="13.73s" dur="0.79s"
+            calcMode="discrete" keyTimes="0.0000;0.0227;0.0455;0.0682;0.0909;0.1136;0.1364;0.1591;0.1818;0.2045;0.2273;0.2500;0.2727;0.2955;0.3182;0.3409;0.3636;0.3864;0.4091;0.4318;0.4545;0.4773;0.5000;0.5227;0.5455;0.5682;0.5909;0.6136;0.6364;0.6591;0.6818;0.7045;0.7273;0.7500;0.7727;0.7955;0.8182;0.8409;0.8636;0.8864;0.9091;0.9318;0.9545;0.9773;1.0000" values="0.00;7.34;14.67;22.01;29.35;36.68;44.02;51.35;58.69;66.03;73.36;80.70;88.04;95.37;102.71;110.05;117.38;124.72;132.05;139.39;146.73;154.06;161.40;168.74;176.07;183.41;190.75;198.08;205.42;212.75;220.09;227.43;234.76;242.10;249.44;256.77;264.11;271.45;278.78;286.12;293.45;300.79;308.13;315.46;322.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="520" font-family="'JetBrains Mono', monospace" font-size="12"
+        fill="#ffffff" opacity="1" textLength="316.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-18)">2025 commits this year · busiest Jul 14 (96)</text>
+<line x1="40" y1="596.5" x2="640" y2="596.5" stroke="#ffffff" stroke-width="0.5" opacity="0">
+      <animate attributeName="opacity" begin="14.72s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
 
-      <clipPath id="chart-18">
-        <rect x="40" y="518.00" height="58" width="0">
-          <animate attributeName="width" begin="13.78s" dur="1.3s"
+      <clipPath id="chart-19">
+        <rect x="40" y="542.00" height="58" width="0">
+          <animate attributeName="width" begin="14.72s" dur="1.3s"
             calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;600" fill="freeze" />
         </rect>
       </clipPath>
-      <g clip-path="url(#chart-18)"><rect x="42.55" y="561.86" width="6.23" height="10.14" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="53.87" y="564.75" width="6.23" height="7.25" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="65.19" y="556.42" width="6.23" height="15.58" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="76.51" y="562.22" width="6.23" height="9.78" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="87.83" y="562.58" width="6.23" height="9.42" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="99.15" y="565.48" width="6.23" height="6.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="110.47" y="544.10" width="6.23" height="27.90" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="121.79" y="565.48" width="6.23" height="6.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="133.11" y="540.48" width="6.23" height="31.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="144.43" y="564.75" width="6.23" height="7.25" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="155.75" y="561.86" width="6.23" height="10.14" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="167.08" y="555.33" width="6.23" height="16.67" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="178.40" y="554.25" width="6.23" height="17.75" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="189.72" y="548.09" width="6.23" height="23.91" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="201.04" y="556.78" width="6.23" height="15.22" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="212.36" y="557.51" width="6.23" height="14.49" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="223.68" y="562.58" width="6.23" height="9.42" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="235.00" y="561.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="246.32" y="565.48" width="6.23" height="6.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="257.64" y="556.78" width="6.23" height="15.22" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="268.96" y="563.30" width="6.23" height="8.70" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="280.28" y="561.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="291.60" y="560.04" width="6.23" height="11.96" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="302.92" y="563.67" width="6.23" height="8.33" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="314.25" y="559.32" width="6.23" height="12.68" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="325.57" y="561.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="336.89" y="563.30" width="6.23" height="8.70" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="348.21" y="561.49" width="6.23" height="10.51" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="359.53" y="560.04" width="6.23" height="11.96" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="370.85" y="558.59" width="6.23" height="13.41" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="382.17" y="560.41" width="6.23" height="11.59" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="393.49" y="556.78" width="6.23" height="15.22" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="404.81" y="551.35" width="6.23" height="20.65" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="416.13" y="561.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="427.45" y="566.57" width="6.23" height="5.43" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="438.77" y="554.25" width="6.23" height="17.75" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="450.09" y="557.87" width="6.23" height="14.13" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="461.42" y="547.72" width="6.23" height="24.28" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="472.74" y="551.71" width="6.23" height="20.29" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="484.06" y="553.88" width="6.23" height="18.12" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="495.38" y="558.59" width="6.23" height="13.41" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="506.70" y="554.61" width="6.23" height="17.39" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="518.02" y="557.87" width="6.23" height="14.13" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="529.34" y="567.29" width="6.23" height="4.71" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="540.66" y="569.00" width="6.23" height="3.00" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="551.98" y="570.00" width="6.23" height="2.00" rx="1.50" fill="#ffffff" opacity="0.12" /><rect x="563.30" y="570.00" width="6.23" height="2.00" rx="1.50" fill="#ffffff" opacity="0.12" /><rect x="574.62" y="570.00" width="6.23" height="2.00" rx="1.50" fill="#ffffff" opacity="0.12" /><rect x="585.94" y="569.00" width="6.23" height="3.00" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="597.26" y="558.59" width="6.23" height="13.41" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="608.58" y="525.62" width="6.23" height="46.38" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="619.91" y="537.94" width="6.23" height="34.06" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="631.23" y="522.00" width="6.23" height="50.00" rx="1.50" fill="#ffffff" opacity="0.85" /></g>
-<line x1="40" y1="590" x2="640" y2="590" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="15.28s" dur="0.2s" values="0;0.12" fill="freeze" />
+      <g clip-path="url(#chart-19)"><rect x="42.55" y="585.86" width="6.23" height="10.14" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="53.87" y="588.75" width="6.23" height="7.25" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="65.19" y="580.42" width="6.23" height="15.58" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="76.51" y="586.22" width="6.23" height="9.78" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="87.83" y="586.58" width="6.23" height="9.42" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="99.15" y="589.48" width="6.23" height="6.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="110.47" y="568.10" width="6.23" height="27.90" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="121.79" y="589.48" width="6.23" height="6.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="133.11" y="564.48" width="6.23" height="31.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="144.43" y="588.75" width="6.23" height="7.25" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="155.75" y="585.86" width="6.23" height="10.14" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="167.08" y="579.33" width="6.23" height="16.67" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="178.40" y="578.25" width="6.23" height="17.75" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="189.72" y="572.09" width="6.23" height="23.91" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="201.04" y="580.78" width="6.23" height="15.22" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="212.36" y="581.51" width="6.23" height="14.49" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="223.68" y="586.58" width="6.23" height="9.42" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="235.00" y="585.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="246.32" y="589.48" width="6.23" height="6.52" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="257.64" y="580.78" width="6.23" height="15.22" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="268.96" y="587.30" width="6.23" height="8.70" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="280.28" y="585.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="291.60" y="584.04" width="6.23" height="11.96" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="302.92" y="587.67" width="6.23" height="8.33" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="314.25" y="583.32" width="6.23" height="12.68" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="325.57" y="585.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="336.89" y="587.30" width="6.23" height="8.70" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="348.21" y="585.49" width="6.23" height="10.51" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="359.53" y="584.04" width="6.23" height="11.96" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="370.85" y="582.59" width="6.23" height="13.41" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="382.17" y="584.41" width="6.23" height="11.59" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="393.49" y="580.78" width="6.23" height="15.22" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="404.81" y="575.35" width="6.23" height="20.65" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="416.13" y="585.13" width="6.23" height="10.87" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="427.45" y="590.57" width="6.23" height="5.43" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="438.77" y="578.25" width="6.23" height="17.75" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="450.09" y="581.87" width="6.23" height="14.13" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="461.42" y="571.72" width="6.23" height="24.28" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="472.74" y="575.71" width="6.23" height="20.29" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="484.06" y="577.88" width="6.23" height="18.12" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="495.38" y="582.59" width="6.23" height="13.41" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="506.70" y="578.61" width="6.23" height="17.39" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="518.02" y="581.87" width="6.23" height="14.13" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="529.34" y="591.29" width="6.23" height="4.71" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="540.66" y="593.00" width="6.23" height="3.00" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="551.98" y="594.00" width="6.23" height="2.00" rx="1.50" fill="#ffffff" opacity="0.12" /><rect x="563.30" y="594.00" width="6.23" height="2.00" rx="1.50" fill="#ffffff" opacity="0.12" /><rect x="574.62" y="594.00" width="6.23" height="2.00" rx="1.50" fill="#ffffff" opacity="0.12" /><rect x="585.94" y="593.00" width="6.23" height="3.00" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="597.26" y="582.59" width="6.23" height="13.41" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="608.58" y="549.62" width="6.23" height="46.38" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="619.91" y="561.94" width="6.23" height="34.06" rx="1.50" fill="#ffffff" opacity="0.85" /><rect x="631.23" y="546.00" width="6.23" height="50.00" rx="1.50" fill="#ffffff" opacity="0.85" /></g>
+<line x1="40" y1="614" x2="640" y2="614" stroke="#ffffff" stroke-width="0.5" opacity="0">
+      <animate attributeName="opacity" begin="16.22s" dur="0.2s" values="0;0.12" fill="freeze" />
     </line>
 
-    <text x="40" y="616" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">guest@terminalexplore:~$ <animate attributeName="opacity" begin="15.48s" dur="0.2s" values="0;0.35" fill="freeze" /></text>
-    <rect x="220.00" y="604" width="7" height="14" fill="#ffffff" opacity="0">
-      <animate attributeName="opacity" begin="15.68s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
+      <clipPath id="type-20">
+        <rect x="38.00" y="628" height="20" width="0">
+          <animate attributeName="width" begin="16.37s" dur="0.42s"
+            calcMode="discrete" keyTimes="0.0000;0.0476;0.0952;0.1429;0.1905;0.2381;0.2857;0.3333;0.3810;0.4286;0.4762;0.5238;0.5714;0.6190;0.6667;0.7143;0.7619;0.8095;0.8571;0.9048;0.9524;1.0000" values="0.00;7.49;14.97;22.46;29.94;37.43;44.91;52.40;59.89;67.37;74.86;82.34;89.83;97.31;104.80;112.29;119.77;127.26;134.74;142.23;149.71;157.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="640" font-family="'JetBrains Mono', monospace" font-size="12"
+        fill="#ffffff" opacity="0.45" textLength="151.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-20)">featured repositories</text>
+
+      <clipPath id="type-21">
+        <rect x="38.00" y="652" height="20" width="0">
+          <animate attributeName="width" begin="16.99s" dur="0.22s"
+            calcMode="discrete" keyTimes="0.0000;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1.0000" values="0.00;7.80;15.60;23.40;31.20;39.00;46.80;54.60;62.40;70.20;78.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="664" font-family="'JetBrains Mono', monospace" font-size="12"
+        fill="#ffffff" opacity="1" textLength="72.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-21)">Wiresprite</text>
+
+      <clipPath id="type-22">
+        <rect x="616.40" y="652" height="20" width="0">
+          <animate attributeName="width" begin="17.29s" dur="0.12s"
+            calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="664" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="end"
+        fill="#ffffff" opacity="0.6" textLength="21.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-22)">★ 0</text>
+<line x1="40" y1="686" x2="640" y2="686" stroke="#ffffff" stroke-width="0.5" opacity="0">
+      <animate attributeName="opacity" begin="17.67s" dur="0.2s" values="0;0.12" fill="freeze" />
+    </line>
+
+    <text x="40" y="712" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">guest@terminalexplore:~$ <animate attributeName="opacity" begin="17.87s" dur="0.2s" values="0;0.35" fill="freeze" /></text>
+    <rect x="220.00" y="700" width="7" height="14" fill="#ffffff" opacity="0">
+      <animate attributeName="opacity" begin="18.07s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
     </rect>
 </svg>
