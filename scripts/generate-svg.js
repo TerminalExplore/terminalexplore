@@ -1,7 +1,6 @@
-// Generates a static "frosted glass" terminal SVG for the GitHub profile README.
-// Pure static markup (no SMIL/JS) so GitHub renders it as a plain image.
-// Layout is a fixed, approved spec: do not change coordinates/sizes/colors —
-// only the data feeding it changes.
+// Generates an animated "terminal" SVG for the GitHub profile README.
+// Pure SMIL markup (no JS/script tags) so GitHub renders it as a plain,
+// self-playing image. Data comes live from the GitHub GraphQL API.
 
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -28,6 +27,11 @@ const QUERY = /* GraphQL */ `
       following {
         totalCount
       }
+      organizations(first: 6) {
+        nodes {
+          login
+        }
+      }
       repositories(
         first: 100
         ownerAffiliations: [OWNER]
@@ -38,6 +42,7 @@ const QUERY = /* GraphQL */ `
         nodes {
           name
           stargazerCount
+          pushedAt
           languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
             edges {
               size
@@ -57,6 +62,10 @@ const QUERY = /* GraphQL */ `
         }
       }
       contributionsCollection {
+        totalCommitContributions
+        totalIssueContributions
+        totalPullRequestContributions
+        totalPullRequestReviewContributions
         contributionCalendar {
           weeks {
             contributionDays {
@@ -184,6 +193,24 @@ function computeStreak(calendar) {
   return { current, longest };
 }
 
+function orgsSummary(user) {
+  const orgs = (user.organizations?.nodes || []).map((o) => o.login);
+  return orgs.length ? orgs.join(", ") : "none";
+}
+
+function lastPushSummary(user) {
+  const repos = user.repositories.nodes.filter((r) => r.pushedAt);
+  if (!repos.length) return "—";
+  const latest = repos.reduce((a, b) => (new Date(a.pushedAt) > new Date(b.pushedAt) ? a : b));
+  const days = daysSince(latest.pushedAt);
+  const when = days <= 0 ? "today" : days === 1 ? "1d ago" : `${days}d ago`;
+  return `${latest.name} · ${when}`;
+}
+
+function contributionBreakdown(cc) {
+  return `${cc.totalCommitContributions} commits · ${cc.totalPullRequestContributions} prs · ${cc.totalIssueContributions} issues · ${cc.totalPullRequestReviewContributions} reviews`;
+}
+
 function escapeXml(str) {
   return String(str)
     .replace(/&/g, "&amp;")
@@ -212,7 +239,7 @@ function wrapText(text, maxChars) {
 }
 
 const FONT_STACK = "'JetBrains Mono', monospace";
-const TYPE_SPEED = 0.032; // seconds per character
+const TYPE_SPEED = 0.022; // seconds per character
 
 // Typewriter reveal for a single line of text. textLength forces the glyphs
 // onto our exact char-width grid regardless of which monospace font actually
@@ -232,7 +259,7 @@ function typeLine({
   id,
   anchorEnd = false,
   speed = TYPE_SPEED,
-  minDur = 0.12,
+  minDur = 0.08,
   maxDur = Infinity,
 }) {
   const charWidth = fontSize * 0.6;
@@ -271,7 +298,7 @@ function typeLine({
 
 // Section separators fade in right as the boot sequence reaches them,
 // instead of being visible on the very first frame.
-function fadeLine(x1, y, x2, begin, dur = 0.2) {
+function fadeLine(x1, y, x2, begin, dur = 0.15) {
   return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#ffffff" stroke-width="0.5" opacity="0">
       <animate attributeName="opacity" begin="${begin.toFixed(2)}s" dur="${dur}s" values="0;0.12" fill="freeze" />
     </line>`;
@@ -279,9 +306,7 @@ function fadeLine(x1, y, x2, begin, dur = 0.2) {
 
 // Monthly commit-activity chart, monochrome to match the rest of the card
 // (same white-on-black language as the stat/language bars). Bars reveal
-// with a single left-to-right wipe instead of animating individually —
-// with 12 of them a per-bar typewriter would still be needless overhead,
-// and the wipe already reads as "loading in" like everything else.
+// with a single left-to-right wipe instead of animating individually.
 // Returns both the svg and the total extra height used below the baseline
 // (count + month labels) so the caller can lay out what comes next.
 function commitChart({ months, x, width, baselineY, height, begin, id }) {
@@ -307,7 +332,7 @@ function commitChart({ months, x, width, baselineY, height, begin, id }) {
     })
     .join("");
 
-  const dur = 1.3;
+  const dur = 0.8;
   const svg = `
       <clipPath id="${id}">
         <rect x="${x}" y="${(baselineY - height - 4).toFixed(2)}" height="${height + labelBelowHeight + 8}" width="0">
@@ -318,6 +343,8 @@ function commitChart({ months, x, width, baselineY, height, begin, id }) {
       <g clip-path="url(#${id})">${bars}</g>`;
   return { svg, end: begin + dur, labelBelowHeight };
 }
+
+const BOOT_START = 0.35;
 
 function render(user, aboutText) {
   const languages = topLanguages(user.repositories);
@@ -333,11 +360,15 @@ function render(user, aboutText) {
     ["uptime", `${uptimeDays}d`],
     ["repos", `${user.repositories.totalCount}`],
     ["followers/following", `${user.followers.totalCount} / ${user.following.totalCount}`],
+    ["orgs", orgsSummary(user)],
+    ["last push", lastPushSummary(user)],
     ["streak", `${streak.current}d current / ${streak.longest}d longest`],
+    ["activity", contributionBreakdown(user.contributionsCollection)],
   ];
 
   const parts = [];
-  let t = 0.4;
+  let t = BOOT_START;
+  let y = 46;
   let idSeq = 0;
   const nextId = (prefix) => `${prefix}-${idSeq++}`;
 
@@ -345,19 +376,20 @@ function render(user, aboutText) {
   const whoami = typeLine({
     text: "guest@terminalexplore:~$ whoami",
     x: 40,
-    y: 46,
+    y,
     fontSize: 14,
     opacity: 0.4,
     begin: t,
     id: nextId("type"),
   });
   parts.push(whoami.svg);
-  t = whoami.end + 0.18;
+  t = whoami.end + 0.1;
+  y += 26;
 
   const name = typeLine({
     text: user.name || user.login,
     x: 40,
-    y: 72,
+    y,
     fontSize: 18,
     weight: 700,
     opacity: 1,
@@ -365,78 +397,84 @@ function render(user, aboutText) {
     id: nextId("type"),
   });
   parts.push(name.svg);
-  t = name.end + 0.3;
+  t = name.end + 0.18;
+  y += 22;
 
-  parts.push(fadeLine(40, 94, 640, t));
-  t += 0.15;
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.1;
+  y += 28;
 
   // stats: type each label, then its value, row by row
-  statRows.forEach(([label, value], rowIndex) => {
-    const y = 122 + rowIndex * 24;
+  statRows.forEach(([label, value]) => {
+    const rowY = y;
     const lbl = typeLine({
       text: label,
       x: 40,
-      y,
+      y: rowY,
       fontSize: 12,
       opacity: 0.45,
       begin: t,
       id: nextId("type"),
-      speed: 0.02,
-      maxDur: 0.45,
+      speed: 0.015,
+      maxDur: 0.3,
     });
     parts.push(lbl.svg);
-    t = lbl.end + 0.06;
+    t = lbl.end + 0.04;
 
     const val = typeLine({
       text: value,
       x: 640,
-      y,
+      y: rowY,
       fontSize: 12,
       opacity: 1,
       begin: t,
       id: nextId("type"),
       anchorEnd: true,
-      speed: 0.022,
-      maxDur: 0.55,
+      speed: 0.016,
+      maxDur: 0.5,
     });
     parts.push(val.svg);
-    t = val.end + 0.16;
+    t = val.end + 0.09;
+    y += 24;
   });
-  t += 0.1;
+  t += 0.06;
+  y += 4;
 
-  parts.push(fadeLine(40, 216, 640, t));
-  t += 0.15;
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.1;
+  y += 26;
 
   // languages: type header, then per language: name -> bar fill -> percent
   const langHeader = typeLine({
     text: "languages (live via github api)",
     x: 40,
-    y: 242,
+    y,
     fontSize: 12,
     opacity: 0.45,
     begin: t,
     id: nextId("type"),
-    speed: 0.02,
-    maxDur: 0.9,
+    speed: 0.015,
+    maxDur: 0.55,
   });
   parts.push(langHeader.svg);
-  t = langHeader.end + 0.2;
+  t = langHeader.end + 0.12;
+  y += 24;
 
-  languages.forEach((lang, i) => {
-    const y = 266 + i * 24;
+  languages.forEach((lang) => {
+    const rowY = y;
     const nameEl = typeLine({
       text: lang.name,
       x: 40,
-      y,
+      y: rowY,
       fontSize: 12,
       opacity: 1,
       begin: t,
       id: nextId("type"),
-      speed: 0.025,
-      maxDur: 0.4,
+      speed: 0.018,
+      maxDur: 0.28,
     });
     parts.push(nameEl.svg);
-    t = nameEl.end + 0.1;
+    t = nameEl.end + 0.06;
 
     // Bar track stops short of the 640 right margin (matching the stat
     // values above) so the percentage label never overlaps a near-full bar.
@@ -444,83 +482,89 @@ function render(user, aboutText) {
     const fillWidth = (barTrackWidth * lang.percent) / 100;
     const trackBegin = t;
     parts.push(`
-      <rect x="140" y="${y - 10}" width="${barTrackWidth}" height="8" rx="2" fill="#ffffff" opacity="0">
-        <animate attributeName="opacity" begin="${trackBegin.toFixed(2)}s" dur="0.15s" values="0;0.1" fill="freeze" />
+      <rect x="140" y="${rowY - 10}" width="${barTrackWidth}" height="8" rx="2" fill="#ffffff" opacity="0">
+        <animate attributeName="opacity" begin="${trackBegin.toFixed(2)}s" dur="0.1s" values="0;0.1" fill="freeze" />
       </rect>`);
-    const barBegin = trackBegin + 0.1;
-    const barDur = 0.6;
+    const barBegin = trackBegin + 0.06;
+    const barDur = 0.35;
     parts.push(`
-      <rect x="140" y="${y - 10}" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
+      <rect x="140" y="${rowY - 10}" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
         <animate attributeName="width" begin="${barBegin.toFixed(2)}s" dur="${barDur}s"
           calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${fillWidth.toFixed(2)}" fill="freeze" />
       </rect>`);
-    t = barBegin + barDur + 0.08;
+    t = barBegin + barDur + 0.05;
 
     const pctBegin = t;
     parts.push(
-      `<text x="640" y="${y}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.15s" values="0;1" fill="freeze" /></text>`
+      `<text x="640" y="${rowY}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.1s" values="0;1" fill="freeze" /></text>`
     );
-    t = pctBegin + 0.15 + 0.14;
+    t = pctBegin + 0.1 + 0.08;
+    y += 24;
   });
-  t += 0.1;
+  t += 0.06;
+  y += 4;
 
-  parts.push(fadeLine(40, 336, 640, t));
-  t += 0.15;
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.1;
+  y += 26;
 
   // about.md: type command, then type each wrapped line
   const aboutCmd = typeLine({
     text: "cat about.md",
     x: 40,
-    y: 362,
+    y,
     fontSize: 12,
     opacity: 0.45,
     begin: t,
     id: nextId("type"),
-    speed: 0.025,
-    maxDur: 0.45,
+    speed: 0.018,
+    maxDur: 0.3,
   });
   parts.push(aboutCmd.svg);
-  t = aboutCmd.end + 0.2;
+  t = aboutCmd.end + 0.12;
+  y += 28;
 
-  aboutLines.forEach((line, i) => {
+  aboutLines.forEach((line) => {
     const el = typeLine({
       text: line,
       x: 40,
-      y: 390 + i * 20,
+      y,
       fontSize: 13,
       opacity: 0.9,
       begin: t,
       id: nextId("type"),
-      speed: 0.014,
-      maxDur: 1.1,
+      speed: 0.01,
+      maxDur: 0.7,
     });
     parts.push(el.svg);
-    t = el.end + 0.1;
+    t = el.end + 0.06;
+    y += 20;
   });
-  t += 0.15;
+  t += 0.1;
+  y += 8;
 
-  parts.push(fadeLine(40, 470, 640, t));
-  t += 0.2;
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.12;
+  y += 26;
 
   // commit activity: type command, then a totals/peak-day summary line,
-  // then wipe-reveal the weekly bar chart
-  const commitCmdY = 496;
+  // then wipe-reveal the monthly bar chart
   const commitCmd = typeLine({
     text: "git log --graph --since=1y",
     x: 40,
-    y: commitCmdY,
+    y,
     fontSize: 12,
     opacity: 0.45,
     begin: t,
     id: nextId("type"),
-    speed: 0.02,
-    maxDur: 0.7,
+    speed: 0.015,
+    maxDur: 0.45,
   });
   parts.push(commitCmd.svg);
-  t = commitCmd.end + 0.15;
+  t = commitCmd.end + 0.1;
+  y += 24;
 
   const summary = commitSummary(user.contributionsCollection.contributionCalendar);
-  const summaryY = commitCmdY + 24;
   const summaryText =
     summary.peakCount > 0
       ? `${summary.total} commits this year · busiest ${formatShortDate(summary.peakDate)} (${summary.peakCount})`
@@ -528,20 +572,21 @@ function render(user, aboutText) {
   const summaryLine = typeLine({
     text: summaryText,
     x: 40,
-    y: summaryY,
+    y,
     fontSize: 12,
     opacity: 1,
     begin: t,
     id: nextId("type"),
-    speed: 0.018,
-    maxDur: 0.9,
+    speed: 0.013,
+    maxDur: 0.55,
   });
   parts.push(summaryLine.svg);
-  t = summaryLine.end + 0.2;
+  t = summaryLine.end + 0.12;
+  y += 26;
 
   const chartHeight = 50;
-  const chartBaselineY = summaryY + 26 + chartHeight;
-  parts.push(fadeLine(40, chartBaselineY + 0.5, 640, t, 0.15));
+  const chartBaselineY = y + chartHeight;
+  parts.push(fadeLine(40, chartBaselineY + 0.5, 640, t, 0.1));
   const chart = commitChart({
     months: monthlyCommitTotals(user.contributionsCollection.contributionCalendar),
     x: 40,
@@ -552,75 +597,76 @@ function render(user, aboutText) {
     id: nextId("chart"),
   });
   parts.push(chart.svg);
-  t = chart.end + 0.2;
+  t = chart.end + 0.12;
+  y = chartBaselineY + chart.labelBelowHeight + 14;
 
-  const commitSeparatorY = chartBaselineY + chart.labelBelowHeight + 14;
-  parts.push(fadeLine(40, commitSeparatorY, 640, t));
-  t += 0.15;
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.1;
+  y += 26;
 
   // featured repositories: pinned repos if set, otherwise top-starred owned repos
   const repos = featuredRepos(user);
-  const reposHeaderY = commitSeparatorY + 26;
   const reposHeader = typeLine({
     text: "featured repositories",
     x: 40,
-    y: reposHeaderY,
+    y,
     fontSize: 12,
     opacity: 0.45,
     begin: t,
     id: nextId("type"),
-    speed: 0.02,
-    maxDur: 0.6,
+    speed: 0.015,
+    maxDur: 0.4,
   });
   parts.push(reposHeader.svg);
-  t = reposHeader.end + 0.2;
+  t = reposHeader.end + 0.12;
+  y += 24;
 
-  let reposLastY = reposHeaderY;
-  repos.forEach((repo, i) => {
-    const y = reposHeaderY + 24 + i * 24;
-    reposLastY = y;
+  repos.forEach((repo) => {
+    const rowY = y;
     const nameEl = typeLine({
       text: repo.name,
       x: 40,
-      y,
+      y: rowY,
       fontSize: 12,
       opacity: 1,
       begin: t,
       id: nextId("type"),
-      speed: 0.022,
-      maxDur: 0.5,
+      speed: 0.016,
+      maxDur: 0.32,
     });
     parts.push(nameEl.svg);
-    t = nameEl.end + 0.08;
+    t = nameEl.end + 0.05;
 
     const starsEl = typeLine({
       text: `★ ${repo.stars}`,
       x: 640,
-      y,
+      y: rowY,
       fontSize: 12,
       opacity: 0.6,
       begin: t,
       id: nextId("type"),
       anchorEnd: true,
-      speed: 0.03,
-      maxDur: 0.35,
+      speed: 0.02,
+      maxDur: 0.22,
     });
     parts.push(starsEl.svg);
-    t = starsEl.end + 0.16;
+    t = starsEl.end + 0.09;
+    y += 24;
   });
-  t += 0.1;
+  t += 0.06;
+  y += 4;
 
-  const reposSeparatorY = reposLastY + 22;
-  parts.push(fadeLine(40, reposSeparatorY, 640, t));
-  t += 0.2;
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.12;
+  y += 26;
 
-  const footerY = reposSeparatorY + 26;
+  const footerY = y;
   const footerPrompt = "guest@terminalexplore:~$ ";
   const footerBegin = t;
-  const cursorBegin = footerBegin + 0.2;
+  const cursorBegin = footerBegin + 0.15;
   const cursorX = 40 + footerPrompt.length * (12 * 0.6);
   parts.push(`
-    <text x="40" y="${footerY}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.2s" values="0;0.35" fill="freeze" /></text>
+    <text x="40" y="${footerY}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.15s" values="0;0.35" fill="freeze" /></text>
     <rect x="${cursorX.toFixed(2)}" y="${footerY - 12}" width="7" height="14" fill="#ffffff" opacity="0">
       <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
     </rect>`);
