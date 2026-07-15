@@ -444,6 +444,45 @@ function render(user, aboutText) {
   t += 0.1;
   y += 26;
 
+  // about.md: type command, then type each wrapped line
+  const aboutCmd = typeLine({
+    text: "cat about.md",
+    x: 40,
+    y,
+    fontSize: 12,
+    opacity: 0.45,
+    begin: t,
+    id: nextId("type"),
+    speed: 0.018,
+    maxDur: 0.3,
+  });
+  parts.push(aboutCmd.svg);
+  t = aboutCmd.end + 0.12;
+  y += 28;
+
+  aboutLines.forEach((line) => {
+    const el = typeLine({
+      text: line,
+      x: 40,
+      y,
+      fontSize: 13,
+      opacity: 0.9,
+      begin: t,
+      id: nextId("type"),
+      speed: 0.01,
+      maxDur: 0.7,
+    });
+    parts.push(el.svg);
+    t = el.end + 0.06;
+    y += 20;
+  });
+  t += 0.1;
+  y += 8;
+
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.1;
+  y += 26;
+
   // languages: type header, then per language: name -> bar fill -> percent
   const langHeader = typeLine({
     text: "languages (live via github api)",
@@ -503,45 +542,6 @@ function render(user, aboutText) {
   });
   t += 0.06;
   y += 4;
-
-  parts.push(fadeLine(40, y, 640, t));
-  t += 0.1;
-  y += 26;
-
-  // about.md: type command, then type each wrapped line
-  const aboutCmd = typeLine({
-    text: "cat about.md",
-    x: 40,
-    y,
-    fontSize: 12,
-    opacity: 0.45,
-    begin: t,
-    id: nextId("type"),
-    speed: 0.018,
-    maxDur: 0.3,
-  });
-  parts.push(aboutCmd.svg);
-  t = aboutCmd.end + 0.12;
-  y += 28;
-
-  aboutLines.forEach((line) => {
-    const el = typeLine({
-      text: line,
-      x: 40,
-      y,
-      fontSize: 13,
-      opacity: 0.9,
-      begin: t,
-      id: nextId("type"),
-      speed: 0.01,
-      maxDur: 0.7,
-    });
-    parts.push(el.svg);
-    t = el.end + 0.06;
-    y += 20;
-  });
-  t += 0.1;
-  y += 8;
 
   parts.push(fadeLine(40, y, 640, t));
   t += 0.12;
@@ -673,9 +673,14 @@ function render(user, aboutText) {
 
   const totalHeight = footerY + 44;
 
+  // Black frosted-glass panel: the base fill is translucent (not solid
+  // black) so it reads as a pane of dark glass rather than an opaque card,
+  // and the faint white wash on top gives it a matte, slightly frosted
+  // texture instead of a flat/glossy look.
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 ${totalHeight}">
-  <rect width="680" height="${totalHeight}" rx="10" fill="#0a0a0a" />
-  <rect width="680" height="${totalHeight}" rx="10" fill="#ffffff" opacity="0.015" />
+  <rect width="680" height="${totalHeight}" rx="10" fill="#0a0a0a" fill-opacity="0.86" />
+  <rect width="680" height="${totalHeight}" rx="10" fill="#ffffff" opacity="0.03" />
+  <rect x="0.5" y="0.5" width="679" height="${totalHeight - 1}" rx="9.5" fill="none" stroke="#ffffff" stroke-opacity="0.06" />
 
   ${parts.join("\n")}
 </svg>
