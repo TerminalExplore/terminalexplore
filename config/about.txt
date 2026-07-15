@@ -1,0 +1,2 @@
+Software engineer. Building things with code and breaking them on purpose.
+Edit config/about.txt to change what shows up here.

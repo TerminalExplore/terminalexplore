@@ -1,13 +1,15 @@
-// Generates an animated "terminal" SVG for the GitHub profile README.
-// Pulls live data about the user via the GitHub GraphQL API and renders
-// it as a typewriter animation inside a fake terminal window.
+// Generates a static "frosted glass" terminal SVG for the GitHub profile README.
+// Pure static markup (no SMIL/JS) so GitHub renders it as a plain image.
+// Layout is a fixed, approved spec: do not change coordinates/sizes/colors —
+// only the data feeding it changes.
 
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const USERNAME = process.env.GH_USERNAME || "TerminalExplore";
 const TOKEN = process.env.GITHUB_TOKEN;
 const OUT_FILE = path.join("assets", "terminal.svg");
+const ABOUT_FILE = path.join("config", "about.txt");
 
 if (!TOKEN) {
   console.error("Missing GITHUB_TOKEN environment variable.");
@@ -19,9 +21,11 @@ const QUERY = /* GraphQL */ `
     user(login: $login) {
       name
       login
-      bio
       createdAt
       followers {
+        totalCount
+      }
+      following {
         totalCount
       }
       repositories(
@@ -32,8 +36,7 @@ const QUERY = /* GraphQL */ `
       ) {
         totalCount
         nodes {
-          stargazerCount
-          languages(first: 6, orderBy: { field: SIZE, direction: DESC }) {
+          languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
             edges {
               size
               node {
@@ -45,7 +48,12 @@ const QUERY = /* GraphQL */ `
       }
       contributionsCollection {
         contributionCalendar {
-          totalContributions
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+            }
+          }
         }
       }
     }
@@ -74,7 +82,7 @@ async function fetchProfile() {
   return json.data.user;
 }
 
-function topLanguages(repositories, limit = 5) {
+function topLanguages(repositories, limit = 3) {
   const bytesByLanguage = new Map();
   for (const repo of repositories.nodes) {
     for (const edge of repo.languages.edges) {
@@ -82,19 +90,38 @@ function topLanguages(repositories, limit = 5) {
       bytesByLanguage.set(name, (bytesByLanguage.get(name) || 0) + edge.size);
     }
   }
+  const total = [...bytesByLanguage.values()].reduce((a, b) => a + b, 0) || 1;
   return [...bytesByLanguage.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, limit)
-    .map(([name]) => name);
+    .map(([name, bytes]) => ({
+      name,
+      percent: Math.round((bytes / total) * 100),
+    }));
 }
 
-function totalStars(repositories) {
-  return repositories.nodes.reduce((sum, repo) => sum + repo.stargazerCount, 0);
-}
-
-function yearsSince(dateString) {
+function daysSince(dateString) {
   const ms = Date.now() - new Date(dateString).getTime();
-  return (ms / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
+  return Math.round(ms / (1000 * 60 * 60 * 24));
+}
+
+function computeStreak(calendar) {
+  const days = calendar.weeks.flatMap((w) => w.contributionDays);
+  let longest = 0;
+  let run = 0;
+  for (const d of days) {
+    if (d.contributionCount > 0) {
+      run++;
+      longest = Math.max(longest, run);
+    } else {
+      run = 0;
+    }
+  }
+  let current = 0;
+  for (let i = days.length - 1; i >= 0 && days[i].contributionCount > 0; i--) {
+    current++;
+  }
+  return { current, longest };
 }
 
 function escapeXml(str) {
@@ -106,126 +133,95 @@ function escapeXml(str) {
     .replace(/'/g, "&apos;");
 }
 
-function buildLines(user) {
-  const languages = topLanguages(user.repositories);
-  const stars = totalStars(user.repositories);
-  const contributions = user.contributionsCollection.contributionCalendar.totalContributions;
-
+// Naive word-wrap: SVG doesn't reflow text, so we pre-split into tspans.
+function wrapText(text, maxChars) {
+  const words = text.replace(/\s+/g, " ").trim().split(" ");
   const lines = [];
-  lines.push({ type: "prompt", text: "whoami" });
-  lines.push({ type: "output", text: user.name || user.login, color: "#f8f8f2" });
-
-  if (user.bio) {
-    lines.push({ type: "prompt", text: "cat about.txt" });
-    lines.push({ type: "output", text: user.bio, color: "#f8f8f2" });
+  let current = "";
+  for (const word of words) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length > maxChars && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
   }
-
-  lines.push({ type: "prompt", text: "ls stack/" });
-  lines.push({
-    type: "output",
-    text: languages.length ? languages.join("  ") : "—",
-    color: "#8be9fd",
-  });
-
-  lines.push({ type: "prompt", text: "stats --summary" });
-  lines.push({
-    type: "output",
-    text: `repos:${user.repositories.totalCount}  stars:${stars}  followers:${user.followers.totalCount}  contributions(1y):${contributions}`,
-    color: "#f1fa8c",
-  });
-
-  lines.push({ type: "prompt", text: `uptime --since ${new Date(user.createdAt).getFullYear()}` });
-  lines.push({
-    type: "output",
-    text: `on GitHub for ${yearsSince(user.createdAt)} years`,
-    color: "#bd93f9",
-  });
-
+  if (current) lines.push(current);
   return lines;
 }
 
-const FONT_SIZE = 14;
-const CHAR_WIDTH = FONT_SIZE * 0.6;
-const LINE_HEIGHT = 26;
-const PADDING_X = 24;
-const PADDING_TOP = 56;
-const WINDOW_WIDTH = 720;
-const HEADER_HEIGHT = 40;
-const TYPE_SPEED = 0.045; // seconds per character
-const LINE_GAP = 0.35; // pause between lines
-const PROMPT = "guest@terminalexplore:~$ ";
+const FONT_STACK = "'JetBrains Mono', monospace";
 
-function renderTypedLine(line, index, startTime) {
-  const isPrompt = line.type === "prompt";
-  const fullText = isPrompt ? `${PROMPT}${line.text}` : line.text;
-  const color = isPrompt ? "#50fa7b" : line.color || "#f8f8f2";
-  const y = PADDING_TOP + index * LINE_HEIGHT;
-  const duration = Math.max(fullText.length * TYPE_SPEED, 0.1);
-  const fullWidth = fullText.length * CHAR_WIDTH + 4;
+function render(user, aboutText) {
+  const languages = topLanguages(user.repositories);
+  const streak = computeStreak(user.contributionsCollection.contributionCalendar);
+  const uptimeDays = daysSince(user.createdAt);
+  const aboutLines = wrapText(aboutText, 74).slice(0, 5);
 
-  const steps = Math.max(fullText.length, 1);
-  const values = [];
-  const keyTimes = [];
-  for (let i = 0; i <= steps; i++) {
-    values.push(((fullWidth * i) / steps).toFixed(2));
-    keyTimes.push((i / steps).toFixed(4));
-  }
+  const statRows = [
+    ["uptime", `${uptimeDays}d`],
+    ["repos", `${user.repositories.totalCount}`],
+    ["followers/following", `${user.followers.totalCount} / ${user.following.totalCount}`],
+    ["streak", `${streak.current}d current / ${streak.longest}d longest`],
+  ];
 
-  const clipId = `clip-${index}`;
+  const statsSvg = statRows
+    .map(
+      ([label, value], i) => `
+      <text x="40" y="${122 + i * 24}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.45">${escapeXml(label)}</text>
+      <text x="640" y="${122 + i * 24}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="1">${escapeXml(value)}</text>`
+    )
+    .join("\n");
 
-  const markup = `
-    <clipPath id="${clipId}">
-      <rect x="0" y="${y - FONT_SIZE}" height="${LINE_HEIGHT}" width="0">
-        <animate attributeName="width" begin="${startTime.toFixed(2)}s" dur="${duration.toFixed(2)}s"
-          calcMode="discrete"
-          keyTimes="${keyTimes.join(";")}"
-          values="${values.join(";")}"
-          fill="freeze" />
-      </rect>
-    </clipPath>
-    <text x="${PADDING_X}" y="${y}" font-family="'Fira Code', Consolas, Menlo, monospace"
-      font-size="${FONT_SIZE}" fill="${color}" clip-path="url(#${clipId})">${escapeXml(fullText)}</text>
-  `;
+  const barsSvg = languages
+    .map((lang, i) => {
+      const y = 266 + i * 24;
+      const fillWidth = (460 * lang.percent) / 100;
+      return `
+      <text x="40" y="${y}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="1">${escapeXml(lang.name)}</text>
+      <rect x="140" y="${y - 10}" width="460" height="8" rx="2" fill="#ffffff" opacity="0.1" />
+      <rect x="140" y="${y - 10}" width="${fillWidth.toFixed(2)}" height="8" rx="2" fill="#ffffff" opacity="0.85" />
+      <text x="600" y="${y}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.6">${lang.percent}%</text>`;
+    })
+    .join("\n");
 
-  return { markup, endTime: startTime + duration };
-}
+  const aboutSvg = aboutLines.length
+    ? `<text x="40" y="390" font-family="${FONT_STACK}" font-size="13" fill="#ffffff" opacity="0.9">${aboutLines
+        .map((line, i) => `<tspan x="40" dy="${i === 0 ? 0 : 20}">${escapeXml(line)}</tspan>`)
+        .join("")}</text>`
+    : "";
 
-function render(user) {
-  const lines = buildLines(user);
-  let time = 0.6;
-  const rendered = [];
-  for (let i = 0; i < lines.length; i++) {
-    const { markup, endTime } = renderTypedLine(lines[i], i, time);
-    rendered.push(markup);
-    time = endTime + LINE_GAP;
-  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 560">
+  <rect width="680" height="560" rx="10" fill="#0a0a0a" />
+  <rect width="680" height="560" rx="10" fill="#ffffff" opacity="0.015" />
 
-  const height = PADDING_TOP + (lines.length + 1) * LINE_HEIGHT + 8;
-  const finalY = PADDING_TOP + lines.length * LINE_HEIGHT;
-  const cursorX = PADDING_X + PROMPT.length * CHAR_WIDTH;
+  <text x="40" y="46" font-family="${FONT_STACK}" font-size="14" fill="#ffffff" opacity="0.4">guest@terminalexplore:~$ whoami</text>
+  <text x="40" y="72" font-family="${FONT_STACK}" font-size="18" font-weight="700" fill="#ffffff" opacity="1">${escapeXml(user.name || user.login)}</text>
+  <line x1="40" y1="94" x2="640" y2="94" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${WINDOW_WIDTH}" height="${height}" viewBox="0 0 ${WINDOW_WIDTH} ${height}">
-  <rect width="${WINDOW_WIDTH}" height="${height}" rx="10" fill="#282a36" />
-  <rect width="${WINDOW_WIDTH}" height="${HEADER_HEIGHT}" rx="10" fill="#44475a" />
-  <rect y="${HEADER_HEIGHT - 10}" width="${WINDOW_WIDTH}" height="10" fill="#44475a" />
-  <circle cx="20" cy="${HEADER_HEIGHT / 2}" r="6" fill="#ff5555" />
-  <circle cx="40" cy="${HEADER_HEIGHT / 2}" r="6" fill="#f1fa8c" />
-  <circle cx="60" cy="${HEADER_HEIGHT / 2}" r="6" fill="#50fa7b" />
-  <text x="${WINDOW_WIDTH / 2}" y="${HEADER_HEIGHT / 2 + 4}" text-anchor="middle"
-    font-family="Consolas, Menlo, monospace" font-size="12" fill="#f8f8f2">guest@terminalexplore: ~</text>
-  ${rendered.join("\n")}
-  <text x="${PADDING_X}" y="${finalY}" font-family="'Fira Code', Consolas, Menlo, monospace"
-    font-size="${FONT_SIZE}" fill="#50fa7b" opacity="0">${escapeXml(PROMPT)}<animate attributeName="opacity" begin="${time.toFixed(2)}s" dur="0.1s" values="0;1" fill="freeze" /></text>
-  <rect x="${cursorX}" y="${finalY - FONT_SIZE}" width="${CHAR_WIDTH}" height="${LINE_HEIGHT - 6}" fill="#50fa7b" opacity="0">
-    <animate attributeName="opacity" begin="${time.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
-  </rect>
+  ${statsSvg}
+  <line x1="40" y1="216" x2="640" y2="216" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
+
+  <text x="40" y="242" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.45">languages (live via github api)</text>
+  ${barsSvg}
+  <line x1="40" y1="336" x2="640" y2="336" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
+
+  <text x="40" y="362" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.45">cat about.md</text>
+  ${aboutSvg}
+  <line x1="40" y1="470" x2="640" y2="470" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
+
+  <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.35">guest@terminalexplore:~$ _</text>
 </svg>
 `;
 }
 
 async function main() {
-  const user = await fetchProfile();
-  const svg = render(user);
+  const [user, aboutText] = await Promise.all([
+    fetchProfile(),
+    readFile(ABOUT_FILE, "utf8"),
+  ]);
+  const svg = render(user, aboutText);
   await mkdir(path.dirname(OUT_FILE), { recursive: true });
   await writeFile(OUT_FILE, svg, "utf8");
   console.log(`Wrote ${OUT_FILE}`);

@@ -8,6 +8,7 @@ on:
     branches: [master]
     paths:
       - scripts/generate-svg.js
+      - config/about.txt
 
 permissions:
   contents: write
