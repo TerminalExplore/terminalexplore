@@ -286,7 +286,13 @@ function typeLine({
   const charWidth = fontSize * 0.6;
   const fullWidth = text.length * charWidth;
   const duration = Math.min(Math.max(text.length * speed, minDur), maxDur);
-  const steps = Math.max(text.length, 1);
+  // Capped well below text.length: with dozens of typed lines on the card,
+  // one discrete keyframe per character adds up to a lot of SMIL animation
+  // data for the browser to parse on first load, which is what causes the
+  // brief stutter right when the page/image first renders. Revealing a
+  // couple of characters per step instead of one is visually indistinguishable
+  // at these typing speeds, but cuts total keyframe count drastically.
+  const steps = Math.min(Math.max(text.length, 1), 12);
   // The clip rect starts 2px before the text's left edge (so ascenders/serifs
   // on the first glyph aren't clipped); the reveal width has to grow past
   // fullWidth by that same margin plus a little extra, otherwise the clip's
