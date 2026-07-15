@@ -115,10 +115,25 @@ function daysSince(dateString) {
   return Math.round(ms / (1000 * 60 * 60 * 24));
 }
 
-function weeklyCommitTotals(calendar) {
-  return calendar.weeks.map((w) =>
-    w.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0)
-  );
+// Grouped by month rather than by week: with ~52 weekly bars there's only
+// ~11px per column, nowhere near enough to print a count underneath each
+// one legibly. 12 monthly bars give each column ~50px, room for a real
+// number label.
+function monthlyCommitTotals(calendar) {
+  const days = calendar.weeks.flatMap((w) => w.contributionDays);
+  const totalsByMonth = new Map();
+  for (const d of days) {
+    const key = d.date.slice(0, 7); // "YYYY-MM"
+    totalsByMonth.set(key, (totalsByMonth.get(key) || 0) + d.contributionCount);
+  }
+  return [...totalsByMonth.entries()].map(([key, total]) => {
+    const [year, month] = key.split("-");
+    const label = new Date(Date.UTC(Number(year), Number(month) - 1, 1)).toLocaleDateString("en-US", {
+      month: "short",
+      timeZone: "UTC",
+    });
+    return { label, total };
+  });
 }
 
 function commitSummary(calendar) {
@@ -262,38 +277,46 @@ function fadeLine(x1, y, x2, begin, dur = 0.2) {
     </line>`;
 }
 
-// Weekly commit-activity chart, monochrome to match the rest of the card
+// Monthly commit-activity chart, monochrome to match the rest of the card
 // (same white-on-black language as the stat/language bars). Bars reveal
 // with a single left-to-right wipe instead of animating individually —
-// with ~52 of them a per-bar typewriter would drag the sequence out for
-// no visual benefit.
-function commitChart({ weeklyTotals, x, width, baselineY, height, begin, id }) {
-  const max = Math.max(...weeklyTotals, 1);
-  const n = weeklyTotals.length;
+// with 12 of them a per-bar typewriter would still be needless overhead,
+// and the wipe already reads as "loading in" like everything else.
+// Returns both the svg and the total extra height used below the baseline
+// (count + month labels) so the caller can lay out what comes next.
+function commitChart({ months, x, width, baselineY, height, begin, id }) {
+  const max = Math.max(...months.map((m) => m.total), 1);
+  const n = months.length;
   const pitch = width / n;
-  const barWidth = Math.max(pitch * 0.55, 1.2);
-  const radius = Math.min(barWidth / 2, 1.5);
+  const barWidth = Math.max(pitch * 0.5, 4);
+  const radius = Math.min(barWidth / 2, 3);
+  const labelBelowHeight = 26; // count line + month line
 
-  const bars = weeklyTotals
-    .map((count, i) => {
-      const barHeight = count === 0 ? 2 : Math.max((count / max) * height, 3);
-      const barX = x + i * pitch + (pitch - barWidth) / 2;
+  const bars = months
+    .map(({ label, total }, i) => {
+      const barHeight = total === 0 ? 2 : Math.max((total / max) * height, 3);
+      const barCenterX = x + i * pitch + pitch / 2;
+      const barX = barCenterX - barWidth / 2;
       const barY = baselineY - barHeight;
-      const opacity = count === 0 ? 0.12 : 0.85;
-      return `<rect x="${barX.toFixed(2)}" y="${barY.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${barHeight.toFixed(2)}" rx="${radius.toFixed(2)}" fill="#ffffff" opacity="${opacity}" />`;
+      const barOpacity = total === 0 ? 0.12 : 0.85;
+      const countOpacity = total === 0 ? 0.3 : 0.75;
+      return `
+        <rect x="${barX.toFixed(2)}" y="${barY.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${barHeight.toFixed(2)}" rx="${radius.toFixed(2)}" fill="#ffffff" opacity="${barOpacity}" />
+        <text x="${barCenterX.toFixed(2)}" y="${baselineY + 13}" text-anchor="middle" font-family="${FONT_STACK}" font-size="10" fill="#ffffff" opacity="${countOpacity}">${total}</text>
+        <text x="${barCenterX.toFixed(2)}" y="${baselineY + 25}" text-anchor="middle" font-family="${FONT_STACK}" font-size="9" fill="#ffffff" opacity="0.3">${escapeXml(label)}</text>`;
     })
     .join("");
 
   const dur = 1.3;
   const svg = `
       <clipPath id="${id}">
-        <rect x="${x}" y="${(baselineY - height - 4).toFixed(2)}" height="${height + 8}" width="0">
+        <rect x="${x}" y="${(baselineY - height - 4).toFixed(2)}" height="${height + labelBelowHeight + 8}" width="0">
           <animate attributeName="width" begin="${begin.toFixed(2)}s" dur="${dur}s"
             calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${width}" fill="freeze" />
         </rect>
       </clipPath>
       <g clip-path="url(#${id})">${bars}</g>`;
-  return { svg, end: begin + dur };
+  return { svg, end: begin + dur, labelBelowHeight };
 }
 
 function render(user, aboutText) {
@@ -520,7 +543,7 @@ function render(user, aboutText) {
   const chartBaselineY = summaryY + 26 + chartHeight;
   parts.push(fadeLine(40, chartBaselineY + 0.5, 640, t, 0.15));
   const chart = commitChart({
-    weeklyTotals: weeklyCommitTotals(user.contributionsCollection.contributionCalendar),
+    months: monthlyCommitTotals(user.contributionsCollection.contributionCalendar),
     x: 40,
     width: 600,
     baselineY: chartBaselineY,
@@ -531,7 +554,7 @@ function render(user, aboutText) {
   parts.push(chart.svg);
   t = chart.end + 0.2;
 
-  const commitSeparatorY = chartBaselineY + 18;
+  const commitSeparatorY = chartBaselineY + chart.labelBelowHeight + 14;
   parts.push(fadeLine(40, commitSeparatorY, 640, t));
   t += 0.15;
 
