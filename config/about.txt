@@ -1,2 +1,2 @@
-Software engineer. Building things with code and breaking them on purpose.
-Edit config/about.txt to change what shows up here.
+Full-stack developer, self-taught. Core focus is infrastructure, hardware and network equipment.
+RU Community Founder — www.authecode.ru

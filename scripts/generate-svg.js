@@ -238,6 +238,27 @@ function wrapText(text, maxChars) {
   return lines;
 }
 
+// Wraps each source line of about.txt independently (instead of collapsing
+// the whole file into one paragraph) so intentional line breaks — like a
+// signature line sitting on its own — survive, while any single long line
+// still gets auto-wrapped to fit the card.
+function wrapParagraphs(text, maxChars) {
+  return text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .flatMap((paragraph) => wrapText(paragraph, maxChars));
+}
+
+// Finds a bare URL or "www." address in a line of text and returns an
+// https:// href for it, or null if the line has no link in it.
+function extractLink(line) {
+  const match = line.match(/(https?:\/\/\S+|www\.\S+)/);
+  if (!match) return null;
+  const raw = match[1].replace(/[).,;:!?]+$/, "");
+  return raw.startsWith("http") ? raw : `https://${raw}`;
+}
+
 const FONT_STACK = "'JetBrains Mono', monospace";
 const TYPE_SPEED = 0.022; // seconds per character
 
@@ -354,7 +375,7 @@ function render(user, aboutText) {
   // it can be typed independently with the same reveal mechanism as every
   // other line — this also avoids tspan/animate interaction quirks some SVG
   // renderers have with multi-line text blocks.
-  const aboutLines = wrapText(aboutText, 74).slice(0, 4);
+  const aboutLines = wrapParagraphs(aboutText, 74).slice(0, 4);
 
   const statRows = [
     ["uptime", `${uptimeDays}d`],
@@ -472,7 +493,11 @@ function render(user, aboutText) {
       speed: 0.01,
       maxDur: 0.7,
     });
-    parts.push(el.svg);
+    // Only actually clickable if the SVG is opened as its own document
+    // (e.g. GitHub's "open raw image" view) — an <img>-embedded SVG in the
+    // README can't be clicked into, that's an HTML limitation, not this file.
+    const href = extractLink(line);
+    parts.push(href ? `<a href="${escapeXml(href)}" target="_blank" rel="noopener noreferrer">${el.svg}</a>` : el.svg);
     t = el.end + 0.06;
     y += 20;
   });
@@ -634,7 +659,8 @@ function render(user, aboutText) {
       speed: 0.016,
       maxDur: 0.32,
     });
-    parts.push(nameEl.svg);
+    const repoHref = `https://github.com/${USERNAME}/${repo.name}`;
+    parts.push(`<a href="${escapeXml(repoHref)}" target="_blank" rel="noopener noreferrer">${nameEl.svg}</a>`);
     t = nameEl.end + 0.05;
 
     const starsEl = typeLine({
