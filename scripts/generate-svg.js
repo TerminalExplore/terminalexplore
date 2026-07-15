@@ -152,6 +152,36 @@ function wrapText(text, maxChars) {
 }
 
 const FONT_STACK = "'JetBrains Mono', monospace";
+const TYPE_SPEED = 0.032; // seconds per character
+
+// Typewriter reveal for a single line of text. textLength forces the glyphs
+// onto our exact char-width grid regardless of which monospace font actually
+// renders on the viewer's system, so the clip-path reveal always lines up
+// with whole characters (SMIL only — no JS, still a plain static image).
+function typeLine({ text, x, y, fontSize, opacity = 1, weight, begin, id }) {
+  const charWidth = fontSize * 0.6;
+  const fullWidth = text.length * charWidth;
+  const duration = Math.max(text.length * TYPE_SPEED, 0.15);
+  const steps = Math.max(text.length, 1);
+  const values = [];
+  const keyTimes = [];
+  for (let i = 0; i <= steps; i++) {
+    values.push(((fullWidth * i) / steps).toFixed(2));
+    keyTimes.push((i / steps).toFixed(4));
+  }
+  const weightAttr = weight ? ` font-weight="${weight}"` : "";
+  const svg = `
+      <clipPath id="${id}">
+        <rect x="${x - 2}" y="${y - fontSize}" height="${fontSize + 8}" width="0">
+          <animate attributeName="width" begin="${begin.toFixed(2)}s" dur="${duration.toFixed(2)}s"
+            calcMode="discrete" keyTimes="${keyTimes.join(";")}" values="${values.join(";")}" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="${x}" y="${y}" font-family="${FONT_STACK}" font-size="${fontSize}"${weightAttr}
+        fill="#ffffff" opacity="${opacity}" textLength="${fullWidth.toFixed(2)}" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#${id})">${escapeXml(text)}</text>`;
+  return { svg, end: begin + duration };
+}
 
 function render(user, aboutText) {
   const languages = topLanguages(user.repositories);
@@ -186,18 +216,53 @@ function render(user, aboutText) {
     })
     .join("\n");
 
+  // Boot sequence: type "whoami" -> reveal name -> type "cat about.md" -> reveal about text.
+  let t = 0.4;
+  const whoami = typeLine({
+    text: "guest@terminalexplore:~$ whoami",
+    x: 40,
+    y: 46,
+    fontSize: 14,
+    opacity: 0.4,
+    begin: t,
+    id: "type-whoami",
+  });
+  t = whoami.end + 0.2;
+
+  const nameBegin = t;
+  const nameText = user.name || user.login;
+  const nameSvg = `<text x="40" y="72" font-family="${FONT_STACK}" font-size="18" font-weight="700" fill="#ffffff" opacity="0">${escapeXml(nameText)}<animate attributeName="opacity" begin="${nameBegin.toFixed(2)}s" dur="0.3s" values="0;1" fill="freeze" /></text>`;
+  t = nameBegin + 0.3 + 0.3;
+
+  const aboutCmd = typeLine({
+    text: "cat about.md",
+    x: 40,
+    y: 362,
+    fontSize: 12,
+    opacity: 0.45,
+    begin: t,
+    id: "type-about-cmd",
+  });
+  t = aboutCmd.end + 0.2;
+
+  const aboutBegin = t;
   const aboutSvg = aboutLines.length
-    ? `<text x="40" y="390" font-family="${FONT_STACK}" font-size="13" fill="#ffffff" opacity="0.9">${aboutLines
+    ? `<text x="40" y="390" font-family="${FONT_STACK}" font-size="13" fill="#ffffff" opacity="0">${aboutLines
         .map((line, i) => `<tspan x="40" dy="${i === 0 ? 0 : 20}">${escapeXml(line)}</tspan>`)
-        .join("")}</text>`
+        .join("")}<animate attributeName="opacity" begin="${aboutBegin.toFixed(2)}s" dur="0.4s" values="0;1" fill="freeze" /></text>`
     : "";
+  t = aboutBegin + 0.4 + 0.3;
+
+  const cursorBegin = t;
+  const footerPrompt = "guest@terminalexplore:~$ ";
+  const cursorX = 40 + footerPrompt.length * (12 * 0.6);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 560">
   <rect width="680" height="560" rx="10" fill="#0a0a0a" />
   <rect width="680" height="560" rx="10" fill="#ffffff" opacity="0.015" />
 
-  <text x="40" y="46" font-family="${FONT_STACK}" font-size="14" fill="#ffffff" opacity="0.4">guest@terminalexplore:~$ whoami</text>
-  <text x="40" y="72" font-family="${FONT_STACK}" font-size="18" font-weight="700" fill="#ffffff" opacity="1">${escapeXml(user.name || user.login)}</text>
+  ${whoami.svg}
+  ${nameSvg}
   <line x1="40" y1="94" x2="640" y2="94" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
 
   ${statsSvg}
@@ -207,11 +272,14 @@ function render(user, aboutText) {
   ${barsSvg}
   <line x1="40" y1="336" x2="640" y2="336" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
 
-  <text x="40" y="362" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.45">cat about.md</text>
+  ${aboutCmd.svg}
   ${aboutSvg}
   <line x1="40" y1="470" x2="640" y2="470" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
 
-  <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.35">guest@terminalexplore:~$ _</text>
+  <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.35">${escapeXml(footerPrompt)}</text>
+  <rect x="${cursorX.toFixed(2)}" y="484" width="7" height="14" fill="#ffffff" opacity="0">
+    <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
+  </rect>
 </svg>
 `;
 }
