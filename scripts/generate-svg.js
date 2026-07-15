@@ -673,13 +673,13 @@ function render(user, aboutText) {
 
   const totalHeight = footerY + 44;
 
-  // Black frosted-glass panel: the base fill is translucent (not solid
-  // black) so it reads as a pane of dark glass rather than an opaque card,
-  // and the faint white wash on top gives it a matte, slightly frosted
-  // texture instead of a flat/glossy look.
+  // Black frosted-glass panel: the base fill stays essentially black (only
+  // a hair of transparency, not enough to read as gray on a light page
+  // background), with a faint white wash on top for a matte, slightly
+  // frosted texture instead of a flat/glossy look.
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 ${totalHeight}">
-  <rect width="680" height="${totalHeight}" rx="10" fill="#0a0a0a" fill-opacity="0.86" />
-  <rect width="680" height="${totalHeight}" rx="10" fill="#ffffff" opacity="0.03" />
+  <rect width="680" height="${totalHeight}" rx="10" fill="#0a0a0a" fill-opacity="0.96" />
+  <rect width="680" height="${totalHeight}" rx="10" fill="#ffffff" opacity="0.025" />
   <rect x="0.5" y="0.5" width="679" height="${totalHeight - 1}" rx="9.5" fill="none" stroke="#ffffff" stroke-opacity="0.06" />
 
   ${parts.join("\n")}
