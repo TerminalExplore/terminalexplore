@@ -154,8 +154,16 @@ function computeStreak(calendar) {
       run = 0;
     }
   }
+  // Count the current streak backwards from the most recent day. If today
+  // has no contributions yet, that doesn't mean the streak is broken — the
+  // day just isn't over. Give it a one-day grace and start counting from
+  // yesterday instead; only actually reset to 0 if yesterday is also empty.
+  let i = days.length - 1;
+  if (days[i] && days[i].contributionCount === 0) {
+    i--;
+  }
   let current = 0;
-  for (let i = days.length - 1; i >= 0 && days[i].contributionCount > 0; i--) {
+  for (; i >= 0 && days[i].contributionCount > 0; i--) {
     current++;
   }
   return { current, longest };
