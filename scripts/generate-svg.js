@@ -105,6 +105,12 @@ function daysSince(dateString) {
   return Math.round(ms / (1000 * 60 * 60 * 24));
 }
 
+function weeklyCommitTotals(calendar) {
+  return calendar.weeks.map((w) =>
+    w.contributionDays.reduce((sum, d) => sum + d.contributionCount, 0)
+  );
+}
+
 function computeStreak(calendar) {
   const days = calendar.weeks.flatMap((w) => w.contributionDays);
   let longest = 0;
@@ -215,6 +221,40 @@ function fadeLine(x1, y, x2, begin, dur = 0.2) {
   return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#ffffff" stroke-width="0.5" opacity="0">
       <animate attributeName="opacity" begin="${begin.toFixed(2)}s" dur="${dur}s" values="0;0.12" fill="freeze" />
     </line>`;
+}
+
+// Weekly commit-activity chart, monochrome to match the rest of the card
+// (same white-on-black language as the stat/language bars). Bars reveal
+// with a single left-to-right wipe instead of animating individually —
+// with ~52 of them a per-bar typewriter would drag the sequence out for
+// no visual benefit.
+function commitChart({ weeklyTotals, x, width, baselineY, height, begin, id }) {
+  const max = Math.max(...weeklyTotals, 1);
+  const n = weeklyTotals.length;
+  const pitch = width / n;
+  const barWidth = Math.max(pitch * 0.55, 1.2);
+  const radius = Math.min(barWidth / 2, 1.5);
+
+  const bars = weeklyTotals
+    .map((count, i) => {
+      const barHeight = count === 0 ? 2 : Math.max((count / max) * height, 3);
+      const barX = x + i * pitch + (pitch - barWidth) / 2;
+      const barY = baselineY - barHeight;
+      const opacity = count === 0 ? 0.12 : 0.85;
+      return `<rect x="${barX.toFixed(2)}" y="${barY.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${barHeight.toFixed(2)}" rx="${radius.toFixed(2)}" fill="#ffffff" opacity="${opacity}" />`;
+    })
+    .join("");
+
+  const dur = 1.3;
+  const svg = `
+      <clipPath id="${id}">
+        <rect x="${x}" y="${(baselineY - height - 4).toFixed(2)}" height="${height + 8}" width="0">
+          <animate attributeName="width" begin="${begin.toFixed(2)}s" dur="${dur}s"
+            calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${width}" fill="freeze" />
+        </rect>
+      </clipPath>
+      <g clip-path="url(#${id})">${bars}</g>`;
+  return { svg, end: begin + dur };
 }
 
 function render(user, aboutText) {
@@ -400,19 +440,57 @@ function render(user, aboutText) {
   parts.push(fadeLine(40, 470, 640, t));
   t += 0.2;
 
+  // commit activity: type command, then wipe-reveal the weekly bar chart
+  const commitCmdY = 496;
+  const commitCmd = typeLine({
+    text: "git log --graph --since=1y",
+    x: 40,
+    y: commitCmdY,
+    fontSize: 12,
+    opacity: 0.45,
+    begin: t,
+    id: nextId("type"),
+    speed: 0.02,
+    maxDur: 0.7,
+  });
+  parts.push(commitCmd.svg);
+  t = commitCmd.end + 0.2;
+
+  const chartHeight = 50;
+  const chartBaselineY = commitCmdY + 26 + chartHeight;
+  parts.push(fadeLine(40, chartBaselineY + 0.5, 640, t, 0.15));
+  const chart = commitChart({
+    weeklyTotals: weeklyCommitTotals(user.contributionsCollection.contributionCalendar),
+    x: 40,
+    width: 600,
+    baselineY: chartBaselineY,
+    height: chartHeight,
+    begin: t,
+    id: nextId("chart"),
+  });
+  parts.push(chart.svg);
+  t = chart.end + 0.2;
+
+  const commitSeparatorY = chartBaselineY + 18;
+  parts.push(fadeLine(40, commitSeparatorY, 640, t));
+  t += 0.2;
+
+  const footerY = commitSeparatorY + 26;
   const footerPrompt = "guest@terminalexplore:~$ ";
   const footerBegin = t;
   const cursorBegin = footerBegin + 0.2;
   const cursorX = 40 + footerPrompt.length * (12 * 0.6);
   parts.push(`
-    <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.2s" values="0;0.35" fill="freeze" /></text>
-    <rect x="${cursorX.toFixed(2)}" y="484" width="7" height="14" fill="#ffffff" opacity="0">
+    <text x="40" y="${footerY}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.2s" values="0;0.35" fill="freeze" /></text>
+    <rect x="${cursorX.toFixed(2)}" y="${footerY - 12}" width="7" height="14" fill="#ffffff" opacity="0">
       <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
     </rect>`);
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 560">
-  <rect width="680" height="560" rx="10" fill="#0a0a0a" />
-  <rect width="680" height="560" rx="10" fill="#ffffff" opacity="0.015" />
+  const totalHeight = footerY + 44;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 ${totalHeight}">
+  <rect width="680" height="${totalHeight}" rx="10" fill="#0a0a0a" />
+  <rect width="680" height="${totalHeight}" rx="10" fill="#ffffff" opacity="0.015" />
 
   ${parts.join("\n")}
 </svg>
