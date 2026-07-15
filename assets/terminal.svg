@@ -1,7 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 856">
-  <rect width="680" height="856" rx="10" fill="#0a0a0a" />
-  <rect width="680" height="856" rx="10" fill="#ffffff" opacity="0.02" />
-  <rect x="0.5" y="0.5" width="679" height="855" rx="9.5" fill="none" stroke="#ffffff" stroke-opacity="0.06" />
+  <rect width="680" height="856" rx="10" fill="#000000" />
 
   
       <clipPath id="type-0">

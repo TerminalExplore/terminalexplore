@@ -699,14 +699,9 @@ function render(user, aboutText) {
 
   const totalHeight = footerY + 44;
 
-  // Black matte panel: fully opaque black base (any alpha transparency
-  // reads as gray once a light page background shows through it), with a
-  // faint white wash on top for a matte, slightly frosted texture instead
-  // of a flat/glossy look.
+  // Pure black panel: no wash, no border tint — just #000000.
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 ${totalHeight}">
-  <rect width="680" height="${totalHeight}" rx="10" fill="#0a0a0a" />
-  <rect width="680" height="${totalHeight}" rx="10" fill="#ffffff" opacity="0.02" />
-  <rect x="0.5" y="0.5" width="679" height="${totalHeight - 1}" rx="9.5" fill="none" stroke="#ffffff" stroke-opacity="0.06" />
+  <rect width="680" height="${totalHeight}" rx="10" fill="#000000" />
 
   ${parts.join("\n")}
 </svg>
