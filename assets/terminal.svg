@@ -98,18 +98,18 @@
         clip-path="url(#type-8)">orgs</text>
 
       <clipPath id="type-9">
-        <rect x="328.40" y="182" height="20" width="0">
-          <animate attributeName="width" begin="2.93s" dur="0.50s"
-            calcMode="discrete" keyTimes="0.0000;0.0233;0.0465;0.0698;0.0930;0.1163;0.1395;0.1628;0.1860;0.2093;0.2326;0.2558;0.2791;0.3023;0.3256;0.3488;0.3721;0.3953;0.4186;0.4419;0.4651;0.4884;0.5116;0.5349;0.5581;0.5814;0.6047;0.6279;0.6512;0.6744;0.6977;0.7209;0.7442;0.7674;0.7907;0.8140;0.8372;0.8605;0.8837;0.9070;0.9302;0.9535;0.9767;1.0000" values="0.00;7.34;14.68;22.02;29.36;36.70;44.04;51.38;58.72;66.06;73.40;80.73;88.07;95.41;102.75;110.09;117.43;124.77;132.11;139.45;146.79;154.13;161.47;168.81;176.15;183.49;190.83;198.17;205.51;212.85;220.19;227.53;234.87;242.20;249.54;256.88;264.22;271.56;278.90;286.24;293.58;300.92;308.26;315.60" fill="freeze" />
+        <rect x="609.20" y="182" height="20" width="0">
+          <animate attributeName="width" begin="2.93s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.2500;0.5000;0.7500;1.0000" values="0.00;8.70;17.40;26.10;34.80" fill="freeze" />
         </rect>
       </clipPath>
       <text x="640" y="194" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="end"
-        fill="#ffffff" opacity="1" textLength="309.60" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-9)">Courses-WebProgramming, authecode-community</text>
+        fill="#ffffff" opacity="1" textLength="28.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-9)">none</text>
 
       <clipPath id="type-10">
         <rect x="38.00" y="206" height="20" width="0">
-          <animate attributeName="width" begin="3.52s" dur="0.14s"
+          <animate attributeName="width" begin="3.10s" dur="0.14s"
             calcMode="discrete" keyTimes="0.0000;0.1111;0.2222;0.3333;0.4444;0.5556;0.6667;0.7778;0.8889;1.0000" values="0.00;7.87;15.73;23.60;31.47;39.33;47.20;55.07;62.93;70.80" fill="freeze" />
         </rect>
       </clipPath>
@@ -119,7 +119,7 @@
 
       <clipPath id="type-11">
         <rect x="472.40" y="206" height="20" width="0">
-          <animate attributeName="width" begin="3.69s" dur="0.37s"
+          <animate attributeName="width" begin="3.27s" dur="0.37s"
             calcMode="discrete" keyTimes="0.0000;0.0435;0.0870;0.1304;0.1739;0.2174;0.2609;0.3043;0.3478;0.3913;0.4348;0.4783;0.5217;0.5652;0.6087;0.6522;0.6957;0.7391;0.7826;0.8261;0.8696;0.9130;0.9565;1.0000" values="0.00;7.46;14.92;22.38;29.84;37.30;44.77;52.23;59.69;67.15;74.61;82.07;89.53;96.99;104.45;111.91;119.37;126.83;134.30;141.76;149.22;156.68;164.14;171.60" fill="freeze" />
         </rect>
       </clipPath>
@@ -129,7 +129,7 @@
 
       <clipPath id="type-12">
         <rect x="38.00" y="230" height="20" width="0">
-          <animate attributeName="width" begin="4.15s" dur="0.09s"
+          <animate attributeName="width" begin="3.73s" dur="0.09s"
             calcMode="discrete" keyTimes="0.0000;0.1667;0.3333;0.5000;0.6667;0.8333;1.0000" values="0.00;8.20;16.40;24.60;32.80;41.00;49.20" fill="freeze" />
         </rect>
       </clipPath>
@@ -139,17 +139,17 @@
 
       <clipPath id="type-13">
         <rect x="450.80" y="230" height="20" width="0">
-          <animate attributeName="width" begin="4.28s" dur="0.42s"
+          <animate attributeName="width" begin="3.86s" dur="0.42s"
             calcMode="discrete" keyTimes="0.0000;0.0385;0.0769;0.1154;0.1538;0.1923;0.2308;0.2692;0.3077;0.3462;0.3846;0.4231;0.4615;0.5000;0.5385;0.5769;0.6154;0.6538;0.6923;0.7308;0.7692;0.8077;0.8462;0.8846;0.9231;0.9615;1.0000" values="0.00;7.43;14.86;22.29;29.72;37.15;44.58;52.02;59.45;66.88;74.31;81.74;89.17;96.60;104.03;111.46;118.89;126.32;133.75;141.18;148.62;156.05;163.48;170.91;178.34;185.77;193.20" fill="freeze" />
         </rect>
       </clipPath>
       <text x="640" y="242" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="end"
         fill="#ffffff" opacity="1" textLength="187.20" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-13)">24d current / 106d longest</text>
+        clip-path="url(#type-13)">24d current / 105d longest</text>
 
       <clipPath id="type-14">
         <rect x="38.00" y="254" height="20" width="0">
-          <animate attributeName="width" begin="4.78s" dur="0.12s"
+          <animate attributeName="width" begin="4.36s" dur="0.12s"
             calcMode="discrete" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" values="0.00;7.95;15.90;23.85;31.80;39.75;47.70;55.65;63.60" fill="freeze" />
         </rect>
       </clipPath>
@@ -159,20 +159,20 @@
 
       <clipPath id="type-15">
         <rect x="335.60" y="254" height="20" width="0">
-          <animate attributeName="width" begin="4.94s" dur="0.50s"
+          <animate attributeName="width" begin="4.52s" dur="0.50s"
             calcMode="discrete" keyTimes="0.0000;0.0238;0.0476;0.0714;0.0952;0.1190;0.1429;0.1667;0.1905;0.2143;0.2381;0.2619;0.2857;0.3095;0.3333;0.3571;0.3810;0.4048;0.4286;0.4524;0.4762;0.5000;0.5238;0.5476;0.5714;0.5952;0.6190;0.6429;0.6667;0.6905;0.7143;0.7381;0.7619;0.7857;0.8095;0.8333;0.8571;0.8810;0.9048;0.9286;0.9524;0.9762;1.0000" values="0.00;7.34;14.69;22.03;29.37;36.71;44.06;51.40;58.74;66.09;73.43;80.77;88.11;95.46;102.80;110.14;117.49;124.83;132.17;139.51;146.86;154.20;161.54;168.89;176.23;183.57;190.91;198.26;205.60;212.94;220.29;227.63;234.97;242.31;249.66;257.00;264.34;271.69;279.03;286.37;293.71;301.06;308.40" fill="freeze" />
         </rect>
       </clipPath>
       <text x="640" y="266" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="end"
         fill="#ffffff" opacity="1" textLength="302.40" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-15)">117 commits · 4 prs · 0 issues · 0 reviews</text>
+        clip-path="url(#type-15)">118 commits · 4 prs · 0 issues · 0 reviews</text>
 <line x1="40" y1="294" x2="640" y2="294" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="5.59s" dur="0.15s" values="0;0.12" fill="freeze" />
+      <animate attributeName="opacity" begin="5.17s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
 
       <clipPath id="type-16">
         <rect x="38.00" y="308" height="20" width="0">
-          <animate attributeName="width" begin="5.69s" dur="0.22s"
+          <animate attributeName="width" begin="5.27s" dur="0.22s"
             calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;7.70;15.40;23.10;30.80;38.50;46.20;53.90;61.60;69.30;77.00;84.70;92.40" fill="freeze" />
         </rect>
       </clipPath>
@@ -182,7 +182,7 @@
 
       <clipPath id="type-17">
         <rect x="38.00" y="335" height="21" width="0">
-          <animate attributeName="width" begin="6.03s" dur="0.70s"
+          <animate attributeName="width" begin="5.61s" dur="0.70s"
             calcMode="discrete" keyTimes="0.0000;0.0137;0.0274;0.0411;0.0548;0.0685;0.0822;0.0959;0.1096;0.1233;0.1370;0.1507;0.1644;0.1781;0.1918;0.2055;0.2192;0.2329;0.2466;0.2603;0.2740;0.2877;0.3014;0.3151;0.3288;0.3425;0.3562;0.3699;0.3836;0.3973;0.4110;0.4247;0.4384;0.4521;0.4658;0.4795;0.4932;0.5068;0.5205;0.5342;0.5479;0.5616;0.5753;0.5890;0.6027;0.6164;0.6301;0.6438;0.6575;0.6712;0.6849;0.6986;0.7123;0.7260;0.7397;0.7534;0.7671;0.7808;0.7945;0.8082;0.8219;0.8356;0.8493;0.8630;0.8767;0.8904;0.9041;0.9178;0.9315;0.9452;0.9589;0.9726;0.9863;1.0000" values="0.00;7.88;15.76;23.65;31.53;39.41;47.29;55.18;63.06;70.94;78.82;86.70;94.59;102.47;110.35;118.23;126.12;134.00;141.88;149.76;157.64;165.53;173.41;181.29;189.17;197.05;204.94;212.82;220.70;228.58;236.47;244.35;252.23;260.11;267.99;275.88;283.76;291.64;299.52;307.41;315.29;323.17;331.05;338.93;346.82;354.70;362.58;370.46;378.35;386.23;394.11;401.99;409.87;417.76;425.64;433.52;441.40;449.28;457.17;465.05;472.93;480.81;488.70;496.58;504.46;512.34;520.22;528.11;535.99;543.87;551.75;559.64;567.52;575.40" fill="freeze" />
         </rect>
       </clipPath>
@@ -192,7 +192,7 @@
 
       <clipPath id="type-18">
         <rect x="38.00" y="355" height="21" width="0">
-          <animate attributeName="width" begin="6.79s" dur="0.22s"
+          <animate attributeName="width" begin="6.37s" dur="0.22s"
             calcMode="discrete" keyTimes="0.0000;0.0455;0.0909;0.1364;0.1818;0.2273;0.2727;0.3182;0.3636;0.4091;0.4545;0.5000;0.5455;0.5909;0.6364;0.6818;0.7273;0.7727;0.8182;0.8636;0.9091;0.9545;1.0000" values="0.00;8.07;16.15;24.22;32.29;40.36;48.44;56.51;64.58;72.65;80.73;88.80;96.87;104.95;113.02;121.09;129.16;137.24;145.31;153.38;161.45;169.53;177.60" fill="freeze" />
         </rect>
       </clipPath>
@@ -202,7 +202,7 @@
 <a href="https://www.authecode.ru" target="_blank" rel="noopener noreferrer">
       <clipPath id="type-19">
         <rect x="38.00" y="375" height="21" width="0">
-          <animate attributeName="width" begin="7.07s" dur="0.39s"
+          <animate attributeName="width" begin="6.65s" dur="0.39s"
             calcMode="discrete" keyTimes="0.0000;0.0256;0.0513;0.0769;0.1026;0.1282;0.1538;0.1795;0.2051;0.2308;0.2564;0.2821;0.3077;0.3333;0.3590;0.3846;0.4103;0.4359;0.4615;0.4872;0.5128;0.5385;0.5641;0.5897;0.6154;0.6410;0.6667;0.6923;0.7179;0.7436;0.7692;0.7949;0.8205;0.8462;0.8718;0.8974;0.9231;0.9487;0.9744;1.0000" values="0.00;7.95;15.91;23.86;31.82;39.77;47.72;55.68;63.63;71.58;79.54;87.49;95.45;103.40;111.35;119.31;127.26;135.22;143.17;151.12;159.08;167.03;174.98;182.94;190.89;198.85;206.80;214.75;222.71;230.66;238.62;246.57;254.52;262.48;270.43;278.38;286.34;294.29;302.25;310.20" fill="freeze" />
         </rect>
       </clipPath>
@@ -210,12 +210,12 @@
         fill="#ffffff" opacity="0.9" textLength="304.20" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#type-19)">RU Community Founder — www.authecode.ru</text></a>
 <line x1="40" y1="416" x2="640" y2="416" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="7.62s" dur="0.15s" values="0;0.12" fill="freeze" />
+      <animate attributeName="opacity" begin="7.20s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
 
       <clipPath id="type-20">
         <rect x="38.00" y="430" height="20" width="0">
-          <animate attributeName="width" begin="7.72s" dur="0.46s"
+          <animate attributeName="width" begin="7.30s" dur="0.46s"
             calcMode="discrete" keyTimes="0.0000;0.0323;0.0645;0.0968;0.1290;0.1613;0.1935;0.2258;0.2581;0.2903;0.3226;0.3548;0.3871;0.4194;0.4516;0.4839;0.5161;0.5484;0.5806;0.6129;0.6452;0.6774;0.7097;0.7419;0.7742;0.8065;0.8387;0.8710;0.9032;0.9355;0.9677;1.0000" values="0.00;7.39;14.79;22.18;29.57;36.97;44.36;51.75;59.15;66.54;73.94;81.33;88.72;96.12;103.51;110.90;118.30;125.69;133.08;140.48;147.87;155.26;162.66;170.05;177.45;184.84;192.23;199.63;207.02;214.41;221.81;229.20" fill="freeze" />
         </rect>
       </clipPath>
@@ -225,7 +225,7 @@
 
       <clipPath id="type-21">
         <rect x="38.00" y="454" height="20" width="0">
-          <animate attributeName="width" begin="8.30s" dur="0.08s"
+          <animate attributeName="width" begin="7.88s" dur="0.08s"
             calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
         </rect>
       </clipPath>
@@ -234,18 +234,18 @@
         clip-path="url(#type-21)">C++</text>
 
       <rect x="140" y="456" width="440" height="8" rx="2" fill="#ffffff" opacity="0">
-        <animate attributeName="opacity" begin="8.44s" dur="0.1s" values="0;0.1" fill="freeze" />
+        <animate attributeName="opacity" begin="8.02s" dur="0.1s" values="0;0.1" fill="freeze" />
       </rect>
 
       <rect x="140" y="456" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
-        <animate attributeName="width" begin="8.50s" dur="0.35s"
+        <animate attributeName="width" begin="8.08s" dur="0.35s"
           calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;396.00" fill="freeze" />
       </rect>
-<text x="640" y="466" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">90%<animate attributeName="opacity" begin="8.90s" dur="0.1s" values="0;1" fill="freeze" /></text>
+<text x="640" y="466" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">90%<animate attributeName="opacity" begin="8.48s" dur="0.1s" values="0;1" fill="freeze" /></text>
 
       <clipPath id="type-22">
         <rect x="38.00" y="478" height="20" width="0">
-          <animate attributeName="width" begin="9.08s" dur="0.18s"
+          <animate attributeName="width" begin="8.66s" dur="0.18s"
             calcMode="discrete" keyTimes="0.0000;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1.0000" values="0.00;7.80;15.60;23.40;31.20;39.00;46.80;54.60;62.40;70.20;78.00" fill="freeze" />
         </rect>
       </clipPath>
@@ -254,18 +254,18 @@
         clip-path="url(#type-22)">JavaScript</text>
 
       <rect x="140" y="480" width="440" height="8" rx="2" fill="#ffffff" opacity="0">
-        <animate attributeName="opacity" begin="9.32s" dur="0.1s" values="0;0.1" fill="freeze" />
+        <animate attributeName="opacity" begin="8.90s" dur="0.1s" values="0;0.1" fill="freeze" />
       </rect>
 
       <rect x="140" y="480" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
-        <animate attributeName="width" begin="9.38s" dur="0.35s"
+        <animate attributeName="width" begin="8.96s" dur="0.35s"
           calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;30.80" fill="freeze" />
       </rect>
-<text x="640" y="490" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">7%<animate attributeName="opacity" begin="9.79s" dur="0.1s" values="0;1" fill="freeze" /></text>
+<text x="640" y="490" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">7%<animate attributeName="opacity" begin="9.36s" dur="0.1s" values="0;1" fill="freeze" /></text>
 
       <clipPath id="type-23">
         <rect x="38.00" y="502" height="20" width="0">
-          <animate attributeName="width" begin="9.96s" dur="0.11s"
+          <animate attributeName="width" begin="9.54s" dur="0.11s"
             calcMode="discrete" keyTimes="0.0000;0.1667;0.3333;0.5000;0.6667;0.8333;1.0000" values="0.00;8.20;16.40;24.60;32.80;41.00;49.20" fill="freeze" />
         </rect>
       </clipPath>
@@ -274,21 +274,21 @@
         clip-path="url(#type-23)">Python</text>
 
       <rect x="140" y="504" width="440" height="8" rx="2" fill="#ffffff" opacity="0">
-        <animate attributeName="opacity" begin="10.13s" dur="0.1s" values="0;0.1" fill="freeze" />
+        <animate attributeName="opacity" begin="9.71s" dur="0.1s" values="0;0.1" fill="freeze" />
       </rect>
 
       <rect x="140" y="504" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
-        <animate attributeName="width" begin="10.19s" dur="0.35s"
+        <animate attributeName="width" begin="9.77s" dur="0.35s"
           calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;8.80" fill="freeze" />
       </rect>
-<text x="640" y="514" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">2%<animate attributeName="opacity" begin="10.59s" dur="0.1s" values="0;1" fill="freeze" /></text>
+<text x="640" y="514" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">2%<animate attributeName="opacity" begin="10.17s" dur="0.1s" values="0;1" fill="freeze" /></text>
 <line x1="40" y1="542" x2="640" y2="542" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="10.83s" dur="0.15s" values="0;0.12" fill="freeze" />
+      <animate attributeName="opacity" begin="10.41s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
 
       <clipPath id="type-24">
         <rect x="38.00" y="556" height="20" width="0">
-          <animate attributeName="width" begin="10.95s" dur="0.39s"
+          <animate attributeName="width" begin="10.53s" dur="0.39s"
             calcMode="discrete" keyTimes="0.0000;0.0385;0.0769;0.1154;0.1538;0.1923;0.2308;0.2692;0.3077;0.3462;0.3846;0.4231;0.4615;0.5000;0.5385;0.5769;0.6154;0.6538;0.6923;0.7308;0.7692;0.8077;0.8462;0.8846;0.9231;0.9615;1.0000" values="0.00;7.43;14.86;22.29;29.72;37.15;44.58;52.02;59.45;66.88;74.31;81.74;89.17;96.60;104.03;111.46;118.89;126.32;133.75;141.18;148.62;156.05;163.48;170.91;178.34;185.77;193.20" fill="freeze" />
         </rect>
       </clipPath>
@@ -298,70 +298,70 @@
 
       <clipPath id="type-25">
         <rect x="38.00" y="580" height="20" width="0">
-          <animate attributeName="width" begin="11.44s" dur="0.55s"
+          <animate attributeName="width" begin="11.02s" dur="0.55s"
             calcMode="discrete" keyTimes="0.0000;0.0227;0.0455;0.0682;0.0909;0.1136;0.1364;0.1591;0.1818;0.2045;0.2273;0.2500;0.2727;0.2955;0.3182;0.3409;0.3636;0.3864;0.4091;0.4318;0.4545;0.4773;0.5000;0.5227;0.5455;0.5682;0.5909;0.6136;0.6364;0.6591;0.6818;0.7045;0.7273;0.7500;0.7727;0.7955;0.8182;0.8409;0.8636;0.8864;0.9091;0.9318;0.9545;0.9773;1.0000" values="0.00;7.34;14.67;22.01;29.35;36.68;44.02;51.35;58.69;66.03;73.36;80.70;88.04;95.37;102.71;110.05;117.38;124.72;132.05;139.39;146.73;154.06;161.40;168.74;176.07;183.41;190.75;198.08;205.42;212.75;220.09;227.43;234.76;242.10;249.44;256.77;264.11;271.45;278.78;286.12;293.45;300.79;308.13;315.46;322.80" fill="freeze" />
         </rect>
       </clipPath>
       <text x="40" y="592" font-family="'JetBrains Mono', monospace" font-size="12"
         fill="#ffffff" opacity="1" textLength="316.80" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-25)">2040 commits this year · busiest Jul 14 (96)</text>
+        clip-path="url(#type-25)">2041 commits this year · busiest Jul 14 (96)</text>
 <line x1="40" y1="668.5" x2="640" y2="668.5" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="12.11s" dur="0.1s" values="0;0.12" fill="freeze" />
+      <animate attributeName="opacity" begin="11.69s" dur="0.1s" values="0;0.12" fill="freeze" />
     </line>
 
       <clipPath id="chart-26">
         <rect x="40" y="614.00" height="84" width="0">
-          <animate attributeName="width" begin="12.11s" dur="0.8s"
+          <animate attributeName="width" begin="11.69s" dur="0.8s"
             calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;600" fill="freeze" />
         </rect>
       </clipPath>
       <g clip-path="url(#chart-26)">
-        <rect x="51.54" y="656.17" width="23.08" height="11.83" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="51.54" y="656.20" width="23.08" height="11.80" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="63.08" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">84</text>
         <text x="63.08" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jul</text>
-        <rect x="97.69" y="645.61" width="23.08" height="22.39" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="97.69" y="645.67" width="23.08" height="22.33" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="109.23" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">159</text>
         <text x="109.23" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Aug</text>
-        <rect x="143.85" y="645.18" width="23.08" height="22.82" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="143.85" y="645.25" width="23.08" height="22.75" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="155.38" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">162</text>
         <text x="155.38" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Sep</text>
-        <rect x="190.00" y="636.45" width="23.08" height="31.55" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="190.00" y="636.54" width="23.08" height="31.46" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="201.54" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">224</text>
         <text x="201.54" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Oct</text>
-        <rect x="236.15" y="649.97" width="23.08" height="18.03" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="236.15" y="650.02" width="23.08" height="17.98" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="247.69" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">128</text>
         <text x="247.69" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Nov</text>
-        <rect x="282.31" y="651.80" width="23.08" height="16.20" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="282.31" y="651.85" width="23.08" height="16.15" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="293.85" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">115</text>
         <text x="293.85" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Dec</text>
-        <rect x="328.46" y="648.28" width="23.08" height="19.72" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="328.46" y="648.34" width="23.08" height="19.66" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="340.00" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">140</text>
         <text x="340.00" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jan</text>
-        <rect x="374.62" y="644.34" width="23.08" height="23.66" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="374.62" y="644.40" width="23.08" height="23.60" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="386.15" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">168</text>
         <text x="386.15" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Feb</text>
-        <rect x="420.77" y="643.21" width="23.08" height="24.79" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="420.77" y="643.28" width="23.08" height="24.72" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="432.31" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">176</text>
         <text x="432.31" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Mar</text>
-        <rect x="466.92" y="639.13" width="23.08" height="28.87" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="466.92" y="639.21" width="23.08" height="28.79" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="478.46" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">205</text>
         <text x="478.46" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Apr</text>
-        <rect x="513.08" y="658.99" width="23.08" height="9.01" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="513.08" y="659.01" width="23.08" height="8.99" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="524.62" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">64</text>
         <text x="524.62" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">May</text>
-        <rect x="559.23" y="659.55" width="23.08" height="8.45" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <rect x="559.23" y="659.57" width="23.08" height="8.43" rx="3.00" fill="#ffffff" opacity="0.85" />
         <text x="570.77" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">60</text>
         <text x="570.77" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jun</text>
         <rect x="605.38" y="618.00" width="23.08" height="50.00" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="616.92" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">355</text>
+        <text x="616.92" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">356</text>
         <text x="616.92" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jul</text></g>
 <line x1="40" y1="708" x2="640" y2="708" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="13.03s" dur="0.15s" values="0;0.12" fill="freeze" />
+      <animate attributeName="opacity" begin="12.61s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
 
       <clipPath id="type-27">
         <rect x="38.00" y="722" height="20" width="0">
-          <animate attributeName="width" begin="13.13s" dur="0.32s"
+          <animate attributeName="width" begin="12.71s" dur="0.32s"
             calcMode="discrete" keyTimes="0.0000;0.0476;0.0952;0.1429;0.1905;0.2381;0.2857;0.3333;0.3810;0.4286;0.4762;0.5238;0.5714;0.6190;0.6667;0.7143;0.7619;0.8095;0.8571;0.9048;0.9524;1.0000" values="0.00;7.49;14.97;22.46;29.94;37.43;44.91;52.40;59.89;67.37;74.86;82.34;89.83;97.31;104.80;112.29;119.77;127.26;134.74;142.23;149.71;157.20" fill="freeze" />
         </rect>
       </clipPath>
@@ -371,7 +371,7 @@
 <a href="https://github.com/TerminalExplore/Wiresprite" target="_blank" rel="noopener noreferrer">
       <clipPath id="type-28">
         <rect x="38.00" y="746" height="20" width="0">
-          <animate attributeName="width" begin="13.57s" dur="0.16s"
+          <animate attributeName="width" begin="13.15s" dur="0.16s"
             calcMode="discrete" keyTimes="0.0000;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1.0000" values="0.00;7.80;15.60;23.40;31.20;39.00;46.80;54.60;62.40;70.20;78.00" fill="freeze" />
         </rect>
       </clipPath>
@@ -381,7 +381,7 @@
 
       <clipPath id="type-29">
         <rect x="616.40" y="746" height="20" width="0">
-          <animate attributeName="width" begin="13.78s" dur="0.08s"
+          <animate attributeName="width" begin="13.36s" dur="0.08s"
             calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
         </rect>
       </clipPath>
@@ -389,11 +389,11 @@
         fill="#ffffff" opacity="0.6" textLength="21.60" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#type-29)">★ 0</text>
 <line x1="40" y1="786" x2="640" y2="786" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="14.01s" dur="0.15s" values="0;0.12" fill="freeze" />
+      <animate attributeName="opacity" begin="13.59s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
 
-    <text x="40" y="812" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">root@terminalexplore:~$ <animate attributeName="opacity" begin="14.13s" dur="0.15s" values="0;0.35" fill="freeze" /></text>
+    <text x="40" y="812" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" opacity="0">root@terminalexplore:~$ <animate attributeName="opacity" begin="13.71s" dur="0.15s" values="0;0.35" fill="freeze" /></text>
     <rect x="212.80" y="800" width="7" height="14" fill="#ffffff" opacity="0">
-      <animate attributeName="opacity" begin="14.28s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
+      <animate attributeName="opacity" begin="13.86s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
     </rect>
 </svg>
