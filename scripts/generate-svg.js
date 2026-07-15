@@ -158,26 +158,52 @@ const TYPE_SPEED = 0.032; // seconds per character
 // onto our exact char-width grid regardless of which monospace font actually
 // renders on the viewer's system, so the clip-path reveal always lines up
 // with whole characters (SMIL only — no JS, still a plain static image).
-function typeLine({ text, x, y, fontSize, opacity = 1, weight, begin, id }) {
+// anchorEnd supports right-aligned columns (stat values, percentages): the
+// text is still anchored at x, but its bounding box — and so the reveal clip
+// — starts at x - fullWidth instead of x.
+function typeLine({
+  text,
+  x,
+  y,
+  fontSize,
+  opacity = 1,
+  weight,
+  begin,
+  id,
+  anchorEnd = false,
+  speed = TYPE_SPEED,
+  minDur = 0.12,
+  maxDur = Infinity,
+}) {
   const charWidth = fontSize * 0.6;
   const fullWidth = text.length * charWidth;
-  const duration = Math.max(text.length * TYPE_SPEED, 0.15);
+  const duration = Math.min(Math.max(text.length * speed, minDur), maxDur);
   const steps = Math.max(text.length, 1);
+  // The clip rect starts 2px before the text's left edge (so ascenders/serifs
+  // on the first glyph aren't clipped); the reveal width has to grow past
+  // fullWidth by that same margin plus a little extra, otherwise the clip's
+  // right edge lands short of the text's true right edge and the last
+  // character (or two) gets sliced off once "frozen" at the end of the
+  // animation — that's what was happening to trailing letters like the "d"
+  // in "886d".
+  const clipMaxWidth = fullWidth + 6;
   const values = [];
   const keyTimes = [];
   for (let i = 0; i <= steps; i++) {
-    values.push(((fullWidth * i) / steps).toFixed(2));
+    values.push(((clipMaxWidth * i) / steps).toFixed(2));
     keyTimes.push((i / steps).toFixed(4));
   }
   const weightAttr = weight ? ` font-weight="${weight}"` : "";
+  const anchorAttr = anchorEnd ? ` text-anchor="end"` : "";
+  const clipX = anchorEnd ? x - fullWidth - 2 : x - 2;
   const svg = `
       <clipPath id="${id}">
-        <rect x="${x - 2}" y="${y - fontSize}" height="${fontSize + 8}" width="0">
+        <rect x="${clipX.toFixed(2)}" y="${y - fontSize}" height="${fontSize + 8}" width="0">
           <animate attributeName="width" begin="${begin.toFixed(2)}s" dur="${duration.toFixed(2)}s"
             calcMode="discrete" keyTimes="${keyTimes.join(";")}" values="${values.join(";")}" fill="freeze" />
         </rect>
       </clipPath>
-      <text x="${x}" y="${y}" font-family="${FONT_STACK}" font-size="${fontSize}"${weightAttr}
+      <text x="${x}" y="${y}" font-family="${FONT_STACK}" font-size="${fontSize}"${weightAttr}${anchorAttr}
         fill="#ffffff" opacity="${opacity}" textLength="${fullWidth.toFixed(2)}" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#${id})">${escapeXml(text)}</text>`;
   return { svg, end: begin + duration };
@@ -187,7 +213,11 @@ function render(user, aboutText) {
   const languages = topLanguages(user.repositories);
   const streak = computeStreak(user.contributionsCollection.contributionCalendar);
   const uptimeDays = daysSince(user.createdAt);
-  const aboutLines = wrapText(aboutText, 74).slice(0, 5);
+  // Each about line gets its own <text> (instead of tspans in one block) so
+  // it can be typed independently with the same reveal mechanism as every
+  // other line — this also avoids tspan/animate interaction quirks some SVG
+  // renderers have with multi-line text blocks.
+  const aboutLines = wrapText(aboutText, 74).slice(0, 4);
 
   const statRows = [
     ["uptime", `${uptimeDays}d`],
@@ -196,28 +226,12 @@ function render(user, aboutText) {
     ["streak", `${streak.current}d current / ${streak.longest}d longest`],
   ];
 
-  const statsSvg = statRows
-    .map(
-      ([label, value], i) => `
-      <text x="40" y="${122 + i * 24}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.45">${escapeXml(label)}</text>
-      <text x="640" y="${122 + i * 24}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="1">${escapeXml(value)}</text>`
-    )
-    .join("\n");
-
-  const barsSvg = languages
-    .map((lang, i) => {
-      const y = 266 + i * 24;
-      const fillWidth = (460 * lang.percent) / 100;
-      return `
-      <text x="40" y="${y}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="1">${escapeXml(lang.name)}</text>
-      <rect x="140" y="${y - 10}" width="460" height="8" rx="2" fill="#ffffff" opacity="0.1" />
-      <rect x="140" y="${y - 10}" width="${fillWidth.toFixed(2)}" height="8" rx="2" fill="#ffffff" opacity="0.85" />
-      <text x="600" y="${y}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.6">${lang.percent}%</text>`;
-    })
-    .join("\n");
-
-  // Boot sequence: type "whoami" -> reveal name -> type "cat about.md" -> reveal about text.
+  const parts = [];
   let t = 0.4;
+  let idSeq = 0;
+  const nextId = (prefix) => `${prefix}-${idSeq++}`;
+
+  // whoami -> name
   const whoami = typeLine({
     text: "guest@terminalexplore:~$ whoami",
     x: 40,
@@ -225,15 +239,115 @@ function render(user, aboutText) {
     fontSize: 14,
     opacity: 0.4,
     begin: t,
-    id: "type-whoami",
+    id: nextId("type"),
   });
-  t = whoami.end + 0.2;
+  parts.push(whoami.svg);
+  t = whoami.end + 0.18;
 
-  const nameBegin = t;
-  const nameText = user.name || user.login;
-  const nameSvg = `<text x="40" y="72" font-family="${FONT_STACK}" font-size="18" font-weight="700" fill="#ffffff" opacity="0">${escapeXml(nameText)}<animate attributeName="opacity" begin="${nameBegin.toFixed(2)}s" dur="0.3s" values="0;1" fill="freeze" /></text>`;
-  t = nameBegin + 0.3 + 0.3;
+  const name = typeLine({
+    text: user.name || user.login,
+    x: 40,
+    y: 72,
+    fontSize: 18,
+    weight: 700,
+    opacity: 1,
+    begin: t,
+    id: nextId("type"),
+  });
+  parts.push(name.svg);
+  t = name.end + 0.3;
 
+  parts.push(`<line x1="40" y1="94" x2="640" y2="94" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+
+  // stats: type each label, then its value, row by row
+  statRows.forEach(([label, value], rowIndex) => {
+    const y = 122 + rowIndex * 24;
+    const lbl = typeLine({
+      text: label,
+      x: 40,
+      y,
+      fontSize: 12,
+      opacity: 0.45,
+      begin: t,
+      id: nextId("type"),
+      speed: 0.02,
+      maxDur: 0.45,
+    });
+    parts.push(lbl.svg);
+    t = lbl.end + 0.06;
+
+    const val = typeLine({
+      text: value,
+      x: 640,
+      y,
+      fontSize: 12,
+      opacity: 1,
+      begin: t,
+      id: nextId("type"),
+      anchorEnd: true,
+      speed: 0.022,
+      maxDur: 0.55,
+    });
+    parts.push(val.svg);
+    t = val.end + 0.16;
+  });
+  t += 0.1;
+
+  parts.push(`<line x1="40" y1="216" x2="640" y2="216" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+
+  // languages: type header, then per language: name -> bar fill -> percent
+  const langHeader = typeLine({
+    text: "languages (live via github api)",
+    x: 40,
+    y: 242,
+    fontSize: 12,
+    opacity: 0.45,
+    begin: t,
+    id: nextId("type"),
+    speed: 0.02,
+    maxDur: 0.9,
+  });
+  parts.push(langHeader.svg);
+  t = langHeader.end + 0.2;
+
+  languages.forEach((lang, i) => {
+    const y = 266 + i * 24;
+    const nameEl = typeLine({
+      text: lang.name,
+      x: 40,
+      y,
+      fontSize: 12,
+      opacity: 1,
+      begin: t,
+      id: nextId("type"),
+      speed: 0.025,
+      maxDur: 0.4,
+    });
+    parts.push(nameEl.svg);
+    t = nameEl.end + 0.1;
+
+    const fillWidth = (460 * lang.percent) / 100;
+    const barBegin = t;
+    const barDur = 0.6;
+    parts.push(`
+      <rect x="140" y="${y - 10}" width="460" height="8" rx="2" fill="#ffffff" opacity="0.1" />
+      <rect x="140" y="${y - 10}" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
+        <animate attributeName="width" begin="${barBegin.toFixed(2)}s" dur="${barDur}s"
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${fillWidth.toFixed(2)}" fill="freeze" />
+      </rect>`);
+    t = barBegin + barDur + 0.08;
+
+    const pctBegin = t;
+    parts.push(
+      `<text x="600" y="${y}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.15s" values="0;1" fill="freeze" /></text>`
+    );
+    t = pctBegin + 0.15 + 0.14;
+  });
+  t += 0.1;
+
+  parts.push(`<line x1="40" y1="336" x2="640" y2="336" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+
+  // about.md: type command, then type each wrapped line
   const aboutCmd = typeLine({
     text: "cat about.md",
     x: 40,
@@ -241,45 +355,46 @@ function render(user, aboutText) {
     fontSize: 12,
     opacity: 0.45,
     begin: t,
-    id: "type-about-cmd",
+    id: nextId("type"),
+    speed: 0.025,
+    maxDur: 0.45,
   });
+  parts.push(aboutCmd.svg);
   t = aboutCmd.end + 0.2;
 
-  const aboutBegin = t;
-  const aboutSvg = aboutLines.length
-    ? `<text x="40" y="390" font-family="${FONT_STACK}" font-size="13" fill="#ffffff" opacity="0">${aboutLines
-        .map((line, i) => `<tspan x="40" dy="${i === 0 ? 0 : 20}">${escapeXml(line)}</tspan>`)
-        .join("")}<animate attributeName="opacity" begin="${aboutBegin.toFixed(2)}s" dur="0.4s" values="0;1" fill="freeze" /></text>`
-    : "";
-  t = aboutBegin + 0.4 + 0.3;
+  aboutLines.forEach((line, i) => {
+    const el = typeLine({
+      text: line,
+      x: 40,
+      y: 390 + i * 20,
+      fontSize: 13,
+      opacity: 0.9,
+      begin: t,
+      id: nextId("type"),
+      speed: 0.014,
+      maxDur: 1.1,
+    });
+    parts.push(el.svg);
+    t = el.end + 0.1;
+  });
+  t += 0.15;
 
-  const cursorBegin = t;
+  parts.push(`<line x1="40" y1="470" x2="640" y2="470" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+
   const footerPrompt = "guest@terminalexplore:~$ ";
+  const cursorBegin = t;
   const cursorX = 40 + footerPrompt.length * (12 * 0.6);
+  parts.push(`
+    <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.35">${escapeXml(footerPrompt)}</text>
+    <rect x="${cursorX.toFixed(2)}" y="484" width="7" height="14" fill="#ffffff" opacity="0">
+      <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
+    </rect>`);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 560">
   <rect width="680" height="560" rx="10" fill="#0a0a0a" />
   <rect width="680" height="560" rx="10" fill="#ffffff" opacity="0.015" />
 
-  ${whoami.svg}
-  ${nameSvg}
-  <line x1="40" y1="94" x2="640" y2="94" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
-
-  ${statsSvg}
-  <line x1="40" y1="216" x2="640" y2="216" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
-
-  <text x="40" y="242" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.45">languages (live via github api)</text>
-  ${barsSvg}
-  <line x1="40" y1="336" x2="640" y2="336" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
-
-  ${aboutCmd.svg}
-  ${aboutSvg}
-  <line x1="40" y1="470" x2="640" y2="470" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />
-
-  <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.35">${escapeXml(footerPrompt)}</text>
-  <rect x="${cursorX.toFixed(2)}" y="484" width="7" height="14" fill="#ffffff" opacity="0">
-    <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
-  </rect>
+  ${parts.join("\n")}
 </svg>
 `;
 }
