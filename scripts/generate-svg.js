@@ -209,6 +209,14 @@ function typeLine({
   return { svg, end: begin + duration };
 }
 
+// Section separators fade in right as the boot sequence reaches them,
+// instead of being visible on the very first frame.
+function fadeLine(x1, y, x2, begin, dur = 0.2) {
+  return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#ffffff" stroke-width="0.5" opacity="0">
+      <animate attributeName="opacity" begin="${begin.toFixed(2)}s" dur="${dur}s" values="0;0.12" fill="freeze" />
+    </line>`;
+}
+
 function render(user, aboutText) {
   const languages = topLanguages(user.repositories);
   const streak = computeStreak(user.contributionsCollection.contributionCalendar);
@@ -257,7 +265,8 @@ function render(user, aboutText) {
   parts.push(name.svg);
   t = name.end + 0.3;
 
-  parts.push(`<line x1="40" y1="94" x2="640" y2="94" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+  parts.push(fadeLine(40, 94, 640, t));
+  t += 0.15;
 
   // stats: type each label, then its value, row by row
   statRows.forEach(([label, value], rowIndex) => {
@@ -293,7 +302,8 @@ function render(user, aboutText) {
   });
   t += 0.1;
 
-  parts.push(`<line x1="40" y1="216" x2="640" y2="216" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+  parts.push(fadeLine(40, 216, 640, t));
+  t += 0.15;
 
   // languages: type header, then per language: name -> bar fill -> percent
   const langHeader = typeLine({
@@ -327,10 +337,14 @@ function render(user, aboutText) {
     t = nameEl.end + 0.1;
 
     const fillWidth = (460 * lang.percent) / 100;
-    const barBegin = t;
+    const trackBegin = t;
+    parts.push(`
+      <rect x="140" y="${y - 10}" width="460" height="8" rx="2" fill="#ffffff" opacity="0">
+        <animate attributeName="opacity" begin="${trackBegin.toFixed(2)}s" dur="0.15s" values="0;0.1" fill="freeze" />
+      </rect>`);
+    const barBegin = trackBegin + 0.1;
     const barDur = 0.6;
     parts.push(`
-      <rect x="140" y="${y - 10}" width="460" height="8" rx="2" fill="#ffffff" opacity="0.1" />
       <rect x="140" y="${y - 10}" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
         <animate attributeName="width" begin="${barBegin.toFixed(2)}s" dur="${barDur}s"
           calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${fillWidth.toFixed(2)}" fill="freeze" />
@@ -345,7 +359,8 @@ function render(user, aboutText) {
   });
   t += 0.1;
 
-  parts.push(`<line x1="40" y1="336" x2="640" y2="336" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+  parts.push(fadeLine(40, 336, 640, t));
+  t += 0.15;
 
   // about.md: type command, then type each wrapped line
   const aboutCmd = typeLine({
@@ -379,13 +394,15 @@ function render(user, aboutText) {
   });
   t += 0.15;
 
-  parts.push(`<line x1="40" y1="470" x2="640" y2="470" stroke="#ffffff" stroke-width="0.5" opacity="0.12" />`);
+  parts.push(fadeLine(40, 470, 640, t));
+  t += 0.2;
 
   const footerPrompt = "guest@terminalexplore:~$ ";
-  const cursorBegin = t;
+  const footerBegin = t;
+  const cursorBegin = footerBegin + 0.2;
   const cursorX = 40 + footerPrompt.length * (12 * 0.6);
   parts.push(`
-    <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0.35">${escapeXml(footerPrompt)}</text>
+    <text x="40" y="496" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.2s" values="0;0.35" fill="freeze" /></text>
     <rect x="${cursorX.toFixed(2)}" y="484" width="7" height="14" fill="#ffffff" opacity="0">
       <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
     </rect>`);
