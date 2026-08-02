@@ -43,7 +43,7 @@
       </clipPath>
       <text x="640" y="122" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="end"
         fill="#ffffff" opacity="1" textLength="28.80" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-3)">903d</text>
+        clip-path="url(#type-3)">904d</text>
 
       <clipPath id="type-4">
         <rect x="38.00" y="134" height="20" width="0">
@@ -302,7 +302,7 @@
       </clipPath>
       <text x="40" y="592" font-family="'JetBrains Mono', monospace" font-size="12"
         fill="#ffffff" opacity="1" textLength="316.80" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-25)">2052 commits this year · busiest Jul 14 (96)</text>
+        clip-path="url(#type-25)">2009 commits this year · busiest Jul 14 (96)</text>
 <line x1="40" y1="668.5" x2="640" y2="668.5" stroke="#ffffff" stroke-width="0.5" opacity="0">
       <animate attributeName="opacity" begin="11.67s" dur="0.1s" values="0;0.12" fill="freeze" />
     </line>
@@ -314,48 +314,45 @@
         </rect>
       </clipPath>
       <g clip-path="url(#chart-26)">
-        <rect x="50.71" y="663.71" width="21.43" height="4.29" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="61.43" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">36</text>
-        <text x="61.43" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jul</text>
-        <rect x="93.57" y="649.07" width="21.43" height="18.93" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="104.29" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">159</text>
-        <text x="104.29" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Aug</text>
-        <rect x="136.43" y="648.71" width="21.43" height="19.29" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="147.14" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">162</text>
-        <text x="147.14" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Sep</text>
-        <rect x="179.29" y="641.33" width="21.43" height="26.67" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="190.00" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">224</text>
-        <text x="190.00" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Oct</text>
-        <rect x="222.14" y="652.76" width="21.43" height="15.24" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="232.86" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">128</text>
-        <text x="232.86" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Nov</text>
-        <rect x="265.00" y="654.31" width="21.43" height="13.69" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="275.71" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">115</text>
-        <text x="275.71" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Dec</text>
-        <rect x="307.86" y="651.33" width="21.43" height="16.67" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="318.57" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">140</text>
-        <text x="318.57" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jan</text>
-        <rect x="350.71" y="648.00" width="21.43" height="20.00" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="361.43" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">168</text>
-        <text x="361.43" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Feb</text>
-        <rect x="393.57" y="647.05" width="21.43" height="20.95" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="404.29" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">176</text>
-        <text x="404.29" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Mar</text>
-        <rect x="436.43" y="644.07" width="21.43" height="23.93" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="447.14" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">201</text>
-        <text x="447.14" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Apr</text>
-        <rect x="479.29" y="660.38" width="21.43" height="7.62" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="490.00" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">64</text>
-        <text x="490.00" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">May</text>
-        <rect x="522.14" y="660.98" width="21.43" height="7.02" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="532.86" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">59</text>
-        <text x="532.86" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jun</text>
-        <rect x="565.00" y="618.00" width="21.43" height="50.00" rx="3.00" fill="#ffffff" opacity="0.85" />
-        <text x="575.71" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">420</text>
-        <text x="575.71" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jul</text>
-        <rect x="607.86" y="666.00" width="21.43" height="2.00" rx="3.00" fill="#ffffff" opacity="0.12" />
-        <text x="618.57" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.3">0</text>
-        <text x="618.57" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Aug</text></g>
+        <rect x="51.54" y="649.90" width="23.08" height="18.10" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="63.08" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">152</text>
+        <text x="63.08" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Aug</text>
+        <rect x="97.69" y="648.71" width="23.08" height="19.29" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="109.23" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">162</text>
+        <text x="109.23" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Sep</text>
+        <rect x="143.85" y="641.33" width="23.08" height="26.67" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="155.38" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">224</text>
+        <text x="155.38" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Oct</text>
+        <rect x="190.00" y="652.76" width="23.08" height="15.24" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="201.54" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">128</text>
+        <text x="201.54" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Nov</text>
+        <rect x="236.15" y="654.31" width="23.08" height="13.69" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="247.69" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">115</text>
+        <text x="247.69" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Dec</text>
+        <rect x="282.31" y="651.33" width="23.08" height="16.67" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="293.85" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">140</text>
+        <text x="293.85" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jan</text>
+        <rect x="328.46" y="648.00" width="23.08" height="20.00" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="340.00" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">168</text>
+        <text x="340.00" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Feb</text>
+        <rect x="374.62" y="647.05" width="23.08" height="20.95" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="386.15" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">176</text>
+        <text x="386.15" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Mar</text>
+        <rect x="420.77" y="644.07" width="23.08" height="23.93" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="432.31" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">201</text>
+        <text x="432.31" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Apr</text>
+        <rect x="466.92" y="660.38" width="23.08" height="7.62" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="478.46" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">64</text>
+        <text x="478.46" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">May</text>
+        <rect x="513.08" y="660.98" width="23.08" height="7.02" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="524.62" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">59</text>
+        <text x="524.62" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jun</text>
+        <rect x="559.23" y="618.00" width="23.08" height="50.00" rx="3.00" fill="#ffffff" opacity="0.85" />
+        <text x="570.77" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.75">420</text>
+        <text x="570.77" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Jul</text>
+        <rect x="605.38" y="666.00" width="23.08" height="2.00" rx="3.00" fill="#ffffff" opacity="0.12" />
+        <text x="616.92" y="681" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" opacity="0.3">0</text>
+        <text x="616.92" y="693" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" opacity="0.3">Aug</text></g>
 <line x1="40" y1="708" x2="640" y2="708" stroke="#ffffff" stroke-width="0.5" opacity="0">
       <animate attributeName="opacity" begin="12.59s" dur="0.15s" values="0;0.12" fill="freeze" />
     </line>
