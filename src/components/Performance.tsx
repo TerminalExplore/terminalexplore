@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Content } from "../content";
 import SectionBg from "./SectionBg";
 
 export default function Performance({ t }: { t: Content }) {
   const s = t.performance;
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || s.items.length < 2) return;
+
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % s.items.length);
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, [paused, s.items.length]);
 
   return (
     <section id="performance" className="section section--performance">
@@ -16,12 +27,26 @@ export default function Performance({ t }: { t: Content }) {
           <h2>{s.heading}</h2>
         </div>
         <div className="perf-grid">
-          <div className="perf-list">
+          <div
+            className="perf-list"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
             {s.items.map((item, i) => (
               <div
                 key={i}
                 className={`perf-item${i === active ? " active" : ""}`}
                 onClick={() => setActive(i)}
+                onFocus={() => setPaused(true)}
+                onBlur={() => setPaused(false)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setActive(i);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
               >
                 <div className="perf-bar" />
                 <div className="perf-body">
