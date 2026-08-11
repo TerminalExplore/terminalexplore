@@ -113,10 +113,13 @@ export default function Hero({ t }: { t: Content }) {
     if (!ctx) return;
 
     let raf = 0;
+    let lastFrame = 0;
+    let visible = true;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const size = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.max(1, Math.round(rect.width * dpr));
       canvas.height = Math.max(1, Math.round(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -124,18 +127,26 @@ export default function Hero({ t }: { t: Content }) {
 
     const frame = (now: number) => {
       const rect = canvas.getBoundingClientRect();
-      renderGlobe(ctx, rect.width, rect.height, now / 1000);
+      if (visible && now - lastFrame > 66) {
+        renderGlobe(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
+        lastFrame = now;
+      }
       raf = requestAnimationFrame(frame);
     };
 
     size();
     const ro = new ResizeObserver(size);
     ro.observe(canvas);
+    const io = new IntersectionObserver(([entry]) => {
+      visible = !!entry?.isIntersecting;
+    });
+    io.observe(canvas);
     raf = requestAnimationFrame(frame);
 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
     };
   }, []);
 

@@ -1468,3 +1468,30 @@
     align-items: flex-start;
   }
 }
+
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  #hero-globe {
+    opacity: 0.28;
+  }
+
+  .section-ascii-bg {
+    display: none;
+  }
+
+  .nav,
+  .hero-status,
+  .code-card,
+  .perf-terminal,
+  .feat-card,
+  .blog-card,
+  .case-card {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .feat-card:hover,
+  .blog-card:hover,
+  .btn-primary:hover {
+    transform: none;
+  }
+}
