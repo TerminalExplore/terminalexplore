@@ -167,41 +167,14 @@ export default function Hero({ t }: { t: Content }) {
             <span>{t.hero.eyebrow}</span>
           </div>
           <h1 dangerouslySetInnerHTML={{ __html: t.hero.title }} />
-          <div className="hero-proof">
-            <div>
-              <strong>Docker</strong>
-              <span>production-ready</span>
-            </div>
-            <div>
-              <strong>API</strong>
-              <span>auth, 2FA, backups</span>
-            </div>
-            <div>
-              <strong>SEO</strong>
-              <span>RSS + sitemap</span>
-            </div>
-          </div>
         </div>
         <div className="hero-right">
-          <div className="hero-status">
-            <div className="hero-status-top">
-              <span>deploy status</span>
-              <b>live</b>
-            </div>
-            <div className="hero-status-row">
-              <span>frontend</span>
-              <i />
-            </div>
-            <div className="hero-status-row">
-              <span>api</span>
-              <i />
-            </div>
-            <div className="hero-status-row">
-              <span>backups</span>
-              <i />
-            </div>
-          </div>
           <p>{t.hero.right}</p>
+          <ul className="hero-notes">
+            <li>React / TypeScript / Node.js</li>
+            <li>Docker, Linux, CI/CD</li>
+            <li>Monitoring, networks, bots</li>
+          </ul>
           <div className="hero-actions">
             <a href="#features" className="btn-hero">{t.hero.cta}</a>
             <a href="/cases" className="btn-hero btn-hero--muted">{t.pages.cases.title}</a>
