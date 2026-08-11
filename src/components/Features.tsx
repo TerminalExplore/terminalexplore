@@ -1,6 +1,5 @@
 import type { Content } from "../content";
 import SectionBg from "./SectionBg";
-import FeatIcon from "./FeatIcon";
 
 export default function Features({ t }: { t: Content }) {
   const s = t.features;
@@ -16,8 +15,9 @@ export default function Features({ t }: { t: Content }) {
         <div className="feat-grid">
           {s.cards.map((card) => (
             <div className="feat-card" key={card.num}>
-              <div className="feat-icon">
-                <FeatIcon name={card.icon} />
+              <div className="feat-kicker">
+                <span>{card.num}</span>
+                <span>{card.tags[0]}</span>
               </div>
               <span className="feat-num">{card.num}</span>
               <h3>{card.title}</h3>

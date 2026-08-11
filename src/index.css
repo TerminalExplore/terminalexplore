@@ -553,8 +553,8 @@ textarea.input {
   inset: 0 0 auto;
   height: var(--nav-h);
   z-index: 100;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   background: #0a0a0ca6;
   border-bottom: 1px solid var(--border);
 }

@@ -97,7 +97,7 @@ function renderGlobe(
       if (!cell || cell.ch === " ") continue;
       const lum = cell.lum;
       const val = Math.round(232 * lum);
-      ctx.fillStyle = `rgb(${val},${val - 2},${val - 5})`;
+      ctx.fillStyle = `rgb(${val},${val},${val})`;
       ctx.fillText(cell.ch, i * 7, j * 14);
     }
   }

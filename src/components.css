@@ -4,8 +4,8 @@
   inset: 0 0 auto;
   height: var(--nav-h);
   z-index: 100;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   background: rgba(var(--bg-rgb), 0.72);
   border-bottom: 1px solid var(--border);
 }
@@ -227,11 +227,11 @@
 .hero-left:before {
   content: "";
   position: absolute;
-  inset: 58px -10px 72px -18px;
+  inset: 48px -14px 58px -22px;
   z-index: -1;
-  border-radius: 24px;
+  border-radius: 0;
   background:
-    radial-gradient(ellipse at 42% 45%, rgba(10, 10, 12, 0.38), rgba(10, 10, 12, 0.18) 54%, transparent 78%);
+    linear-gradient(90deg, rgba(8, 8, 10, 0.82), rgba(8, 8, 10, 0.44) 66%, transparent);
   pointer-events: none;
 }
 
@@ -355,9 +355,9 @@
 }
 
 .code-card {
-  background: linear-gradient(180deg, rgba(18, 18, 22, 0.92), rgba(12, 12, 15, 0.92));
+  background: rgba(12, 12, 14, 0.94);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 0 1px #ffffff05, 0 20px 60px #00000080;
   -webkit-backdrop-filter: blur(12px);
@@ -558,7 +558,7 @@
 .perf-terminal {
   background: #0f0f12d9;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 20px 60px #0006;
   -webkit-backdrop-filter: blur(12px);
@@ -671,16 +671,18 @@
 .feat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
 }
 
 .feat-card {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 36px;
-  transition: all 0.3s;
+  background: rgba(10, 10, 12, 0.94);
+  border: 0;
+  border-radius: 0;
+  padding: 30px;
+  transition: background 0.25s ease;
   overflow: hidden;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
@@ -691,24 +693,23 @@
 }
 
 .feat-card:hover {
-  border-color: var(--border-2);
-  transform: none;
-  box-shadow: none;
+  background: rgba(18, 18, 20, 0.96);
 }
 
 .feat-icon {
+  display: none;
+}
+
+.feat-kicker {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 9px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
-    rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #eeeeee;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-transform: uppercase;
 }
 
 .feat-num {
@@ -716,9 +717,11 @@
   top: 32px;
   right: 32px;
   font-family: var(--mono);
-  font-size: 0.65rem;
-  color: #ffffff14;
+  font-size: 4.8rem;
+  line-height: 0.8;
+  color: #ffffff08;
   letter-spacing: 0.04em;
+  pointer-events: none;
 }
 
 .feat-card h3 {
@@ -742,13 +745,18 @@
 }
 
 .feat-tags span {
-  padding: 3px 10px;
-  border-radius: 100px;
+  padding: 3px 0;
+  border-radius: 0;
   font-size: 0.7rem;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
   color: var(--text-mid);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 0;
+}
+
+.feat-tags span:before {
+  content: "#";
+  color: var(--text-dim);
 }
 
 /* ===== CTA section ===== */
@@ -776,7 +784,7 @@
   gap: 8px;
   padding: 6px 16px;
   border: 1px solid var(--border);
-  border-radius: 100px;
+  border-radius: 0;
   font-family: var(--mono);
   font-size: 0.7rem;
   font-weight: 500;
@@ -790,7 +798,7 @@
 .cta-inner h2 {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
 .cta-inner p {
@@ -1331,8 +1339,8 @@
   display: flex;
   align-items: center;
   padding: 0 40px;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   background: #0a0a0ca6;
   border-bottom: 1px solid var(--border);
 }
