@@ -169,6 +169,22 @@ export default function Hero({ t }: { t: Content }) {
           <h1 dangerouslySetInnerHTML={{ __html: t.hero.title }} />
         </div>
         <div className="hero-right">
+          <div className="hero-ops">
+            <div className="hero-ops-head">
+              <span>ops.snapshot</span>
+              <b>LIVE</b>
+            </div>
+            <div className="hero-ops-grid">
+              <span>frontend</span><b>200</b>
+              <span>api</span><b>healthy</b>
+              <span>deploy</span><b>atomic</b>
+              <span>backup</span><b>daily</b>
+            </div>
+            <div className="hero-ops-foot">
+              <span>uptime 99.9%</span>
+              <span>latency 4ms</span>
+            </div>
+          </div>
           <p>{t.hero.right}</p>
           <ul className="hero-notes">
             <li>React / TypeScript / Node.js</li>
