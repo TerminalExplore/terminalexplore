@@ -31,11 +31,9 @@ function renderWatchBackdrop(
 
   const blocks = [
     [0.08, 0.18, 0.12, 0.08],
-    [0.31, 0.16, 0.2, 0.11],
-    [0.52, 0.28, 0.1, 0.18],
-    [0.1, 0.66, 0.18, 0.12],
-    [0.42, 0.7, 0.16, 0.08],
-    [0.64, 0.52, 0.08, 0.14],
+    [0.31, 0.16, 0.18, 0.1],
+    [0.1, 0.66, 0.16, 0.1],
+    [0.44, 0.7, 0.14, 0.08],
   ] as const;
 
   blocks.forEach(([x, y, w, h], i) => {
@@ -50,24 +48,70 @@ function renderWatchBackdrop(
     ctx.fillRect(px, py, bw, bh);
   });
 
+  const racks = [
+    [0.5, 0.18, 0.09, 0.44],
+    [0.62, 0.28, 0.085, 0.38],
+    [0.2, 0.34, 0.1, 0.36],
+  ] as const;
+
+  racks.forEach(([x, y, w, h], rackIndex) => {
+    const px = x * panelW;
+    const py = y * height;
+    const rw = w * panelW;
+    const rh = h * height;
+    ctx.strokeStyle = "rgba(245,245,245,0.16)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(px, py, rw, rh);
+    ctx.fillStyle = "rgba(245,245,245,0.018)";
+    ctx.fillRect(px, py, rw, rh);
+
+    const units = 9;
+    for (let u = 1; u < units; u++) {
+      const uy = py + (rh / units) * u;
+      ctx.strokeStyle = "rgba(245,245,245,0.075)";
+      ctx.beginPath();
+      ctx.moveTo(px + 6, uy);
+      ctx.lineTo(px + rw - 6, uy);
+      ctx.stroke();
+    }
+
+    for (let u = 0; u < units; u++) {
+      const uy = py + (rh / units) * u + rh / units / 2;
+      const pulse = 0.18 + Math.max(0, Math.sin(time * 2.2 + rackIndex + u * 0.7)) * 0.18;
+      ctx.fillStyle = `rgba(245,245,245,${pulse})`;
+      ctx.fillRect(px + rw - 13, uy - 1.5, 3, 3);
+      ctx.fillStyle = "rgba(245,245,245,0.1)";
+      ctx.fillRect(px + 9, uy - 1, rw * 0.34, 2);
+    }
+  });
+
   ctx.strokeStyle = "rgba(245,245,245,0.13)";
   ctx.lineWidth = 1.2;
   ctx.beginPath();
   ctx.moveTo(panelW * 0.14, height * 0.22);
   ctx.lineTo(panelW * 0.42, height * 0.22);
-  ctx.lineTo(panelW * 0.58, height * 0.37);
-  ctx.lineTo(panelW * 0.58, height * 0.58);
+  ctx.lineTo(panelW * 0.5, height * 0.4);
+  ctx.lineTo(panelW * 0.62, height * 0.48);
+  ctx.lineTo(panelW * 0.5, height * 0.58);
   ctx.lineTo(panelW * 0.3, height * 0.72);
   ctx.lineTo(panelW * 0.16, height * 0.72);
   ctx.stroke();
 
-  for (let i = 0; i < 7; i++) {
-    const phase = (time * 0.16 + i * 0.137) % 1;
-    const x = panelW * (0.12 + phase * 0.52);
-    const y = height * (0.19 + ((i * 0.17 + phase * 0.45) % 0.55));
+  const packetRoutes = [
+    [[0.25, 0.52], [0.5, 0.4]],
+    [[0.5, 0.4], [0.63, 0.47]],
+    [[0.5, 0.56], [0.3, 0.72]],
+    [[0.42, 0.22], [0.55, 0.18]],
+  ] as const;
+
+  packetRoutes.forEach((route, i) => {
+    const phase = (time * 0.2 + i * 0.21) % 1;
+    const [a, b] = route;
+    const x = (a[0] + (b[0] - a[0]) * phase) * panelW;
+    const y = (a[1] + (b[1] - a[1]) * phase) * height;
     ctx.fillStyle = "rgba(255,255,255,0.58)";
     ctx.fillRect(x - 2, y - 2, 4, 4);
-  }
+  });
 
   ctx.fillStyle = "rgba(245,245,245,0.06)";
   for (let i = 0; i < 24; i++) {
