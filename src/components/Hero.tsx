@@ -1,208 +1,113 @@
 import { useEffect, useRef } from "react";
 import type { Content } from "../content";
 
-function renderWatchBackdrop(
+const RAMP = " .:-=+*#%@";
+
+function renderGlobe(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
   time: number
 ) {
+  const cols = Math.floor(width / 7);
+  const rows = Math.floor(height / 14);
+  if (cols < 1 || rows < 1) return;
+
+  const buf: { ch: string; lum: number }[] = new Array(cols * rows);
+
+  const cellW = 7;
+  const cellH = 14;
+  const rPix = width * 0.5;
+  const cxPix = 0;
+  const cyPix = height * 0.5;
+
+  const rot = time * 0.4;
+  const cosR = Math.cos(rot);
+  const sinR = Math.sin(rot);
+  const tilt = 0.42;
+  const cosT = Math.cos(tilt);
+  const sinT = Math.sin(tilt);
+
+  const period = cols * 1.6;
+  const chars = RAMP.length - 1;
+
+  for (let j = 0; j < rows; j++) {
+    const yp = (j * cellH - cyPix) / rPix;
+    if (yp < -1 || yp > 1) continue;
+    const sinLat = yp;
+    const cosLat = Math.sqrt(1 - sinLat * sinLat);
+    const lat = Math.asin(sinLat);
+
+    for (let i = 0; i < cols; i++) {
+      const xp = (i * cellW - cxPix) / rPix;
+      const d2 = xp * xp + sinLat * sinLat;
+      if (d2 > 1) continue;
+
+      const cosLon = cosLat === 0 ? 0 : xp / cosLat;
+      let lon = Math.acos(Math.max(-1, Math.min(1, cosLon)));
+      if (i * cellW - cxPix < 0) lon = -lon;
+
+      const y3 = Math.cos(lat) * Math.cos(lon);
+      const z3 = Math.cos(lat) * Math.sin(lon) * sinR + Math.sin(lat) * cosR;
+
+      const zt = y3 * sinT + z3 * cosT;
+
+      if (zt < 0) continue;
+
+      const xt = Math.cos(lat) * Math.sin(lon) * cosR - Math.sin(lat) * sinR;
+      const yt = y3 * cosT - z3 * sinT;
+
+      const u = (lon + Math.PI) / (2 * Math.PI);
+      const v = (lat + Math.PI / 2) / Math.PI;
+      const checker =
+        Math.floor(u * period) % 2 === Math.floor(v * period * 0.5) % 2 ? 1 : 0.5;
+
+      const nx = Math.cos(lat) * Math.sin(lon);
+      const nz = Math.cos(lat) * Math.cos(lon);
+      const lx = 0.45;
+      const ly = 0.55;
+      const lz = 0.72;
+      const llen = Math.sqrt(lx * lx + ly * ly + lz * lz);
+      let diffuse = (nx * lx + Math.sin(lat) * ly + nz * lz) / llen;
+      diffuse = Math.max(0, diffuse);
+
+      const edge = Math.sqrt(xt * xt + yt * yt);
+      const limb = Math.pow(zt, 0.55) * (1 - edge * 0.18);
+
+      const lum = checker * (diffuse * 0.7 + 0.22) * limb;
+      const idx = Math.round(lum * chars);
+      const ch = RAMP[Math.max(0, Math.min(chars, idx))];
+
+      const bi = j * cols + i;
+      if (!buf[bi] || buf[bi].lum < lum) {
+        buf[bi] = { ch, lum };
+      }
+    }
+  }
+
   ctx.fillStyle = "#0a0a0c";
   ctx.fillRect(0, 0, width, height);
+  ctx.font = "14px 'JetBrains Mono', 'Fira Code', monospace";
+  ctx.textBaseline = "top";
+  ctx.textAlign = "left";
 
-  const panelW = width * 0.76;
-  const solidW = width * 0.54;
-  const step = 42;
-  const scan = (time * 55) % (height + 160) - 80;
-  const fadeAlpha = (x: number) => {
-    if (x <= solidW) return 1;
-    return Math.max(0, 1 - (x - solidW) / (panelW - solidW));
-  };
-
-  ctx.lineWidth = 1;
-  for (let x = 0; x < panelW; x += step) {
-    ctx.strokeStyle = `rgba(235,235,235,${0.035 * fadeAlpha(x)})`;
-    ctx.beginPath();
-    ctx.moveTo(x + 0.5, 0);
-    ctx.lineTo(x + 0.5, height);
-    ctx.stroke();
-  }
-  for (let y = 0; y < height; y += step) {
-    const gradient = ctx.createLinearGradient(0, 0, panelW, 0);
-    gradient.addColorStop(0, "rgba(235,235,235,0.035)");
-    gradient.addColorStop(solidW / panelW, "rgba(235,235,235,0.035)");
-    gradient.addColorStop(1, "rgba(235,235,235,0)");
-    ctx.strokeStyle = gradient;
-    ctx.beginPath();
-    ctx.moveTo(0, y + 0.5);
-    ctx.lineTo(panelW, y + 0.5);
-    ctx.stroke();
-  }
-
-  const blocks = [
-    [0.08, 0.18, 0.12, 0.08],
-    [0.31, 0.16, 0.18, 0.1],
-    [0.1, 0.66, 0.16, 0.1],
-    [0.44, 0.7, 0.14, 0.08],
-  ] as const;
-
-  blocks.forEach(([x, y, w, h], i) => {
-    const px = x * panelW;
-    const py = y * height;
-    const bw = w * panelW;
-    const bh = h * height;
-    const pulse = 0.06 + Math.max(0, Math.sin(time * 1.6 + i)) * 0.045;
-    const fade = fadeAlpha(px + bw);
-    ctx.strokeStyle = `rgba(245,245,245,${(0.12 + pulse) * fade})`;
-    ctx.strokeRect(px, py, bw, bh);
-    ctx.fillStyle = `rgba(245,245,245,${(0.018 + pulse * 0.3) * fade})`;
-    ctx.fillRect(px, py, bw, bh);
-  });
-
-  const coreX = panelW * 0.38;
-  const coreY = height * 0.47;
-  const coreW = panelW * 0.2;
-  const coreH = height * 0.16;
-  const coreFade = fadeAlpha(coreX + coreW);
-  ctx.strokeStyle = `rgba(255,255,255,${0.22 * coreFade})`;
-  ctx.lineWidth = 1.4;
-  ctx.strokeRect(coreX, coreY, coreW, coreH);
-  ctx.fillStyle = `rgba(255,255,255,${0.035 * coreFade})`;
-  ctx.fillRect(coreX, coreY, coreW, coreH);
-  ctx.fillStyle = `rgba(255,255,255,${0.2 * coreFade})`;
-  ctx.font = "10px 'JetBrains Mono', ui-monospace, monospace";
-  ctx.fillText("CORE / EDGE", coreX + 12, coreY + 18);
-  ctx.fillText("latency 04ms", coreX + 12, coreY + coreH - 16);
-
-  const racks = [
-    [0.5, 0.18, 0.09, 0.44],
-    [0.62, 0.28, 0.085, 0.38],
-    [0.2, 0.34, 0.1, 0.36],
-    [0.08, 0.28, 0.075, 0.46],
-  ] as const;
-
-  racks.forEach(([x, y, w, h], rackIndex) => {
-    const px = x * panelW;
-    const py = y * height;
-    const rw = w * panelW;
-    const rh = h * height;
-    const rackFade = fadeAlpha(px + rw);
-    ctx.strokeStyle = `rgba(245,245,245,${0.18 * rackFade})`;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(px, py, rw, rh);
-    ctx.fillStyle = "rgba(245,245,245,0.018)";
-    ctx.fillRect(px, py, rw, rh);
-    ctx.strokeStyle = `rgba(245,245,245,${0.08 * rackFade})`;
-    ctx.beginPath();
-    ctx.moveTo(px + rw, py);
-    ctx.lineTo(px + rw + 14 * rackFade, py + 14);
-    ctx.lineTo(px + rw + 14 * rackFade, py + rh + 14);
-    ctx.lineTo(px + rw, py + rh);
-    ctx.stroke();
-
-    const units = 9;
-    for (let u = 1; u < units; u++) {
-      const uy = py + (rh / units) * u;
-      ctx.strokeStyle = `rgba(245,245,245,${0.075 * rackFade})`;
-      ctx.beginPath();
-      ctx.moveTo(px + 6, uy);
-      ctx.lineTo(px + rw - 6, uy);
-      ctx.stroke();
+  for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < cols; i++) {
+      const cell = buf[j * cols + i];
+      if (!cell || cell.ch === " ") continue;
+      const lum = cell.lum;
+      const val = Math.round(232 * lum);
+      ctx.fillStyle = `rgb(${val},${val},${val})`;
+      ctx.fillText(cell.ch, i * 7, j * 14);
     }
-
-    for (let u = 0; u < units; u++) {
-      const uy = py + (rh / units) * u + rh / units / 2;
-      const pulse = 0.18 + Math.max(0, Math.sin(time * 2.2 + rackIndex + u * 0.7)) * 0.18;
-      ctx.fillStyle = `rgba(245,245,245,${pulse * rackFade})`;
-      ctx.fillRect(px + rw - 13, uy - 1.5, 3, 3);
-      ctx.fillStyle = `rgba(245,245,245,${0.1 * rackFade})`;
-      ctx.fillRect(px + 9, uy - 1, rw * 0.34, 2);
-    }
-
-    ctx.fillStyle = `rgba(245,245,245,${0.16 * rackFade})`;
-    ctx.font = "9px 'JetBrains Mono', ui-monospace, monospace";
-    ctx.fillText(`RACK-0${rackIndex + 1}`, px + 6, py - 12);
-  });
-
-  const routeGradient = ctx.createLinearGradient(0, 0, panelW, 0);
-  routeGradient.addColorStop(0, "rgba(245,245,245,0.13)");
-  routeGradient.addColorStop(solidW / panelW, "rgba(245,245,245,0.13)");
-  routeGradient.addColorStop(1, "rgba(245,245,245,0)");
-  ctx.strokeStyle = routeGradient;
-  ctx.lineWidth = 1.2;
-  ctx.beginPath();
-  ctx.moveTo(panelW * 0.14, height * 0.22);
-  ctx.lineTo(panelW * 0.42, height * 0.22);
-  ctx.lineTo(panelW * 0.5, height * 0.4);
-  ctx.lineTo(panelW * 0.62, height * 0.48);
-  ctx.lineTo(panelW * 0.5, height * 0.58);
-  ctx.lineTo(panelW * 0.3, height * 0.72);
-  ctx.lineTo(panelW * 0.16, height * 0.72);
-  ctx.stroke();
-
-  const packetRoutes = [
-    [[0.25, 0.52], [0.5, 0.4]],
-    [[0.5, 0.4], [0.63, 0.47]],
-    [[0.5, 0.56], [0.3, 0.72]],
-    [[0.42, 0.22], [0.55, 0.18]],
-    [[0.12, 0.51], [0.38, 0.55]],
-    [[0.48, 0.48], [0.68, 0.56]],
-    [[0.31, 0.38], [0.45, 0.48]],
-  ] as const;
-
-  packetRoutes.forEach((route, i) => {
-    const phase = (time * 0.2 + i * 0.21) % 1;
-    const [a, b] = route;
-    const x = (a[0] + (b[0] - a[0]) * phase) * panelW;
-    const y = (a[1] + (b[1] - a[1]) * phase) * height;
-    ctx.fillStyle = `rgba(255,255,255,${0.58 * fadeAlpha(x)})`;
-    ctx.fillRect(x - 2, y - 2, 4, 4);
-  });
-
-  const alerts = [
-    [0.08, 0.14, "SSH"],
-    [0.57, 0.2, "API"],
-    [0.17, 0.78, "DB"],
-    [0.66, 0.72, "TLS"],
-  ] as const;
-
-  alerts.forEach(([x, y, label], i) => {
-    const px = x * panelW;
-    const py = y * height;
-    const fade = fadeAlpha(px + 64);
-    const blink = 0.18 + Math.max(0, Math.sin(time * 2.8 + i)) * 0.12;
-    ctx.strokeStyle = `rgba(255,255,255,${blink * fade})`;
-    ctx.strokeRect(px, py, 58, 22);
-    ctx.fillStyle = `rgba(255,255,255,${0.18 * fade})`;
-    ctx.font = "9px 'JetBrains Mono', ui-monospace, monospace";
-    ctx.fillText(label, px + 8, py + 14);
-  });
-
-  for (let i = 0; i < 24; i++) {
-    const x = panelW * (0.06 + ((i * 0.073) % 0.72));
-    const y = height * (0.1 + ((i * 0.119 + time * 0.018) % 0.74));
-    ctx.fillStyle = `rgba(245,245,245,${0.06 * fadeAlpha(x)})`;
-    ctx.fillRect(x, y, 18 + (i % 4) * 12, 1);
-  }
-
-  const scanGradient = ctx.createLinearGradient(0, scan - 50, 0, scan + 50);
-  scanGradient.addColorStop(0, "rgba(255,255,255,0)");
-  scanGradient.addColorStop(0.5, "rgba(255,255,255,0.065)");
-  scanGradient.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = scanGradient;
-  ctx.fillRect(0, scan - 50, solidW, 100);
-
-  ctx.fillStyle = "rgba(0,0,0,0.12)";
-  for (let y = 0; y < height; y += 4) {
-    ctx.fillRect(0, y, panelW, 1);
   }
 }
 
 export default function Hero({ t }: { t: Content }) {
-  const backdropRef = useRef<HTMLCanvasElement>(null);
+  const globeRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = backdropRef.current;
+    const canvas = globeRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -223,7 +128,7 @@ export default function Hero({ t }: { t: Content }) {
     const frame = (now: number) => {
       const rect = canvas.getBoundingClientRect();
       if (visible && now - lastFrame > 66) {
-        renderWatchBackdrop(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
+        renderGlobe(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
         lastFrame = now;
       }
       raf = requestAnimationFrame(frame);
@@ -248,8 +153,8 @@ export default function Hero({ t }: { t: Content }) {
   return (
     <section id="top" className="hero">
       <canvas
-        ref={backdropRef}
-        id="hero-backdrop"
+        ref={globeRef}
+        id="hero-globe"
         width="988"
         height="917"
         aria-hidden="true"
