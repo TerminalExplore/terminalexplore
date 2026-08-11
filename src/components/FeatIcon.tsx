@@ -9,37 +9,46 @@ export default function FeatIcon({ name }: Props) {
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 1.5,
+    strokeWidth: 1.65,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
   };
 
   switch (name) {
     case "terminal":
       return (
         <svg {...common}>
-          <rect x="2" y="3" width="20" height="14" rx="2" />
-          <line x1="8" y1="21" x2="16" y2="21" />
-          <line x1="12" y1="17" x2="12" y2="21" />
+          <path d="M4 6.5h16v11H4z" />
+          <path d="m7.5 10 2.4 2-2.4 2" />
+          <path d="M12 14h4.5" />
         </svg>
       );
     case "pulse":
       return (
         <svg {...common}>
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" />
+          <path d="M4 13h3l2-6 4 11 2.2-5H20" />
+          <path d="M4 19h16" opacity="0.28" />
         </svg>
       );
     case "gear":
       return (
         <svg {...common}>
-          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+          <path d="M5 7.5h14" />
+          <path d="M5 12h14" />
+          <path d="M5 16.5h14" />
+          <path d="M8.5 5.5v4" />
+          <path d="M15.5 10v4" />
+          <path d="M11 14.5v4" />
         </svg>
       );
     case "globe":
       return (
         <svg {...common}>
-          <circle cx="12" cy="12" r="10" />
-          <line x1="2" y1="12" x2="22" y2="12" />
-          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          <path d="M4.5 12a7.5 7.5 0 0 1 15 0 7.5 7.5 0 0 1-15 0Z" />
+          <path d="M4.8 10h14.4" />
+          <path d="M4.8 14h14.4" />
+          <path d="M12 4.5c2 2.2 2 12.8 0 15" />
+          <path d="M12 4.5c-2 2.2-2 12.8 0 15" />
         </svg>
       );
   }
