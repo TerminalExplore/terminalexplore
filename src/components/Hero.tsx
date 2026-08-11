@@ -1,17 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { Content } from "../content";
 
-function stroke(
-  ctx: CanvasRenderingContext2D,
-  alpha: number,
-  width = 1
-) {
-  ctx.strokeStyle = `rgba(235,235,235,${alpha})`;
-  ctx.lineWidth = width;
-  ctx.stroke();
-}
-
-function renderTopoBackdrop(
+function renderWatchBackdrop(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
@@ -20,77 +10,83 @@ function renderTopoBackdrop(
   ctx.fillStyle = "#0a0a0c";
   ctx.fillRect(0, 0, width, height);
 
-  const panelW = width * 0.6;
-  const cx = panelW * 0.48;
-  const cy = height * 0.5;
-  const drift = time * 0.18;
+  const panelW = width * 0.62;
+  const step = 42;
+  const scan = (time * 55) % (height + 160) - 80;
 
-  for (let i = 0; i < 9; i++) {
-    const rx = panelW * (0.18 + i * 0.046);
-    const ry = height * (0.14 + i * 0.032);
+  ctx.strokeStyle = "rgba(235,235,235,0.035)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x < panelW; x += step) {
     ctx.beginPath();
-    for (let a = 0; a <= Math.PI * 2 + 0.08; a += 0.08) {
-      const wobble = Math.sin(a * 3 + i * 0.7 + drift) * 8 + Math.cos(a * 5 - drift) * 4;
-      const x = cx + Math.cos(a) * (rx + wobble);
-      const y = cy + Math.sin(a) * (ry + wobble * 0.55);
-      if (a === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    stroke(ctx, 0.035 + i * 0.011);
+    ctx.moveTo(x + 0.5, 0);
+    ctx.lineTo(x + 0.5, height);
+    ctx.stroke();
+  }
+  for (let y = 0; y < height; y += step) {
+    ctx.beginPath();
+    ctx.moveTo(0, y + 0.5);
+    ctx.lineTo(panelW, y + 0.5);
+    ctx.stroke();
   }
 
-  for (let i = 0; i < 13; i++) {
-    const x = panelW * (0.08 + i * 0.055);
-    ctx.beginPath();
-    ctx.moveTo(x, height * 0.12);
-    ctx.lineTo(x + Math.sin(i) * 36, height * 0.82);
-    stroke(ctx, 0.028);
-  }
-
-  const nodes = [
-    [0.18, 0.28],
-    [0.36, 0.22],
-    [0.52, 0.34],
-    [0.48, 0.64],
-    [0.24, 0.7],
+  const blocks = [
+    [0.08, 0.18, 0.12, 0.08],
+    [0.31, 0.16, 0.2, 0.11],
+    [0.52, 0.28, 0.1, 0.18],
+    [0.1, 0.66, 0.18, 0.12],
+    [0.42, 0.7, 0.16, 0.08],
+    [0.64, 0.52, 0.08, 0.14],
   ] as const;
 
+  blocks.forEach(([x, y, w, h], i) => {
+    const px = x * panelW;
+    const py = y * height;
+    const bw = w * panelW;
+    const bh = h * height;
+    const pulse = 0.06 + Math.max(0, Math.sin(time * 1.6 + i)) * 0.045;
+    ctx.strokeStyle = `rgba(245,245,245,${0.12 + pulse})`;
+    ctx.strokeRect(px, py, bw, bh);
+    ctx.fillStyle = `rgba(245,245,245,${0.018 + pulse * 0.3})`;
+    ctx.fillRect(px, py, bw, bh);
+  });
+
+  ctx.strokeStyle = "rgba(245,245,245,0.13)";
+  ctx.lineWidth = 1.2;
   ctx.beginPath();
-  nodes.forEach(([x, y], i) => {
-    const px = x * panelW;
-    const py = y * height;
-    if (i === 0) ctx.moveTo(px, py);
-    else ctx.lineTo(px, py);
-  });
-  ctx.closePath();
-  stroke(ctx, 0.13, 1.2);
+  ctx.moveTo(panelW * 0.14, height * 0.22);
+  ctx.lineTo(panelW * 0.42, height * 0.22);
+  ctx.lineTo(panelW * 0.58, height * 0.37);
+  ctx.lineTo(panelW * 0.58, height * 0.58);
+  ctx.lineTo(panelW * 0.3, height * 0.72);
+  ctx.lineTo(panelW * 0.16, height * 0.72);
+  ctx.stroke();
 
-  nodes.forEach(([x, y], i) => {
-    const px = x * panelW;
-    const py = y * height;
-    const pulse = 0.22 + Math.sin(time * 2 + i) * 0.06;
-    ctx.fillStyle = `rgba(245,245,245,${pulse})`;
-    ctx.beginPath();
-    ctx.arc(px, py, 3, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  for (let i = 0; i < nodes.length; i++) {
-    const a = nodes[i];
-    const b = nodes[(i + 1) % nodes.length];
-    const phase = (time * 0.22 + i * 0.19) % 1;
-    const x = (a[0] + (b[0] - a[0]) * phase) * panelW;
-    const y = (a[1] + (b[1] - a[1]) * phase) * height;
-    ctx.fillStyle = "rgba(255,255,255,0.62)";
+  for (let i = 0; i < 7; i++) {
+    const phase = (time * 0.16 + i * 0.137) % 1;
+    const x = panelW * (0.12 + phase * 0.52);
+    const y = height * (0.19 + ((i * 0.17 + phase * 0.45) % 0.55));
+    ctx.fillStyle = "rgba(255,255,255,0.58)";
     ctx.fillRect(x - 2, y - 2, 4, 4);
   }
 
-  const gradient = ctx.createLinearGradient(panelW * 0.2, 0, panelW, 0);
-  gradient.addColorStop(0, "rgba(255,255,255,0.02)");
-  gradient.addColorStop(0.55, "rgba(255,255,255,0.055)");
-  gradient.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, panelW, height);
+  ctx.fillStyle = "rgba(245,245,245,0.06)";
+  for (let i = 0; i < 24; i++) {
+    const x = panelW * (0.06 + ((i * 0.073) % 0.72));
+    const y = height * (0.1 + ((i * 0.119 + time * 0.018) % 0.74));
+    ctx.fillRect(x, y, 18 + (i % 4) * 12, 1);
+  }
+
+  const scanGradient = ctx.createLinearGradient(0, scan - 50, 0, scan + 50);
+  scanGradient.addColorStop(0, "rgba(255,255,255,0)");
+  scanGradient.addColorStop(0.5, "rgba(255,255,255,0.075)");
+  scanGradient.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = scanGradient;
+  ctx.fillRect(0, scan - 50, panelW, 100);
+
+  ctx.fillStyle = "rgba(0,0,0,0.12)";
+  for (let y = 0; y < height; y += 4) {
+    ctx.fillRect(0, y, panelW, 1);
+  }
 }
 
 export default function Hero({ t }: { t: Content }) {
@@ -118,7 +114,7 @@ export default function Hero({ t }: { t: Content }) {
     const frame = (now: number) => {
       const rect = canvas.getBoundingClientRect();
       if (visible && now - lastFrame > 66) {
-        renderTopoBackdrop(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
+        renderWatchBackdrop(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
         lastFrame = now;
       }
       raf = requestAnimationFrame(frame);
