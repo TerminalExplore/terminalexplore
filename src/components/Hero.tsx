@@ -1,10 +1,17 @@
 import { useEffect, useRef } from "react";
 import type { Content } from "../content";
 
-const RAMP = " .:-=+*#%@";
-const WIRE = ["/", "=", "\\", "|", "\\", "/", "+", "-", "|", "."];
+function stroke(
+  ctx: CanvasRenderingContext2D,
+  alpha: number,
+  width = 1
+) {
+  ctx.strokeStyle = `rgba(235,235,235,${alpha})`;
+  ctx.lineWidth = width;
+  ctx.stroke();
+}
 
-function renderAsciiBackdrop(
+function renderTopoBackdrop(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
@@ -13,53 +20,77 @@ function renderAsciiBackdrop(
   ctx.fillStyle = "#0a0a0c";
   ctx.fillRect(0, 0, width, height);
 
-  const panelW = width * 0.58;
-  const cellW = 8;
-  const cellH = 14;
-  const cols = Math.ceil(panelW / cellW);
-  const rows = Math.ceil(height / cellH);
-  const phase = Math.floor(time * 8);
+  const panelW = width * 0.6;
+  const cx = panelW * 0.48;
+  const cy = height * 0.5;
+  const drift = time * 0.18;
 
-  ctx.font = "13px 'JetBrains Mono', 'Fira Code', monospace";
-  ctx.textBaseline = "top";
-  ctx.textAlign = "left";
-
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      const px = x / cols;
-      const py = y / rows;
-      const titleZone = px > 0.18 && px < 0.86 && py > 0.32 && py < 0.68;
-      const edgeZone = px < 0.08 || px > 0.9 || py < 0.12 || py > 0.8;
-      const ring =
-        Math.abs(px - 0.53) * 1.55 +
-        Math.abs(py - 0.5) * 1.12 +
-        Math.sin(x * 0.18 + y * 0.09 + time * 0.45) * 0.06;
-
-      let alpha = edgeZone ? 0.105 : 0.052;
-      if (titleZone) alpha *= 0.18;
-      if (ring > 0.43 && ring < 0.56) alpha += titleZone ? 0.01 : 0.07;
-      if ((x + phase) % 23 === 0 && y % 5 === 0) alpha += 0.045;
-      if (px > 0.86) alpha *= 0.35;
-
-      if (alpha < 0.018) continue;
-
-      const rampIndex = Math.abs((x * 7 + y * 11 + phase) % RAMP.length);
-      const ch =
-        x % 19 === 0 || y % 9 === 0
-          ? WIRE[Math.abs(x + y + phase) % WIRE.length]
-          : RAMP[rampIndex];
-
-      ctx.fillStyle = `rgba(232,232,232,${Math.min(alpha, 0.22)})`;
-      ctx.fillText(ch, x * cellW, y * cellH);
+  for (let i = 0; i < 9; i++) {
+    const rx = panelW * (0.18 + i * 0.046);
+    const ry = height * (0.14 + i * 0.032);
+    ctx.beginPath();
+    for (let a = 0; a <= Math.PI * 2 + 0.08; a += 0.08) {
+      const wobble = Math.sin(a * 3 + i * 0.7 + drift) * 8 + Math.cos(a * 5 - drift) * 4;
+      const x = cx + Math.cos(a) * (rx + wobble);
+      const y = cy + Math.sin(a) * (ry + wobble * 0.55);
+      if (a === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
     }
+    stroke(ctx, 0.035 + i * 0.011);
   }
 
-  const panelRight = panelW - cellW * 3;
-  ctx.fillStyle = "rgba(245,245,245,0.14)";
-  ctx.fillText("+-- deploy / api / monitor", panelW * 0.13, height * 0.25);
-  ctx.fillText("+-- containers: healthy", panelW * 0.6, height * 0.72);
-  ctx.fillStyle = "rgba(245,245,245,0.08)";
-  ctx.fillRect(panelRight, height * 0.1, 1, height * 0.74);
+  for (let i = 0; i < 13; i++) {
+    const x = panelW * (0.08 + i * 0.055);
+    ctx.beginPath();
+    ctx.moveTo(x, height * 0.12);
+    ctx.lineTo(x + Math.sin(i) * 36, height * 0.82);
+    stroke(ctx, 0.028);
+  }
+
+  const nodes = [
+    [0.18, 0.28],
+    [0.36, 0.22],
+    [0.52, 0.34],
+    [0.48, 0.64],
+    [0.24, 0.7],
+  ] as const;
+
+  ctx.beginPath();
+  nodes.forEach(([x, y], i) => {
+    const px = x * panelW;
+    const py = y * height;
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  });
+  ctx.closePath();
+  stroke(ctx, 0.13, 1.2);
+
+  nodes.forEach(([x, y], i) => {
+    const px = x * panelW;
+    const py = y * height;
+    const pulse = 0.22 + Math.sin(time * 2 + i) * 0.06;
+    ctx.fillStyle = `rgba(245,245,245,${pulse})`;
+    ctx.beginPath();
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  for (let i = 0; i < nodes.length; i++) {
+    const a = nodes[i];
+    const b = nodes[(i + 1) % nodes.length];
+    const phase = (time * 0.22 + i * 0.19) % 1;
+    const x = (a[0] + (b[0] - a[0]) * phase) * panelW;
+    const y = (a[1] + (b[1] - a[1]) * phase) * height;
+    ctx.fillStyle = "rgba(255,255,255,0.62)";
+    ctx.fillRect(x - 2, y - 2, 4, 4);
+  }
+
+  const gradient = ctx.createLinearGradient(panelW * 0.2, 0, panelW, 0);
+  gradient.addColorStop(0, "rgba(255,255,255,0.02)");
+  gradient.addColorStop(0.55, "rgba(255,255,255,0.055)");
+  gradient.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, panelW, height);
 }
 
 export default function Hero({ t }: { t: Content }) {
@@ -87,7 +118,7 @@ export default function Hero({ t }: { t: Content }) {
     const frame = (now: number) => {
       const rect = canvas.getBoundingClientRect();
       if (visible && now - lastFrame > 66) {
-        renderAsciiBackdrop(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
+        renderTopoBackdrop(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
         lastFrame = now;
       }
       raf = requestAnimationFrame(frame);
