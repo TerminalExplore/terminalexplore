@@ -1,0 +1,46 @@
+services:
+  web:
+    ports: []
+    expose:
+      - "80"
+
+  api:
+    environment:
+      NODE_ENV: production
+      SITE_URL: ${SITE_URL:?Set SITE_URL in .env}
+      UPLOAD_DIR: /app/data/uploads
+      BACKUP_DIR: /app/data/backups
+
+  caddy:
+    image: caddy:2.8-alpine
+    depends_on:
+      - web
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?Set SITE_DOMAIN in .env}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    restart: unless-stopped
+
+  backup:
+    image: alpine:3.20
+    command: >
+      sh -c "while true; do
+      mkdir -p /backups;
+      cp /data/blog.db /backups/blog-$$(date -u +%Y%m%dT%H%M%SZ).db 2>/dev/null || true;
+      find /backups -name 'blog-*.db' -type f -mtime +14 -delete;
+      sleep 86400;
+      done"
+    volumes:
+      - blog-data:/data:ro
+      - blog-backups:/backups
+    restart: unless-stopped
+
+volumes:
+  caddy-data:
+  caddy-config:
+  blog-backups:

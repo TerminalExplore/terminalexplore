@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.log
+.env
+
+api/node_modules/
+api/data/
+api/blog.db
+api/blog.db-shm
+api/blog.db-wal
+
+dist-site.tar.gz
