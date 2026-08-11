@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import type { Content } from "../content";
 
 const RAMP = " .:-=+*#%@";
-const WIRE = ["╔", "═", "╗", "║", "╚", "╝", "+", "-", "|", "."];
+const WIRE = ["/", "=", "\\", "|", "\\", "/", "+", "-", "|", "."];
 
 function renderAsciiBackdrop(
   ctx: CanvasRenderingContext2D,
@@ -13,9 +13,10 @@ function renderAsciiBackdrop(
   ctx.fillStyle = "#0a0a0c";
   ctx.fillRect(0, 0, width, height);
 
+  const panelW = width * 0.58;
   const cellW = 8;
   const cellH = 14;
-  const cols = Math.ceil(width / cellW);
+  const cols = Math.ceil(panelW / cellW);
   const rows = Math.ceil(height / cellH);
   const phase = Math.floor(time * 8);
 
@@ -27,17 +28,18 @@ function renderAsciiBackdrop(
     for (let x = 0; x < cols; x++) {
       const px = x / cols;
       const py = y / rows;
-      const titleZone = px > 0.13 && px < 0.59 && py > 0.31 && py < 0.68;
-      const edgeZone = px < 0.1 || px > 0.62 || py < 0.12 || py > 0.78;
+      const titleZone = px > 0.18 && px < 0.86 && py > 0.32 && py < 0.68;
+      const edgeZone = px < 0.08 || px > 0.9 || py < 0.12 || py > 0.8;
       const ring =
-        Math.abs(px - 0.36) * 1.6 + Math.abs(py - 0.5) * 1.15 +
+        Math.abs(px - 0.53) * 1.55 +
+        Math.abs(py - 0.5) * 1.12 +
         Math.sin(x * 0.18 + y * 0.09 + time * 0.45) * 0.06;
 
-      let alpha = edgeZone ? 0.11 : 0.055;
-      if (titleZone) alpha *= 0.26;
-      if (ring > 0.46 && ring < 0.58) alpha += titleZone ? 0.012 : 0.065;
-      if ((x + phase) % 23 === 0 && y % 5 === 0) alpha += 0.055;
-      if (px > 0.72) alpha *= 0.25;
+      let alpha = edgeZone ? 0.105 : 0.052;
+      if (titleZone) alpha *= 0.18;
+      if (ring > 0.43 && ring < 0.56) alpha += titleZone ? 0.01 : 0.07;
+      if ((x + phase) % 23 === 0 && y % 5 === 0) alpha += 0.045;
+      if (px > 0.86) alpha *= 0.35;
 
       if (alpha < 0.018) continue;
 
@@ -52,16 +54,19 @@ function renderAsciiBackdrop(
     }
   }
 
-  ctx.fillStyle = "rgba(245,245,245,0.18)";
-  ctx.fillText("┌─ deploy / api / monitor", width * 0.11, height * 0.25);
-  ctx.fillText("└─ containers: healthy", width * 0.41, height * 0.72);
+  const panelRight = panelW - cellW * 3;
+  ctx.fillStyle = "rgba(245,245,245,0.14)";
+  ctx.fillText("+-- deploy / api / monitor", panelW * 0.13, height * 0.25);
+  ctx.fillText("+-- containers: healthy", panelW * 0.6, height * 0.72);
+  ctx.fillStyle = "rgba(245,245,245,0.08)";
+  ctx.fillRect(panelRight, height * 0.1, 1, height * 0.74);
 }
 
 export default function Hero({ t }: { t: Content }) {
-  const globeRef = useRef<HTMLCanvasElement>(null);
+  const backdropRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = globeRef.current;
+    const canvas = backdropRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -107,7 +112,7 @@ export default function Hero({ t }: { t: Content }) {
   return (
     <section id="top" className="hero">
       <canvas
-        ref={globeRef}
+        ref={backdropRef}
         id="hero-backdrop"
         width="988"
         height="917"
