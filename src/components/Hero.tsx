@@ -10,19 +10,29 @@ function renderWatchBackdrop(
   ctx.fillStyle = "#0a0a0c";
   ctx.fillRect(0, 0, width, height);
 
-  const panelW = width * 0.62;
+  const panelW = width * 0.76;
+  const solidW = width * 0.54;
   const step = 42;
   const scan = (time * 55) % (height + 160) - 80;
+  const fadeAlpha = (x: number) => {
+    if (x <= solidW) return 1;
+    return Math.max(0, 1 - (x - solidW) / (panelW - solidW));
+  };
 
-  ctx.strokeStyle = "rgba(235,235,235,0.035)";
   ctx.lineWidth = 1;
   for (let x = 0; x < panelW; x += step) {
+    ctx.strokeStyle = `rgba(235,235,235,${0.035 * fadeAlpha(x)})`;
     ctx.beginPath();
     ctx.moveTo(x + 0.5, 0);
     ctx.lineTo(x + 0.5, height);
     ctx.stroke();
   }
   for (let y = 0; y < height; y += step) {
+    const gradient = ctx.createLinearGradient(0, 0, panelW, 0);
+    gradient.addColorStop(0, "rgba(235,235,235,0.035)");
+    gradient.addColorStop(solidW / panelW, "rgba(235,235,235,0.035)");
+    gradient.addColorStop(1, "rgba(235,235,235,0)");
+    ctx.strokeStyle = gradient;
     ctx.beginPath();
     ctx.moveTo(0, y + 0.5);
     ctx.lineTo(panelW, y + 0.5);
@@ -42,9 +52,10 @@ function renderWatchBackdrop(
     const bw = w * panelW;
     const bh = h * height;
     const pulse = 0.06 + Math.max(0, Math.sin(time * 1.6 + i)) * 0.045;
-    ctx.strokeStyle = `rgba(245,245,245,${0.12 + pulse})`;
+    const fade = fadeAlpha(px + bw);
+    ctx.strokeStyle = `rgba(245,245,245,${(0.12 + pulse) * fade})`;
     ctx.strokeRect(px, py, bw, bh);
-    ctx.fillStyle = `rgba(245,245,245,${0.018 + pulse * 0.3})`;
+    ctx.fillStyle = `rgba(245,245,245,${(0.018 + pulse * 0.3) * fade})`;
     ctx.fillRect(px, py, bw, bh);
   });
 
@@ -59,7 +70,8 @@ function renderWatchBackdrop(
     const py = y * height;
     const rw = w * panelW;
     const rh = h * height;
-    ctx.strokeStyle = "rgba(245,245,245,0.16)";
+    const rackFade = fadeAlpha(px + rw);
+    ctx.strokeStyle = `rgba(245,245,245,${0.16 * rackFade})`;
     ctx.lineWidth = 1;
     ctx.strokeRect(px, py, rw, rh);
     ctx.fillStyle = "rgba(245,245,245,0.018)";
@@ -68,7 +80,7 @@ function renderWatchBackdrop(
     const units = 9;
     for (let u = 1; u < units; u++) {
       const uy = py + (rh / units) * u;
-      ctx.strokeStyle = "rgba(245,245,245,0.075)";
+      ctx.strokeStyle = `rgba(245,245,245,${0.075 * rackFade})`;
       ctx.beginPath();
       ctx.moveTo(px + 6, uy);
       ctx.lineTo(px + rw - 6, uy);
@@ -78,14 +90,18 @@ function renderWatchBackdrop(
     for (let u = 0; u < units; u++) {
       const uy = py + (rh / units) * u + rh / units / 2;
       const pulse = 0.18 + Math.max(0, Math.sin(time * 2.2 + rackIndex + u * 0.7)) * 0.18;
-      ctx.fillStyle = `rgba(245,245,245,${pulse})`;
+      ctx.fillStyle = `rgba(245,245,245,${pulse * rackFade})`;
       ctx.fillRect(px + rw - 13, uy - 1.5, 3, 3);
-      ctx.fillStyle = "rgba(245,245,245,0.1)";
+      ctx.fillStyle = `rgba(245,245,245,${0.1 * rackFade})`;
       ctx.fillRect(px + 9, uy - 1, rw * 0.34, 2);
     }
   });
 
-  ctx.strokeStyle = "rgba(245,245,245,0.13)";
+  const routeGradient = ctx.createLinearGradient(0, 0, panelW, 0);
+  routeGradient.addColorStop(0, "rgba(245,245,245,0.13)");
+  routeGradient.addColorStop(solidW / panelW, "rgba(245,245,245,0.13)");
+  routeGradient.addColorStop(1, "rgba(245,245,245,0)");
+  ctx.strokeStyle = routeGradient;
   ctx.lineWidth = 1.2;
   ctx.beginPath();
   ctx.moveTo(panelW * 0.14, height * 0.22);
@@ -109,23 +125,23 @@ function renderWatchBackdrop(
     const [a, b] = route;
     const x = (a[0] + (b[0] - a[0]) * phase) * panelW;
     const y = (a[1] + (b[1] - a[1]) * phase) * height;
-    ctx.fillStyle = "rgba(255,255,255,0.58)";
+    ctx.fillStyle = `rgba(255,255,255,${0.58 * fadeAlpha(x)})`;
     ctx.fillRect(x - 2, y - 2, 4, 4);
   });
 
-  ctx.fillStyle = "rgba(245,245,245,0.06)";
   for (let i = 0; i < 24; i++) {
     const x = panelW * (0.06 + ((i * 0.073) % 0.72));
     const y = height * (0.1 + ((i * 0.119 + time * 0.018) % 0.74));
+    ctx.fillStyle = `rgba(245,245,245,${0.06 * fadeAlpha(x)})`;
     ctx.fillRect(x, y, 18 + (i % 4) * 12, 1);
   }
 
   const scanGradient = ctx.createLinearGradient(0, scan - 50, 0, scan + 50);
   scanGradient.addColorStop(0, "rgba(255,255,255,0)");
-  scanGradient.addColorStop(0.5, "rgba(255,255,255,0.075)");
+  scanGradient.addColorStop(0.5, "rgba(255,255,255,0.065)");
   scanGradient.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = scanGradient;
-  ctx.fillRect(0, scan - 50, panelW, 100);
+  ctx.fillRect(0, scan - 50, solidW, 100);
 
   ctx.fillStyle = "rgba(0,0,0,0.12)";
   for (let y = 0; y < height; y += 4) {
