@@ -1,105 +1,87 @@
 import { useEffect, useRef } from "react";
 import type { Content } from "../content";
 
-const RAMP = " .:-=+*#%@";
+function line(
+  ctx: CanvasRenderingContext2D,
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  alpha: number,
+  width = 1
+) {
+  ctx.strokeStyle = `rgba(235,235,235,${alpha})`;
+  ctx.lineWidth = width;
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+}
 
-function renderGlobe(
+function renderOpsBackdrop(
   ctx: CanvasRenderingContext2D,
   width: number,
   height: number,
   time: number
 ) {
-  const cols = Math.floor(width / 7);
-  const rows = Math.floor(height / 14);
-  if (cols < 1 || rows < 1) return;
-
-  const buf: { ch: string; lum: number }[] = new Array(cols * rows);
-
-  const cellW = 7;
-  const cellH = 14;
-  const rPix = width * 0.5;
-  const cxPix = 0;
-  const cyPix = height * 0.5;
-
-  const rot = time * 0.4;
-  const cosR = Math.cos(rot);
-  const sinR = Math.sin(rot);
-  const tilt = 0.42;
-  const cosT = Math.cos(tilt);
-  const sinT = Math.sin(tilt);
-
-  const period = cols * 1.6;
-  const chars = RAMP.length - 1;
-
-  for (let j = 0; j < rows; j++) {
-    const yp = (j * cellH - cyPix) / rPix;
-    if (yp < -1 || yp > 1) continue;
-    const sinLat = yp;
-    const cosLat = Math.sqrt(1 - sinLat * sinLat);
-    const lat = Math.asin(sinLat);
-
-    for (let i = 0; i < cols; i++) {
-      const xp = (i * cellW - cxPix) / rPix;
-      const d2 = xp * xp + sinLat * sinLat;
-      if (d2 > 1) continue;
-
-      const cosLon = cosLat === 0 ? 0 : xp / cosLat;
-      let lon = Math.acos(Math.max(-1, Math.min(1, cosLon)));
-      if (i * cellW - cxPix < 0) lon = -lon;
-
-      const y3 = Math.cos(lat) * Math.cos(lon);
-      const z3 = Math.cos(lat) * Math.sin(lon) * sinR + Math.sin(lat) * cosR;
-
-      const zt = y3 * sinT + z3 * cosT;
-
-      if (zt < 0) continue;
-
-      const xt = Math.cos(lat) * Math.sin(lon) * cosR - Math.sin(lat) * sinR;
-      const yt = y3 * cosT - z3 * sinT;
-
-      const u = (lon + Math.PI) / (2 * Math.PI);
-      const v = (lat + Math.PI / 2) / Math.PI;
-      const checker =
-        Math.floor(u * period) % 2 === Math.floor(v * period * 0.5) % 2 ? 1 : 0.5;
-
-      const nx = Math.cos(lat) * Math.sin(lon);
-      const nz = Math.cos(lat) * Math.cos(lon);
-      const lx = 0.45;
-      const ly = 0.55;
-      const lz = 0.72;
-      const llen = Math.sqrt(lx * lx + ly * ly + lz * lz);
-      let diffuse = (nx * lx + Math.sin(lat) * ly + nz * lz) / llen;
-      diffuse = Math.max(0, diffuse);
-
-      const edge = Math.sqrt(xt * xt + yt * yt);
-      const limb = Math.pow(zt, 0.55) * (1 - edge * 0.18);
-
-      const lum = checker * (diffuse * 0.7 + 0.22) * limb;
-      const idx = Math.round(lum * chars);
-      const ch = RAMP[Math.max(0, Math.min(chars, idx))];
-
-      const bi = j * cols + i;
-      if (!buf[bi] || buf[bi].lum < lum) {
-        buf[bi] = { ch, lum };
-      }
-    }
-  }
-
   ctx.fillStyle = "#0a0a0c";
   ctx.fillRect(0, 0, width, height);
-  ctx.font = "14px 'JetBrains Mono', 'Fira Code', monospace";
-  ctx.textBaseline = "top";
-  ctx.textAlign = "left";
 
-  for (let j = 0; j < rows; j++) {
-    for (let i = 0; i < cols; i++) {
-      const cell = buf[j * cols + i];
-      if (!cell || cell.ch === " ") continue;
-      const lum = cell.lum;
-      const val = Math.round(232 * lum);
-      ctx.fillStyle = `rgb(${val},${val},${val})`;
-      ctx.fillText(cell.ch, i * 7, j * 14);
-    }
+  const cx = width * 0.48;
+  const horizon = height * 0.26;
+  const floor = height * 0.9;
+  const drift = (time * 34) % 48;
+
+  for (let i = -18; i <= 18; i++) {
+    const x = cx + i * 54;
+    line(ctx, x, floor, cx + i * 8, horizon, 0.055);
+  }
+
+  for (let i = 0; i < 18; i++) {
+    const p = i / 17;
+    const y = horizon + Math.pow(p, 1.85) * (floor - horizon) + drift * p * 0.18;
+    line(ctx, width * 0.02, y, width * 0.78, y, 0.05 + p * 0.04);
+  }
+
+  const nodes = [
+    [0.18, 0.28],
+    [0.31, 0.42],
+    [0.47, 0.31],
+    [0.58, 0.5],
+    [0.39, 0.66],
+    [0.68, 0.36],
+  ] as const;
+
+  for (let i = 0; i < nodes.length - 1; i++) {
+    const [ax, ay] = nodes[i];
+    const [bx, by] = nodes[i + 1];
+    line(ctx, ax * width, ay * height, bx * width, by * height, 0.14, 1.2);
+
+    const phase = (time * 0.28 + i * 0.17) % 1;
+    const px = (ax + (bx - ax) * phase) * width;
+    const py = (ay + (by - ay) * phase) * height;
+    ctx.fillStyle = "rgba(245,245,245,0.78)";
+    ctx.fillRect(px - 2, py - 2, 4, 4);
+  }
+
+  ctx.font = "11px 'JetBrains Mono', 'Fira Code', monospace";
+  ctx.textBaseline = "middle";
+  for (let i = 0; i < nodes.length; i++) {
+    const [x, y] = nodes[i];
+    const pulse = 0.22 + Math.sin(time * 2 + i) * 0.08;
+    ctx.strokeStyle = `rgba(245,245,245,${pulse})`;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x * width - 13, y * height - 13, 26, 26);
+    ctx.fillStyle = "rgba(245,245,245,0.42)";
+    ctx.fillText(`n${i + 1}`, x * width + 18, y * height);
+  }
+
+  for (let i = 0; i < 34; i++) {
+    const x = ((i * 97) % Math.floor(width * 0.82)) + width * 0.04;
+    const y = ((i * 53 + time * 16) % Math.floor(height * 0.72)) + height * 0.08;
+    const w = 16 + (i % 5) * 9;
+    ctx.fillStyle = `rgba(235,235,235,${0.025 + (i % 3) * 0.012})`;
+    ctx.fillRect(x, y, w, 1);
   }
 }
 
@@ -128,7 +110,7 @@ export default function Hero({ t }: { t: Content }) {
     const frame = (now: number) => {
       const rect = canvas.getBoundingClientRect();
       if (visible && now - lastFrame > 66) {
-        renderGlobe(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
+        renderOpsBackdrop(ctx, rect.width, rect.height, reducedMotion ? 0 : now / 1000);
         lastFrame = now;
       }
       raf = requestAnimationFrame(frame);
@@ -154,7 +136,7 @@ export default function Hero({ t }: { t: Content }) {
     <section id="top" className="hero">
       <canvas
         ref={globeRef}
-        id="hero-globe"
+        id="hero-backdrop"
         width="988"
         height="917"
         aria-hidden="true"
