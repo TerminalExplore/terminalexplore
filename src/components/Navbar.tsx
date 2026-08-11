@@ -1,4 +1,5 @@
 import type { Content, Lang } from "../content";
+import Logo from "./Logo";
 
 interface Props {
   t: Content;
@@ -12,7 +13,10 @@ export default function Navbar({ t, lang, setLang }: Props) {
     <nav className="nav">
       <div className="nav-inner">
         <a href="#top" className="nav-logo">
-          {nav.brand}
+          <span className="nav-logo-mark">
+            <Logo size={18} />
+          </span>
+          <span>{nav.brand}</span>
         </a>
         <div className="nav-links">
           {nav.links.map((l) => (
