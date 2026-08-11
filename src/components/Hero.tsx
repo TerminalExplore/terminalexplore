@@ -59,10 +59,26 @@ function renderWatchBackdrop(
     ctx.fillRect(px, py, bw, bh);
   });
 
+  const coreX = panelW * 0.38;
+  const coreY = height * 0.47;
+  const coreW = panelW * 0.2;
+  const coreH = height * 0.16;
+  const coreFade = fadeAlpha(coreX + coreW);
+  ctx.strokeStyle = `rgba(255,255,255,${0.22 * coreFade})`;
+  ctx.lineWidth = 1.4;
+  ctx.strokeRect(coreX, coreY, coreW, coreH);
+  ctx.fillStyle = `rgba(255,255,255,${0.035 * coreFade})`;
+  ctx.fillRect(coreX, coreY, coreW, coreH);
+  ctx.fillStyle = `rgba(255,255,255,${0.2 * coreFade})`;
+  ctx.font = "10px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("CORE / EDGE", coreX + 12, coreY + 18);
+  ctx.fillText("latency 04ms", coreX + 12, coreY + coreH - 16);
+
   const racks = [
     [0.5, 0.18, 0.09, 0.44],
     [0.62, 0.28, 0.085, 0.38],
     [0.2, 0.34, 0.1, 0.36],
+    [0.08, 0.28, 0.075, 0.46],
   ] as const;
 
   racks.forEach(([x, y, w, h], rackIndex) => {
@@ -71,11 +87,18 @@ function renderWatchBackdrop(
     const rw = w * panelW;
     const rh = h * height;
     const rackFade = fadeAlpha(px + rw);
-    ctx.strokeStyle = `rgba(245,245,245,${0.16 * rackFade})`;
+    ctx.strokeStyle = `rgba(245,245,245,${0.18 * rackFade})`;
     ctx.lineWidth = 1;
     ctx.strokeRect(px, py, rw, rh);
     ctx.fillStyle = "rgba(245,245,245,0.018)";
     ctx.fillRect(px, py, rw, rh);
+    ctx.strokeStyle = `rgba(245,245,245,${0.08 * rackFade})`;
+    ctx.beginPath();
+    ctx.moveTo(px + rw, py);
+    ctx.lineTo(px + rw + 14 * rackFade, py + 14);
+    ctx.lineTo(px + rw + 14 * rackFade, py + rh + 14);
+    ctx.lineTo(px + rw, py + rh);
+    ctx.stroke();
 
     const units = 9;
     for (let u = 1; u < units; u++) {
@@ -95,6 +118,10 @@ function renderWatchBackdrop(
       ctx.fillStyle = `rgba(245,245,245,${0.1 * rackFade})`;
       ctx.fillRect(px + 9, uy - 1, rw * 0.34, 2);
     }
+
+    ctx.fillStyle = `rgba(245,245,245,${0.16 * rackFade})`;
+    ctx.font = "9px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(`RACK-0${rackIndex + 1}`, px + 6, py - 12);
   });
 
   const routeGradient = ctx.createLinearGradient(0, 0, panelW, 0);
@@ -118,6 +145,9 @@ function renderWatchBackdrop(
     [[0.5, 0.4], [0.63, 0.47]],
     [[0.5, 0.56], [0.3, 0.72]],
     [[0.42, 0.22], [0.55, 0.18]],
+    [[0.12, 0.51], [0.38, 0.55]],
+    [[0.48, 0.48], [0.68, 0.56]],
+    [[0.31, 0.38], [0.45, 0.48]],
   ] as const;
 
   packetRoutes.forEach((route, i) => {
@@ -127,6 +157,25 @@ function renderWatchBackdrop(
     const y = (a[1] + (b[1] - a[1]) * phase) * height;
     ctx.fillStyle = `rgba(255,255,255,${0.58 * fadeAlpha(x)})`;
     ctx.fillRect(x - 2, y - 2, 4, 4);
+  });
+
+  const alerts = [
+    [0.08, 0.14, "SSH"],
+    [0.57, 0.2, "API"],
+    [0.17, 0.78, "DB"],
+    [0.66, 0.72, "TLS"],
+  ] as const;
+
+  alerts.forEach(([x, y, label], i) => {
+    const px = x * panelW;
+    const py = y * height;
+    const fade = fadeAlpha(px + 64);
+    const blink = 0.18 + Math.max(0, Math.sin(time * 2.8 + i)) * 0.12;
+    ctx.strokeStyle = `rgba(255,255,255,${blink * fade})`;
+    ctx.strokeRect(px, py, 58, 22);
+    ctx.fillStyle = `rgba(255,255,255,${0.18 * fade})`;
+    ctx.font = "9px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(label, px + 8, py + 14);
   });
 
   for (let i = 0; i < 24; i++) {
