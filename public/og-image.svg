@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">TerminalExplore - Web projects in production</title>
+  <desc id="desc">Monochrome TerminalExplore link preview with an ASCII sphere background.</desc>
+  <rect width="1200" height="630" fill="#0a0a0c"/>
+  <defs>
+    <pattern id="scan" width="1" height="6" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" fill="#ffffff" opacity="0.05"/>
+    </pattern>
+    <radialGradient id="glow" cx="42%" cy="54%" r="56%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.09"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.035"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" x2="1">
+      <stop offset="0" stop-color="#0a0a0c" stop-opacity="0.1"/>
+      <stop offset="0.64" stop-color="#0a0a0c" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#scan)" opacity="0.85"/>
+  <circle cx="495" cy="342" r="330" fill="url(#glow)"/>
+  <g font-family="'JetBrains Mono', 'Fira Code', Consolas, monospace" font-size="15" fill="#dcdcdc" opacity="0.28">
+    <text x="-28" y="86">········································································</text>
+    <text x="96" y="196">-- -- -- -- -- -- -- -- == == == == == == == == == == == == == -- -- --</text>
+    <text x="70" y="218">-- -- -- -- == == == == == == == == == == == == == == == == == == == -- --</text>
+    <text x="48" y="240">-- -- == == == == == == == == ++ ++ ++ ++ ++ == == == == == == == == == --</text>
+    <text x="26" y="262">-- == == == == == == ++ ++ ++ ++ ++ ++ ++ ++ ++ ++ ++ == == == == == == --</text>
+    <text x="12" y="284">== == == == == ++ ++ ++ ++ ++ ** ** ** ** ** ++ ++ ++ ++ ++ == == == == ==</text>
+    <text x="0" y="306">== == == ++ ++ ++ ++ ** ** ** ** ** ** ** ** ** ** ** ++ ++ ++ ++ == == ==</text>
+    <text x="-4" y="328">== == ++ ++ ++ ** ** ** ** ## ## ## ## ## ** ** ** ** ++ ++ ++ == == ==</text>
+    <text x="0" y="350">== == ++ ++ ** ** ** ## ## ## %% %% ## ## ## ** ** ** ++ ++ == == ==</text>
+    <text x="12" y="372">== == ++ ++ ** ** ## ## %% %% @@ %% %% ## ## ** ** ++ ++ == ==</text>
+    <text x="26" y="394">-- == == ++ ++ ** ** ## ## %% %% %% ## ## ** ** ++ ++ == == --</text>
+    <text x="48" y="416">-- -- == == ++ ++ ** ** ## ## ## ## ** ** ++ ++ == == -- --</text>
+    <text x="70" y="438">-- -- -- == == ++ ++ ** ** ** ** ** ++ ++ == == -- -- --</text>
+    <text x="96" y="460">-- -- -- -- == == ++ ++ ++ ++ ++ == == -- -- -- --</text>
+    <text x="124" y="482">·· -- -- -- -- == == == == == -- -- -- -- ··</text>
+  </g>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+  <g transform="translate(66 91)">
+    <circle cx="10" cy="10" r="5" fill="#e8e6e3"/>
+    <circle cx="10" cy="10" r="13" fill="#e8e6e3" opacity="0.08"/>
+    <text x="28" y="16" font-family="'JetBrains Mono', 'Fira Code', Consolas, monospace" font-size="20" fill="#d8d8d8">TerminalExplore - code + infra</text>
+  </g>
+  <text x="66" y="236" font-family="'Space Grotesk', Arial, sans-serif" font-size="112" font-weight="700" letter-spacing="-5" fill="#f3f3f3">Web projects</text>
+  <text x="66" y="370" font-family="'Space Grotesk', Arial, sans-serif" font-size="112" font-weight="700" letter-spacing="-5" fill="#f3f3f3">in production</text>
+  <text x="70" y="470" font-family="'JetBrains Mono', 'Fira Code', Consolas, monospace" font-size="21" fill="#8c8c8c">$ React / TypeScript / Node.js</text>
+  <text x="70" y="506" font-family="'JetBrains Mono', 'Fira Code', Consolas, monospace" font-size="21" fill="#8c8c8c">$ Docker, Linux, CI/CD, monitoring</text>
+</svg>
