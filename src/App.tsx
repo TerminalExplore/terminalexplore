@@ -13,6 +13,7 @@ import Admin from "./components/Admin";
 import BlogPostPage from "./components/BlogPostPage";
 import StaticPage from "./components/StaticPage";
 import CasesPage from "./components/CasesPage";
+import LinksPage from "./components/LinksPage";
 import { api } from "./api";
 import { setHomeSeo } from "./seo";
 
@@ -32,6 +33,7 @@ function parsePath(): Route {
 }
 
 const isBlog = window.location.hostname === "blog.tmxpl.ru";
+const isLinks = window.location.hostname === "links.tmxpl.ru";
 
 export default App;
 function App() {
@@ -59,6 +61,10 @@ function App() {
         <Admin />
       </main>
     );
+  }
+
+  if (isLinks) {
+    return <LinksPage />;
   }
 
   if (isBlog) {
