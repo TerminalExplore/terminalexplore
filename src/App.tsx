@@ -80,7 +80,7 @@ function App() {
           <a href="/" className="nav-logo">explore&nbsp;your&nbsp;terminal</a>
         </header>
         <main style={{ paddingTop: "var(--nav-h)" }}>
-          <Blog />
+          <Blog lang={lang} />
         </main>
         <Footer t={t} />
       </div>
@@ -125,7 +125,7 @@ function App() {
         <Hero t={t} />
         <Integration t={t} />
         <Performance t={t} />
-        <Blog />
+        <Blog lang={lang} />
         <Features t={t} />
         <CTA t={t} />
       </main>
