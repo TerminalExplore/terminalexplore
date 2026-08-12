@@ -9,7 +9,7 @@ function formatDate(value: string, lang: Lang) {
   return new Intl.DateTimeFormat(locale, { year: "numeric", month: "short", day: "2-digit" }).format(new Date(value));
 }
 
-export default function Blog({ lang = "en" }: { lang?: Lang }) {
+export default function Blog({ lang = "en", standalone = false }: { lang?: Lang; standalone?: boolean }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const emptyText = lang === "ru" ? "Посты скоро появятся." : "Posts are coming soon.";
   const readText = lang === "ru" ? "читать ->" : "read ->";
@@ -19,13 +19,14 @@ export default function Blog({ lang = "en" }: { lang?: Lang }) {
   }, []);
 
   return (
-    <section id="blog" className="section section--blog">
+    <section id="blog" className={`section section--blog ${standalone ? "section--blog-standalone" : ""}`}>
       <SectionBg type="grid" opacity={0.25} />
       <div className="section-fade section-fade--blog" />
       <div className="container section-z">
         <div className="blog-header">
           <span className="tag-mono">blog</span>
-          <h2>explore your terminal</h2>
+          <h2>{standalone ? "TerminalExplore blog" : "explore your terminal"}</h2>
+          {standalone && <p>Notes on production code, infrastructure and systems that should keep running.</p>}
         </div>
         {posts.length > 0 ? (
           <div className="blog-grid">

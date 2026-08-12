@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Integration from "./components/Integration";
 import Performance from "./components/Performance";
 import Blog from "./components/Blog";
+import BlogHome from "./components/BlogHome";
 import Features from "./components/Features";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
@@ -79,9 +80,7 @@ function App() {
         <header className="blog-navbar">
           <a href="/" className="nav-logo">explore&nbsp;your&nbsp;terminal</a>
         </header>
-        <main style={{ paddingTop: "var(--nav-h)" }}>
-          <Blog lang={lang} />
-        </main>
+        <BlogHome lang={lang} />
         <Footer t={t} />
       </div>
     );
