@@ -339,7 +339,7 @@ export const content: Record<Lang, Content> = {
     },
     hero: {
       eyebrow: "TerminalExplore - code + infra",
-      title: "Code + infra:<br/>built, shipped,<br/>maintained",
+      title: "Web projects<br/>in production",
       right:
         "I build web services and keep infrastructure healthy: frontend, APIs, CI/CD, monitoring, networks, proxies and bots.",
       cta: "View services",
