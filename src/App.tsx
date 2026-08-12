@@ -34,7 +34,7 @@ const isBlog = window.location.hostname === "blog.tmxpl.ru";
 
 export default App;
 function App() {
-  const [lang, setLang] = useState<Lang>("ru");
+  const [lang, setLang] = useState<Lang>("en");
   const [route, setRoute] = useState<Route>(parsePath);
   const t = content[lang];
 
