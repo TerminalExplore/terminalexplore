@@ -181,11 +181,12 @@ function Dashboard({ user, onLogout, onUpdate }: { user: UserInfo; onLogout: () 
       <div className="container">
         <div className="admin-header">
           <div className="admin-header-left">
-            <h2>blog admin</h2>
+            <span className="admin-kicker">control plane</span>
+            <h2>TerminalExplore admin</h2>
             <p>{user.email}</p>
           </div>
           <div className="admin-actions">
-            {tab !== "posts" && <button className="btn-nav" onClick={() => setTab("posts")}>← back</button>}
+            {tab !== "posts" && <button className="btn-nav" onClick={() => setTab("posts")}>back</button>}
             {tab === "posts" && <button className="btn-primary" onClick={startNew}>+ new post</button>}
             <button className="btn-nav" onClick={() => setTab("cases")}>cases</button>
             <button className="btn-nav" onClick={() => setTab("stats")}>stats</button>
@@ -200,12 +201,14 @@ function Dashboard({ user, onLogout, onUpdate }: { user: UserInfo; onLogout: () 
             {posts.length === 0 && <p className="dim-sm">no posts yet.</p>}
             {posts.map((p) => (
               <div className="admin-item" key={p.id} onClick={() => startEdit(p)}>
-                <div className="admin-item-title">{p.title}</div>
+                <div className="admin-item-head">
+                  <div className="admin-item-title">{p.title}</div>
+                  <span className={`badge ${p.published ? "badge-published" : "badge-draft"}`}>{p.published ? "published" : "draft"}</span>
+                </div>
                 <div className="admin-item-excerpt">{p.excerpt}</div>
                 <div className="admin-item-meta">
                   <span>/{p.slug}</span>
                   <span>{p.tag || "notes"}</span>
-                  <span className={`badge ${p.published ? "badge-published" : "badge-draft"}`}>{p.published ? "published" : "draft"}</span>
                   <span>{p.created_at}</span>
                 </div>
                 <div style={{ marginTop: "10px" }}>
@@ -573,7 +576,7 @@ function Settings({ user, onUpdate }: { user: UserInfo; onUpdate: (u: UserInfo) 
       <div className="admin-card">
         <div className="admin-card-title">account</div>
         <SettingsRow label="Email" desc={user.email} button="change" onClick={() => setTab("email")} />
-        <SettingsRow label="Password" desc="••••••••••••" button="change" onClick={() => setTab("password")} />
+        <SettingsRow label="Password" desc="************" button="change" onClick={() => setTab("password")} />
         <SettingsRow label="two-factor auth" desc={user.totpEnabled ? "enabled" : "disabled"} button={user.totpEnabled ? "manage" : "enable"} onClick={() => setTab("2fa")} />
       </div>
 
