@@ -12,6 +12,8 @@ HEIGHT = 405
 SCALE = 2
 FPS = 25
 FRAME_COUNT = 200
+OUTPUT_SCALE = 1
+PALETTE_LEVELS = 64
 BACKGROUND = 8
 RAMP = " .:-=+*#%@"
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -70,7 +72,9 @@ def text_width(draw: ImageDraw.ImageDraw, text: str) -> float:
 
 def draw_globe(draw: ImageDraw.ImageDraw, frame: int) -> None:
     cols = WIDTH // 7
-    rows = HEIGHT // 14
+    # The extra partial row is clipped by the frame and prevents a black strip
+    # below the globe when the canvas height is not divisible by the cell height.
+    rows = math.ceil(HEIGHT / 14)
     cell_w = 7
     cell_h = 14
     radius = WIDTH * 0.5
@@ -267,20 +271,37 @@ def draw_up_arrow(frame: Image.Image, progress: float, opacity: float, bounce: f
     frame.alpha_composite(layer)
 
 
-def grayscale_palette() -> list[int]:
+def grayscale_palette(levels: int) -> list[int]:
     palette: list[int] = []
     for index in range(256):
-        value = min(255, index * 4) if index < 64 else 252
+        value = (
+            round(min(index, levels - 1) * 255 / (levels - 1))
+            if levels > 1
+            else 0
+        )
         palette.extend((value, value, value))
     return palette
 
 
-def to_palette(frame: Image.Image, palette: list[int]) -> Image.Image:
+def to_palette(frame: Image.Image, palette: list[int], levels: int) -> Image.Image:
     gray = frame.convert("RGB").convert("L")
-    quantized = gray.point(lambda value: min(63, round(value / 4)))
+    quantized = gray.point(
+        lambda value: min(levels - 1, round(value * (levels - 1) / 255))
+    )
     paletted = Image.frombytes("P", frame.size, quantized.tobytes())
     paletted.putpalette(palette)
     return paletted
+
+
+def frame_durations(frame_count: int, fps: int) -> list[int]:
+    """Quantize timings to GIF centiseconds while preserving total duration."""
+    durations: list[int] = []
+    elapsed_centiseconds = 0
+    for frame_index in range(frame_count):
+        target_centiseconds = round((frame_index + 1) * 100 / fps)
+        durations.append((target_centiseconds - elapsed_centiseconds) * 10)
+        elapsed_centiseconds = target_centiseconds
+    return durations
 
 
 def foreground_state(frame_index: int) -> dict[str, object]:
@@ -405,23 +426,25 @@ def render_frame(frame_index: int) -> Image.Image:
         draw_pointer(frame, *pointer)
 
     return frame.convert("RGB").resize(
-        (WIDTH, HEIGHT),
+        (WIDTH * OUTPUT_SCALE, HEIGHT * OUTPUT_SCALE),
         resample=Image.Resampling.LANCZOS,
     )
 
 
 def generate(output: Path) -> None:
-    palette = grayscale_palette()
+    palette = grayscale_palette(PALETTE_LEVELS)
     frames: list[Image.Image] = []
     for frame_index in range(FRAME_COUNT):
-        frames.append(to_palette(render_frame(frame_index), palette))
+        frames.append(
+            to_palette(render_frame(frame_index), palette, PALETTE_LEVELS)
+        )
 
     output.parent.mkdir(parents=True, exist_ok=True)
     frames[0].save(
         output,
         save_all=True,
         append_images=frames[1:],
-        duration=round(1000 / FPS),
+        duration=frame_durations(FRAME_COUNT, FPS),
         loop=0,
         disposal=2,
         optimize=True,
@@ -429,15 +452,32 @@ def generate(output: Path) -> None:
 
 
 def main() -> None:
+    global FPS, FRAME_COUNT, OUTPUT_SCALE, PALETTE_LEVELS
+
     parser = argparse.ArgumentParser(description="Generate the Telegram links GIF")
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("public/telegram-links.gif"),
+        default=None,
+    )
+    parser.add_argument(
+        "--preset",
+        choices=("standard", "hq"),
+        default="standard",
     )
     args = parser.parse_args()
-    generate(args.output)
-    print(args.output.resolve())
+
+    if args.preset == "hq":
+        FPS = 30
+        FRAME_COUNT = FPS * 8
+        OUTPUT_SCALE = 2
+        PALETTE_LEVELS = 256
+        output = args.output or Path("public/telegram-links-hq.gif")
+    else:
+        output = args.output or Path("public/telegram-links.gif")
+
+    generate(output)
+    print(output.resolve())
 
 
 if __name__ == "__main__":
