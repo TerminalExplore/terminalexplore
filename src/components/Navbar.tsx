@@ -8,18 +8,23 @@ interface Props {
 
 export default function Navbar({ t, lang, setLang }: Props) {
   const nav = t.nav;
+
+  function scrollToSection(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <a href="#top" className="nav-logo">
+        <button type="button" className="nav-logo" onClick={() => scrollToSection("top")}>
           <span className="nav-logo-prompt">~/</span>
           <span>{nav.brand}</span>
-        </a>
+        </button>
         <div className="nav-links">
           {nav.links.map((l) => (
-            <a key={l.id} href={`#${l.id}`}>
+            <button key={l.id} type="button" onClick={() => scrollToSection(l.id)}>
               {l.label}
-            </a>
+            </button>
           ))}
         </div>
         <div className="nav-actions">
@@ -30,9 +35,9 @@ export default function Navbar({ t, lang, setLang }: Props) {
           >
             {nav.lang}
           </button>
-          <a href="#cta" className="btn-nav">
+          <button type="button" className="btn-nav" onClick={() => scrollToSection("cta")}>
             {nav.signup}
-          </a>
+          </button>
         </div>
       </div>
     </nav>

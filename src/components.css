@@ -20,6 +20,12 @@
 }
 
 .nav-logo {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -44,7 +50,12 @@
   margin-left: auto;
 }
 
-.nav-links a {
+.nav-links button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
   font-size: 0.82rem;
   font-weight: 450;
   color: var(--text-dim);
@@ -52,7 +63,7 @@
   letter-spacing: 0.01em;
 }
 
-.nav-links a:hover {
+.nav-links button:hover {
   color: var(--text);
 }
 
@@ -78,6 +89,9 @@
 }
 
 .btn-nav {
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
   padding: 7px 20px;
