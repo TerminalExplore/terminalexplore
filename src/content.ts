@@ -162,7 +162,7 @@ export const content: Record<Lang, Content> = {
     },
     hero: {
       eyebrow: "TerminalExplore - code + infra",
-      title: "Код + инфра:<br/>разработка и<br/>эксплуатация",
+      title: "Веб-проекты<br/>на проде",
       right:
         "Проектирую веб-сервисы и держу инфраструктуру в рабочем состоянии: фронтенд, API, CI/CD, мониторинг, сети, прокси и боты.",
       cta: "Смотреть услуги",
