@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TerminalExplore OBS Globe</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="globe" aria-hidden="true"></canvas>
+    <script>
+      const RAMP = " .:-=+*#%@";
+      const canvas = document.getElementById("globe");
+      const ctx = canvas.getContext("2d", { alpha: true });
+      const query = new URLSearchParams(window.location.search);
+      const speed = Number(query.get("speed") || "1");
+      const opacity = Math.max(0, Math.min(1, Number(query.get("opacity") || "0.74")));
+      const scale = Math.max(0.35, Math.min(1.4, Number(query.get("scale") || "1")));
+      const fps = Math.max(8, Math.min(30, Number(query.get("fps") || "15")));
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(1, Math.round(window.innerWidth * dpr));
+        canvas.height = Math.max(1, Math.round(window.innerHeight * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function render(width, height, time) {
+        const cellW = 7;
+        const cellH = 14;
+        const cols = Math.floor(width / cellW);
+        const rows = Math.floor(height / cellH);
+        const buf = new Array(cols * rows);
+        const radius = Math.min(width, height) * 0.5 * scale;
+        const cx = width * 0.5 - radius * 0.4;
+        const cy = height * 0.5;
+        const rot = time * 0.4 * speed;
+        const cosR = Math.cos(rot);
+        const sinR = Math.sin(rot);
+        const tilt = 0.42;
+        const cosT = Math.cos(tilt);
+        const sinT = Math.sin(tilt);
+        const chars = RAMP.length - 1;
+        const period = cols * 1.45;
+
+        ctx.clearRect(0, 0, width, height);
+
+        for (let j = 0; j < rows; j++) {
+          const yp = (j * cellH - cy) / radius;
+          if (yp < -1 || yp > 1) continue;
+          const sinLat = yp;
+          const cosLat = Math.sqrt(1 - sinLat * sinLat);
+          const lat = Math.asin(sinLat);
+
+          for (let i = 0; i < cols; i++) {
+            const xp = (i * cellW - cx) / radius;
+            const d2 = xp * xp + sinLat * sinLat;
+            if (d2 > 1) continue;
+
+            const cosLon = cosLat === 0 ? 0 : xp / cosLat;
+            let lon = Math.acos(Math.max(-1, Math.min(1, cosLon)));
+            if (i * cellW - cx < 0) lon = -lon;
+
+            const y3 = Math.cos(lat) * Math.cos(lon);
+            const z3 = Math.cos(lat) * Math.sin(lon) * sinR + Math.sin(lat) * cosR;
+            const zt = y3 * sinT + z3 * cosT;
+            if (zt < 0) continue;
+
+            const xt = Math.cos(lat) * Math.sin(lon) * cosR - Math.sin(lat) * sinR;
+            const yt = y3 * cosT - z3 * sinT;
+            const u = (lon + Math.PI) / (2 * Math.PI);
+            const v = (lat + Math.PI / 2) / Math.PI;
+            const checker = Math.floor(u * period) % 2 === Math.floor(v * period * 0.5) % 2 ? 1 : 0.5;
+            const nx = Math.cos(lat) * Math.sin(lon);
+            const nz = Math.cos(lat) * Math.cos(lon);
+            const lx = 0.45;
+            const ly = 0.55;
+            const lz = 0.72;
+            const llen = Math.sqrt(lx * lx + ly * ly + lz * lz);
+            const diffuse = Math.max(0, (nx * lx + Math.sin(lat) * ly + nz * lz) / llen);
+            const edge = Math.sqrt(xt * xt + yt * yt);
+            const limb = Math.pow(zt, 0.55) * (1 - edge * 0.18);
+            const lum = checker * (diffuse * 0.7 + 0.22) * limb;
+            const idx = Math.round(lum * chars);
+            const ch = RAMP[Math.max(0, Math.min(chars, idx))];
+            const bi = j * cols + i;
+
+            if (!buf[bi] || buf[bi].lum < lum) {
+              buf[bi] = { ch, lum };
+            }
+          }
+        }
+
+        ctx.font = "14px 'JetBrains Mono', 'Fira Code', Consolas, monospace";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "left";
+
+        for (let j = 0; j < rows; j++) {
+          for (let i = 0; i < cols; i++) {
+            const cell = buf[j * cols + i];
+            if (!cell || cell.ch === " ") continue;
+            const val = Math.round(245 * cell.lum);
+            ctx.fillStyle = `rgba(${val},${val},${val},${opacity})`;
+            ctx.fillText(cell.ch, i * cellW, j * cellH);
+          }
+        }
+      }
+
+      let last = 0;
+      function frame(now) {
+        if (now - last > 1000 / fps) {
+          render(window.innerWidth, window.innerHeight, now / 1000);
+          last = now;
+        }
+        requestAnimationFrame(frame);
+      }
+
+      resize();
+      window.addEventListener("resize", resize);
+      requestAnimationFrame(frame);
+    </script>
+  </body>
+</html>
