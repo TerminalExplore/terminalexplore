@@ -14,6 +14,7 @@ FPS = 25
 FRAME_COUNT = 200
 BACKGROUND = 8
 RAMP = " .:-=+*#%@"
+SCRIPT_DIR = Path(__file__).resolve().parent
 
 
 def find_font(candidates: list[str], size: int) -> ImageFont.FreeTypeFont:
@@ -34,6 +35,7 @@ FONT_MONO = find_font(
 )
 FONT_TITLE = find_font(
     [
+        str(SCRIPT_DIR / "fonts" / "SpaceGrotesk-Bold.ttf"),
         "C:/Windows/Fonts/segoeuib.ttf",
         "C:/Windows/Fonts/arialbd.ttf",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
