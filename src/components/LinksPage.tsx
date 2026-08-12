@@ -23,7 +23,6 @@ const resourceLinks = [
   { label: "Website", href: "https://www.tmxpl.ru", meta: "main" },
   { label: "Blog", href: "https://blog.tmxpl.ru", meta: "notes" },
   { label: "Cases", href: "https://www.tmxpl.ru/cases", meta: "work" },
-  { label: "OBS ASCII globe", href: "https://www.tmxpl.ru/obs-globe.html", meta: "overlay" },
 ];
 
 export default function LinksPage() {
