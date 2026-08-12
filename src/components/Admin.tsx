@@ -212,7 +212,7 @@ function Dashboard({ user, onLogout, onUpdate }: { user: UserInfo; onLogout: () 
                   <span>{p.created_at}</span>
                 </div>
                 <div style={{ marginTop: "10px" }}>
-                  <button className="btn-ghost" onClick={(e) => { e.stopPropagation(); remove(p); }}>delete</button>
+                  <button type="button" className="btn-ghost" onClick={(e) => { e.stopPropagation(); remove(p); }}>delete</button>
                 </div>
               </div>
             ))}
@@ -330,8 +330,18 @@ function CasesAdmin() {
 
   async function remove(item: CaseStudy) {
     if (!confirm(`Delete "${item.title}"?`)) return;
-    await api.deleteCase(item.id);
-    await load();
+    setMsg("");
+    try {
+      await api.deleteCase(item.id);
+      if (editing?.id === item.id) {
+        setEditing(null);
+        setForm(emptyCase);
+      }
+      await load();
+      setMsg("case deleted");
+    } catch (err: unknown) {
+      setMsg((err as Error).message);
+    }
   }
 
   return (
@@ -351,10 +361,11 @@ function CasesAdmin() {
                 <span>{item.metric}</span>
                 <span className={`badge ${item.published ? "badge-published" : "badge-draft"}`}>{item.published ? "published" : "draft"}</span>
               </div>
-              <button className="btn-ghost" onClick={(e) => { e.stopPropagation(); remove(item); }}>delete</button>
+              <button type="button" className="btn-ghost" onClick={(e) => { e.stopPropagation(); remove(item); }}>delete</button>
             </div>
           ))}
         </div>
+        {msg && <div className={`admin-msg ${msg === "case deleted" ? "admin-msg-success" : "admin-msg-error"}`}>{msg}</div>}
       </div>
       <form className="admin-card" onSubmit={save}>
         <div className="admin-card-title">{editing ? "edit case" : "new case"}</div>
