@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const path = require("path");
 
 const isProduction = process.env.NODE_ENV === "production";
+const siteUrl = (process.env.SITE_URL || "http://localhost:8090").replace(/\/+$/, "");
 
 if (isProduction && !process.env.JWT_SECRET) {
   throw new Error("JWT_SECRET is required in production");
@@ -17,7 +18,8 @@ module.exports = {
   port: Number(process.env.PORT || 3001),
   loginWindowMs: Number(process.env.LOGIN_WINDOW_MS || 15 * 60 * 1000),
   loginMaxAttempts: Number(process.env.LOGIN_MAX_ATTEMPTS || 8),
-  siteUrl: (process.env.SITE_URL || "http://localhost:8090").replace(/\/+$/, ""),
+  siteUrl,
+  blogUrl: (process.env.BLOG_URL || siteUrl).replace(/\/+$/, ""),
   tokenTtl: process.env.TOKEN_TTL || "7d",
   requestIdBytes: 8,
   fallbackSecret: crypto.randomBytes(1).toString("hex"),

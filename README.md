@@ -44,7 +44,7 @@ docker compose run --rm -e ADMIN_EMAIL=admin@example.com -e ADMIN_PASSWORD=long-
 - `web`: nginx serving the built frontend and proxying `/api` to the backend.
 - `api`: Express API with SQLite persisted in the `blog-data` Docker volume.
 
-Set `SITE_URL` in `.env` to the real public domain before production deployment. It is used for RSS and sitemap links.
+Set `SITE_URL` and `BLOG_URL` in `.env` to the real public domains before production deployment. They are used for RSS and sitemap links.
 
 ## Production
 
@@ -54,7 +54,8 @@ Use the production override when a real domain points to the server:
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
-Set `SITE_DOMAIN=example.com` and `SITE_URL=https://example.com` in `.env`. Caddy will handle HTTPS automatically.
+For TerminalExplore, use `SITE_DOMAIN=terminalexplore.org`, `SITE_URL=https://terminalexplore.org`, and
+`BLOG_URL=https://blog.terminalexplore.org`. Caddy will handle HTTPS automatically.
 
 ## Checks
 

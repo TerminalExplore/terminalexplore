@@ -21,6 +21,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
       APP_NAME: ${APP_NAME:-TerminalExplore}
       SITE_URL: ${SITE_URL:-http://localhost:${WEB_PORT:-8090}}
+      BLOG_URL: ${BLOG_URL:-${SITE_URL:-http://localhost:${WEB_PORT:-8090}}}
     volumes:
       - blog-data:/app/data
     expose:

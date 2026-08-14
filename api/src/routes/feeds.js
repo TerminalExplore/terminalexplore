@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../db");
-const { siteUrl } = require("../config");
+const { blogUrl, siteUrl } = require("../config");
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.get("/sitemap.xml", (req, res) => {
   const staticPages = ["", "cases", "status", "privacy", "terms"];
   const urls = [
     ...staticPages.map((slug) => ({ loc: `${siteUrl}/${slug}`, lastmod: new Date().toISOString() })),
-    ...posts.map((post) => ({ loc: `${siteUrl}/post/${post.slug}`, lastmod: new Date(post.updated_at).toISOString() })),
+    ...posts.map((post) => ({ loc: `${blogUrl}/post/${post.slug}`, lastmod: new Date(post.updated_at).toISOString() })),
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
@@ -38,14 +38,14 @@ router.get("/rss.xml", (req, res) => {
 <rss version="2.0">
   <channel>
     <title>TerminalExplore blog</title>
-    <link>${xmlEscape(siteUrl)}</link>
+    <link>${xmlEscape(blogUrl)}</link>
     <description>Notes on development, DevOps and infrastructure.</description>
 ${posts
   .map(
     (post) => `    <item>
       <title>${xmlEscape(post.title)}</title>
-      <link>${xmlEscape(`${siteUrl}/post/${post.slug}`)}</link>
-      <guid>${xmlEscape(`${siteUrl}/post/${post.slug}`)}</guid>
+      <link>${xmlEscape(`${blogUrl}/post/${post.slug}`)}</link>
+      <guid>${xmlEscape(`${blogUrl}/post/${post.slug}`)}</guid>
       <description>${xmlEscape(post.excerpt)}</description>
       <pubDate>${new Date(post.created_at).toUTCString()}</pubDate>
     </item>`

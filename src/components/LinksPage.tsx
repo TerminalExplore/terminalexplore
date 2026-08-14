@@ -20,9 +20,9 @@ const primaryLinks = [
 ];
 
 const resourceLinks = [
-  { label: "Website", href: "https://www.tmxpl.ru", meta: "main" },
-  { label: "Blog", href: "https://blog.tmxpl.ru", meta: "notes" },
-  { label: "Cases", href: "https://www.tmxpl.ru/cases", meta: "work" },
+  { label: "Website", href: "https://terminalexplore.org", meta: "main" },
+  { label: "Blog", href: "https://blog.terminalexplore.org", meta: "notes" },
+  { label: "Cases", href: "https://terminalexplore.org/cases", meta: "work" },
 ];
 
 export default function LinksPage() {
@@ -63,7 +63,7 @@ export default function LinksPage() {
         </div>
 
         <div className="links-foot">
-          <span>tmxpl.ru</span>
+          <span>terminalexplore.org</span>
           <span>web projects in production</span>
         </div>
       </section>

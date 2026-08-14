@@ -15,6 +15,7 @@ import StaticPage from "./components/StaticPage";
 import CasesPage from "./components/CasesPage";
 import LinksPage from "./components/LinksPage";
 import { api } from "./api";
+import { isBlogHost, isLinksHost } from "./domains";
 import { setHomeSeo } from "./seo";
 
 type Route =
@@ -32,8 +33,8 @@ function parsePath(): Route {
   return { page: "home" };
 }
 
-const isBlog = window.location.hostname === "blog.tmxpl.ru";
-const isLinks = window.location.hostname === "links.tmxpl.ru";
+const isBlog = isBlogHost();
+const isLinks = isLinksHost();
 
 export default App;
 function App() {

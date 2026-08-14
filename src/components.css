@@ -1376,7 +1376,7 @@
   }
 }
 
-/* ===== Blog site (blog.tmxpl.ru) ===== */
+/* ===== Blog site ===== */
 .blog-navbar {
   position: fixed;
   inset: 0 0 auto;
@@ -1396,7 +1396,7 @@
   letter-spacing: 0.02em;
 }
 
-/* ===== Links site (links.tmxpl.ru) ===== */
+/* ===== Links site ===== */
 .links-page {
   min-height: 100vh;
   display: grid;

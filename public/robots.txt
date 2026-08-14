@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: /api/sitemap.xml
+Sitemap: https://terminalexplore.org/api/sitemap.xml
