@@ -1,6 +1,11 @@
 // Generates an animated "terminal" SVG for the GitHub profile README.
 // Pure SMIL markup (no JS/script tags) so GitHub renders it as a plain,
 // self-playing image. Data comes live from the GitHub GraphQL API.
+//
+// Visual language matches terminalexplore.org (see tmxpl-site): a flat,
+// square-cornered terminal panel with a chrome bar (dots + host + live dot),
+// bracketed section labels, and the site's exact mono color tokens — not a
+// bespoke palette of its own.
 
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -259,8 +264,22 @@ function extractLink(line) {
   return raw.startsWith("http") ? raw : `https://${raw}`;
 }
 
-const FONT_STACK = "'JetBrains Mono', monospace";
+// ===== terminalexplore.org design tokens (src/index.css on tmxpl-site) =====
+// Kept as literal color strings (not opacity-on-white hacks) so the card
+// reads as the same terminal UI, not a lookalike with its own palette.
+const BG_PANEL = "#0a0a0d"; // ~ rgba(10,10,13,.8) .panel over the site's near-black page bg
+const PANEL_BORDER = "rgba(255, 255, 255, 0.16)"; // --border-2
+const BORDER_SOFT = "rgba(255, 255, 255, 0.11)"; // --border
+const TEXT = "#f1efec"; // --text
+const TEXT_MID = "#cdc8bf"; // --text-mid
+const TEXT_DIM = "#a8a096"; // --text-dim
+const TEXT_FAINT = "#635c52"; // --text-faint
+const ACCENT_BRIGHT = "#ffffff"; // --accent-bright
+const OK = "#4ade80"; // --ok
+
+const FONT_STACK = "'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace";
 const TYPE_SPEED = 0.022; // seconds per character
+const CHROME_H = 34; // height of the top dots/host/live bar, site's .panel-chrome
 
 // Typewriter reveal for a single line of text. textLength forces the glyphs
 // onto our exact char-width grid regardless of which monospace font actually
@@ -274,6 +293,7 @@ function typeLine({
   x,
   y,
   fontSize,
+  color = TEXT,
   opacity = 1,
   weight,
   begin,
@@ -318,24 +338,72 @@ function typeLine({
         </rect>
       </clipPath>
       <text x="${x}" y="${y}" font-family="${FONT_STACK}" font-size="${fontSize}"${weightAttr}${anchorAttr}
-        fill="#ffffff" opacity="${opacity}" textLength="${fullWidth.toFixed(2)}" lengthAdjust="spacingAndGlyphs"
+        fill="${color}" opacity="${opacity}" textLength="${fullWidth.toFixed(2)}" lengthAdjust="spacingAndGlyphs"
         clip-path="url(#${id})">${escapeXml(text)}</text>`;
   return { svg, end: begin + duration };
 }
 
-// Section separators fade in right as the boot sequence reaches them,
-// instead of being visible on the very first frame.
+// Section label in the site's `[ label ]` bracket style (Bracket.tsx /
+// .bracket): faint brackets, bright label — same typewriter clip as
+// typeLine, but split into tspans so the brackets and label get different
+// fills while still revealing as one unit.
+function typeBracket({ text, x, y, fontSize, begin, id, speed = TYPE_SPEED, minDur = 0.08, maxDur = Infinity }) {
+  const full = `[ ${text} ]`;
+  const charWidth = fontSize * 0.6;
+  const fullWidth = full.length * charWidth;
+  const duration = Math.min(Math.max(full.length * speed, minDur), maxDur);
+  const steps = Math.min(Math.max(full.length, 1), 12);
+  const clipMaxWidth = fullWidth + 6;
+  const values = [];
+  const keyTimes = [];
+  for (let i = 0; i <= steps; i++) {
+    values.push(((clipMaxWidth * i) / steps).toFixed(2));
+    keyTimes.push((i / steps).toFixed(4));
+  }
+  const clipX = x - 2;
+  const svg = `
+      <clipPath id="${id}">
+        <rect x="${clipX.toFixed(2)}" y="${y - fontSize}" height="${fontSize + 8}" width="0">
+          <animate attributeName="width" begin="${begin.toFixed(2)}s" dur="${duration.toFixed(2)}s"
+            calcMode="discrete" keyTimes="${keyTimes.join(";")}" values="${values.join(";")}" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="${x}" y="${y}" font-family="${FONT_STACK}" font-size="${fontSize}" font-weight="600"
+        textLength="${fullWidth.toFixed(2)}" lengthAdjust="spacingAndGlyphs" clip-path="url(#${id})"
+      ><tspan fill="${TEXT_FAINT}">[ </tspan><tspan fill="${ACCENT_BRIGHT}">${escapeXml(text)}</tspan><tspan fill="${TEXT_FAINT}"> ]</tspan></text>`;
+  return { svg, end: begin + duration };
+}
+
+// Section separator — the site's ".divider": a row of "░" masked to fade at
+// both edges (here via a shared linearGradient rather than a CSS mask),
+// fading in right as the boot sequence reaches it instead of being visible
+// on the very first frame.
 function fadeLine(x1, y, x2, begin, dur = 0.15) {
-  return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#ffffff" stroke-width="0.5" opacity="0">
-      <animate attributeName="opacity" begin="${begin.toFixed(2)}s" dur="${dur}s" values="0;0.12" fill="freeze" />
+  const width = x2 - x1;
+  const fontSize = 11;
+  const charWidth = fontSize * 0.6;
+  const count = Math.max(1, Math.ceil(width / charWidth));
+  const glyphs = "░".repeat(count);
+  return `<text x="${x1}" y="${(y + fontSize * 0.3).toFixed(2)}" font-family="${FONT_STACK}" font-size="${fontSize}"
+      fill="url(#divider-fade)" textLength="${width.toFixed(2)}" lengthAdjust="spacingAndGlyphs" opacity="0">${glyphs}<animate attributeName="opacity" begin="${begin.toFixed(2)}s" dur="${dur}s" values="0;1" fill="freeze" /></text>`;
+}
+
+// Faint axis rule under the commit chart's bars — not a section separator
+// (that's fadeLine's job), just a quiet reference line so short bars still
+// read against a floor. Stays a plain thin stroke rather than the bold ░
+// divider glyphs, which would visually compete with the bars above it.
+function axisLine(x1, y, x2, begin, dur = 0.15) {
+  return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${BORDER_SOFT}" stroke-width="1" opacity="0">
+      <animate attributeName="opacity" begin="${begin.toFixed(2)}s" dur="${dur}s" values="0;1" fill="freeze" />
     </line>`;
 }
 
-// Monthly commit-activity chart, monochrome to match the rest of the card
-// (same white-on-black language as the stat/language bars). Bars reveal
-// with a single left-to-right wipe instead of animating individually.
-// Returns both the svg and the total extra height used below the baseline
-// (count + month labels) so the caller can lay out what comes next.
+// Monthly commit-activity chart, matching the rest of the card's tokens
+// (text-mid bars, text-faint labels — no color used decoratively, only
+// where the site actually reserves it for state). Bars reveal with a
+// single left-to-right wipe instead of animating individually. Returns
+// both the svg and the total extra height used below the baseline (count +
+// month labels) so the caller can lay out what comes next.
 function commitChart({ months, x, width, baselineY, height, begin, id }) {
   const max = Math.max(...months.map((m) => m.total), 1);
   const n = months.length;
@@ -353,9 +421,9 @@ function commitChart({ months, x, width, baselineY, height, begin, id }) {
       const barOpacity = total === 0 ? 0.12 : 0.85;
       const countOpacity = total === 0 ? 0.3 : 0.75;
       return `
-        <rect x="${barX.toFixed(2)}" y="${barY.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${barHeight.toFixed(2)}" rx="${radius.toFixed(2)}" fill="#ffffff" opacity="${barOpacity}" />
-        <text x="${barCenterX.toFixed(2)}" y="${baselineY + 13}" text-anchor="middle" font-family="${FONT_STACK}" font-size="10" fill="#ffffff" opacity="${countOpacity}">${total}</text>
-        <text x="${barCenterX.toFixed(2)}" y="${baselineY + 25}" text-anchor="middle" font-family="${FONT_STACK}" font-size="9" fill="#ffffff" opacity="0.3">${escapeXml(label)}</text>`;
+        <rect x="${barX.toFixed(2)}" y="${barY.toFixed(2)}" width="${barWidth.toFixed(2)}" height="${barHeight.toFixed(2)}" rx="${radius.toFixed(2)}" fill="${TEXT_MID}" opacity="${barOpacity}" />
+        <text x="${barCenterX.toFixed(2)}" y="${baselineY + 13}" text-anchor="middle" font-family="${FONT_STACK}" font-size="10" fill="${TEXT}" opacity="${countOpacity}">${total}</text>
+        <text x="${barCenterX.toFixed(2)}" y="${baselineY + 25}" text-anchor="middle" font-family="${FONT_STACK}" font-size="9" fill="${TEXT_FAINT}">${escapeXml(label)}</text>`;
     })
     .join("");
 
@@ -395,7 +463,7 @@ function render(user, aboutText) {
 
   const parts = [];
   let t = BOOT_START;
-  let y = 46;
+  let y = CHROME_H + 42;
   let idSeq = 0;
   const nextId = (prefix) => `${prefix}-${idSeq++}`;
 
@@ -405,7 +473,7 @@ function render(user, aboutText) {
     x: 40,
     y,
     fontSize: 14,
-    opacity: 0.4,
+    color: TEXT_FAINT,
     begin: t,
     id: nextId("type"),
   });
@@ -418,8 +486,8 @@ function render(user, aboutText) {
     x: 40,
     y,
     fontSize: 18,
+    color: ACCENT_BRIGHT,
     weight: 700,
-    opacity: 1,
     begin: t,
     id: nextId("type"),
   });
@@ -431,15 +499,20 @@ function render(user, aboutText) {
   t += 0.1;
   y += 28;
 
-  // stats: type each label, then its value, row by row
+  // stats: bracket header, then type each label, then its value, row by row
+  const statsHeader = typeBracket({ text: "stats", x: 40, y, fontSize: 12, begin: t, id: nextId("type") });
+  parts.push(statsHeader.svg);
+  t = statsHeader.end + 0.12;
+  y += 24;
+
   statRows.forEach(([label, value]) => {
     const rowY = y;
     const lbl = typeLine({
-      text: label,
+      text: `» ${label}`,
       x: 40,
       y: rowY,
       fontSize: 12,
-      opacity: 0.45,
+      color: TEXT_DIM,
       begin: t,
       id: nextId("type"),
       speed: 0.015,
@@ -453,7 +526,7 @@ function render(user, aboutText) {
       x: 640,
       y: rowY,
       fontSize: 12,
-      opacity: 1,
+      color: TEXT,
       begin: t,
       id: nextId("type"),
       anchorEnd: true,
@@ -477,7 +550,7 @@ function render(user, aboutText) {
     x: 40,
     y,
     fontSize: 12,
-    opacity: 0.45,
+    color: TEXT_DIM,
     begin: t,
     id: nextId("type"),
     speed: 0.018,
@@ -493,7 +566,7 @@ function render(user, aboutText) {
       x: 40,
       y,
       fontSize: 13,
-      opacity: 0.9,
+      color: TEXT,
       begin: t,
       id: nextId("type"),
       speed: 0.01,
@@ -514,18 +587,8 @@ function render(user, aboutText) {
   t += 0.1;
   y += 26;
 
-  // languages: type header, then per language: name -> bar fill -> percent
-  const langHeader = typeLine({
-    text: "languages (live via github api)",
-    x: 40,
-    y,
-    fontSize: 12,
-    opacity: 0.45,
-    begin: t,
-    id: nextId("type"),
-    speed: 0.015,
-    maxDur: 0.55,
-  });
+  // languages: bracket header, then per language: name -> bar fill -> percent
+  const langHeader = typeBracket({ text: "languages", x: 40, y, fontSize: 12, begin: t, id: nextId("type") });
   parts.push(langHeader.svg);
   t = langHeader.end + 0.12;
   y += 24;
@@ -537,7 +600,7 @@ function render(user, aboutText) {
       x: 40,
       y: rowY,
       fontSize: 12,
-      opacity: 1,
+      color: TEXT,
       begin: t,
       id: nextId("type"),
       speed: 0.018,
@@ -552,13 +615,13 @@ function render(user, aboutText) {
     const fillWidth = (barTrackWidth * lang.percent) / 100;
     const trackBegin = t;
     parts.push(`
-      <rect x="140" y="${rowY - 10}" width="${barTrackWidth}" height="8" rx="2" fill="#ffffff" opacity="0">
-        <animate attributeName="opacity" begin="${trackBegin.toFixed(2)}s" dur="0.1s" values="0;0.1" fill="freeze" />
+      <rect x="140" y="${rowY - 10}" width="${barTrackWidth}" height="8" rx="2" fill="${BORDER_SOFT}" opacity="0">
+        <animate attributeName="opacity" begin="${trackBegin.toFixed(2)}s" dur="0.1s" values="0;1" fill="freeze" />
       </rect>`);
     const barBegin = trackBegin + 0.06;
     const barDur = 0.35;
     parts.push(`
-      <rect x="140" y="${rowY - 10}" width="0" height="8" rx="2" fill="#ffffff" opacity="0.85">
+      <rect x="140" y="${rowY - 10}" width="0" height="8" rx="2" fill="${TEXT_MID}" opacity="0.85">
         <animate attributeName="width" begin="${barBegin.toFixed(2)}s" dur="${barDur}s"
           calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${fillWidth.toFixed(2)}" fill="freeze" />
       </rect>`);
@@ -566,7 +629,7 @@ function render(user, aboutText) {
 
     const pctBegin = t;
     parts.push(
-      `<text x="640" y="${rowY}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.1s" values="0;1" fill="freeze" /></text>`
+      `<text x="640" y="${rowY}" text-anchor="end" font-family="${FONT_STACK}" font-size="12" fill="${TEXT}" opacity="0">${lang.percent}%<animate attributeName="opacity" begin="${pctBegin.toFixed(2)}s" dur="0.1s" values="0;1" fill="freeze" /></text>`
     );
     t = pctBegin + 0.1 + 0.08;
     y += 24;
@@ -585,7 +648,7 @@ function render(user, aboutText) {
     x: 40,
     y,
     fontSize: 12,
-    opacity: 0.45,
+    color: TEXT_DIM,
     begin: t,
     id: nextId("type"),
     speed: 0.015,
@@ -605,7 +668,7 @@ function render(user, aboutText) {
     x: 40,
     y,
     fontSize: 12,
-    opacity: 1,
+    color: TEXT,
     begin: t,
     id: nextId("type"),
     speed: 0.013,
@@ -617,7 +680,7 @@ function render(user, aboutText) {
 
   const chartHeight = 50;
   const chartBaselineY = y + chartHeight;
-  parts.push(fadeLine(40, chartBaselineY + 0.5, 640, t, 0.1));
+  parts.push(axisLine(40, chartBaselineY + 0.5, 640, t, 0.1));
   const chart = commitChart({
     months: monthlyCommitTotals(user.contributionsCollection.contributionCalendar),
     x: 40,
@@ -637,17 +700,7 @@ function render(user, aboutText) {
 
   // featured repositories: pinned repos if set, otherwise top-starred owned repos
   const repos = featuredRepos(user);
-  const reposHeader = typeLine({
-    text: "featured repositories",
-    x: 40,
-    y,
-    fontSize: 12,
-    opacity: 0.45,
-    begin: t,
-    id: nextId("type"),
-    speed: 0.015,
-    maxDur: 0.4,
-  });
+  const reposHeader = typeBracket({ text: "repositories", x: 40, y, fontSize: 12, begin: t, id: nextId("type") });
   parts.push(reposHeader.svg);
   t = reposHeader.end + 0.12;
   y += 24;
@@ -659,7 +712,7 @@ function render(user, aboutText) {
       x: 40,
       y: rowY,
       fontSize: 12,
-      opacity: 1,
+      color: TEXT,
       begin: t,
       id: nextId("type"),
       speed: 0.016,
@@ -674,6 +727,7 @@ function render(user, aboutText) {
       x: 640,
       y: rowY,
       fontSize: 12,
+      color: TEXT_MID,
       opacity: 0.6,
       begin: t,
       id: nextId("type"),
@@ -698,16 +752,37 @@ function render(user, aboutText) {
   const cursorBegin = footerBegin + 0.15;
   const cursorX = 40 + footerPrompt.length * (12 * 0.6);
   parts.push(`
-    <text x="40" y="${footerY}" font-family="${FONT_STACK}" font-size="12" fill="#ffffff" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.15s" values="0;0.35" fill="freeze" /></text>
-    <rect x="${cursorX.toFixed(2)}" y="${footerY - 12}" width="7" height="14" fill="#ffffff" opacity="0">
+    <text x="40" y="${footerY}" font-family="${FONT_STACK}" font-size="12" fill="${TEXT_FAINT}" opacity="0">${escapeXml(footerPrompt)}<animate attributeName="opacity" begin="${footerBegin.toFixed(2)}s" dur="0.15s" values="0;1" fill="freeze" /></text>
+    <rect x="${cursorX.toFixed(2)}" y="${footerY - 12}" width="7" height="14" fill="${ACCENT_BRIGHT}" opacity="0">
       <animate attributeName="opacity" begin="${cursorBegin.toFixed(2)}s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
     </rect>`);
 
   const totalHeight = footerY + 44;
 
-  // Pure black panel: no wash, no border tint — just #000000.
+  // Flat, square-cornered terminal panel — matches the site's .panel (no
+  // border-radius anywhere in its UI), with the same dots/host/live chrome
+  // bar as .panel-chrome (see Fastfetch.tsx / ServiceStatus.tsx).
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 ${totalHeight}">
-  <rect width="680" height="${totalHeight}" rx="10" fill="#000000" />
+  <defs>
+    <linearGradient id="divider-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${TEXT_FAINT}" stop-opacity="0" />
+      <stop offset="4%" stop-color="${TEXT_FAINT}" stop-opacity="1" />
+      <stop offset="96%" stop-color="${TEXT_FAINT}" stop-opacity="1" />
+      <stop offset="100%" stop-color="${TEXT_FAINT}" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="680" height="${totalHeight}" fill="${BG_PANEL}" stroke="${PANEL_BORDER}" stroke-width="1" />
+
+  <line x1="0" y1="${CHROME_H}" x2="680" y2="${CHROME_H}" stroke="${BORDER_SOFT}" stroke-width="1" />
+  <circle cx="20" cy="${CHROME_H / 2}" r="3.5" fill="${TEXT_FAINT}" />
+  <circle cx="31" cy="${CHROME_H / 2}" r="3.5" fill="${TEXT_FAINT}" />
+  <circle cx="42" cy="${CHROME_H / 2}" r="3.5" fill="${TEXT_FAINT}" />
+  <text x="60" y="${CHROME_H / 2 + 4}" font-family="${FONT_STACK}" font-size="11" fill="${TEXT_DIM}">root@terminalexplore</text>
+  <circle cx="604" cy="${CHROME_H / 2}" r="3" fill="${OK}">
+    <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite" />
+  </circle>
+  <text x="640" y="${CHROME_H / 2 + 4}" text-anchor="end" font-family="${FONT_STACK}" font-size="10" fill="${TEXT}">LIVE</text>
 
   ${parts.join("\n")}
 </svg>
