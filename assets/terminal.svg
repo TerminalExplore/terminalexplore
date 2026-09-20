@@ -71,7 +71,7 @@
       </clipPath>
       <text x="640" y="176" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
         fill="#f1efec" opacity="1" textLength="28.80" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-4)">952d</text>
+        clip-path="url(#type-4)">953d</text>
 
       <clipPath id="type-5">
         <rect x="38.00" y="188" height="20" width="0">
@@ -171,7 +171,7 @@
       </clipPath>
       <text x="640" y="296" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
         fill="#f1efec" opacity="1" textLength="180.00" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-14)">1d current / 105d longest</text>
+        clip-path="url(#type-14)">0d current / 105d longest</text>
 
       <clipPath id="type-15">
         <rect x="38.00" y="308" height="20" width="0">
@@ -327,7 +327,7 @@
       </clipPath>
       <text x="40" y="646" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
         fill="#f1efec" opacity="1" textLength="316.80" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-26)">1961 commits this year · busiest Jul 14 (96)</text>
+        clip-path="url(#type-26)">1941 commits this year · busiest Jul 14 (96)</text>
 <line x1="40" y1="722.5" x2="640" y2="722.5" stroke="rgba(255, 255, 255, 0.11)" stroke-width="1" opacity="0">
       <animate attributeName="opacity" begin="11.98s" dur="0.1s" values="0;1" fill="freeze" />
     </line>
@@ -339,8 +339,8 @@
         </rect>
       </clipPath>
       <g clip-path="url(#chart-27)">
-        <rect x="51.54" y="715.36" width="23.08" height="6.64" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="63.08" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">61</text>
+        <rect x="51.54" y="717.53" width="23.08" height="4.47" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="63.08" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">41</text>
         <text x="63.08" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Sep</text>
         <rect x="97.69" y="697.60" width="23.08" height="24.40" rx="3.00" fill="#cdc8bf" opacity="0.85" />
         <text x="109.23" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">224</text>
