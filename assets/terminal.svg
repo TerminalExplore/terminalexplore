@@ -71,7 +71,7 @@
       </clipPath>
       <text x="640" y="176" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
         fill="#f1efec" opacity="1" textLength="28.80" lengthAdjust="spacingAndGlyphs"
-        clip-path="url(#type-4)">963d</text>
+        clip-path="url(#type-4)">964d</text>
 
       <clipPath id="type-5">
         <rect x="38.00" y="188" height="20" width="0">
@@ -339,45 +339,48 @@
         </rect>
       </clipPath>
       <g clip-path="url(#chart-27)">
-        <rect x="51.54" y="719.00" width="23.08" height="3.00" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="63.08" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">13</text>
-        <text x="63.08" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Sep</text>
-        <rect x="97.69" y="697.60" width="23.08" height="24.40" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="109.23" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">224</text>
-        <text x="109.23" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Oct</text>
-        <rect x="143.85" y="708.06" width="23.08" height="13.94" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="155.38" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">128</text>
-        <text x="155.38" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Nov</text>
-        <rect x="190.00" y="709.47" width="23.08" height="12.53" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="201.54" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">115</text>
-        <text x="201.54" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Dec</text>
-        <rect x="236.15" y="706.75" width="23.08" height="15.25" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="247.69" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">140</text>
-        <text x="247.69" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Jan</text>
-        <rect x="282.31" y="703.70" width="23.08" height="18.30" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="293.85" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">168</text>
-        <text x="293.85" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Feb</text>
-        <rect x="328.46" y="702.94" width="23.08" height="19.06" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="340.00" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">175</text>
-        <text x="340.00" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Mar</text>
-        <rect x="374.62" y="700.10" width="23.08" height="21.90" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="386.15" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">201</text>
-        <text x="386.15" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Apr</text>
-        <rect x="420.77" y="715.03" width="23.08" height="6.97" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="432.31" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">64</text>
-        <text x="432.31" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">May</text>
-        <rect x="466.92" y="715.68" width="23.08" height="6.32" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="478.46" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">58</text>
-        <text x="478.46" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Jun</text>
-        <rect x="513.08" y="672.00" width="23.08" height="50.00" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="524.62" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">459</text>
-        <text x="524.62" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Jul</text>
-        <rect x="559.23" y="713.94" width="23.08" height="8.06" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="570.77" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">74</text>
-        <text x="570.77" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Aug</text>
-        <rect x="605.38" y="711.87" width="23.08" height="10.13" rx="3.00" fill="#cdc8bf" opacity="0.85" />
-        <text x="616.92" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">93</text>
-        <text x="616.92" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Sep</text></g>
+        <rect x="50.71" y="719.00" width="21.43" height="3.00" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="61.43" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">13</text>
+        <text x="61.43" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Sep</text>
+        <rect x="93.57" y="697.60" width="21.43" height="24.40" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="104.29" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">224</text>
+        <text x="104.29" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Oct</text>
+        <rect x="136.43" y="708.06" width="21.43" height="13.94" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="147.14" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">128</text>
+        <text x="147.14" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Nov</text>
+        <rect x="179.29" y="709.47" width="21.43" height="12.53" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="190.00" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">115</text>
+        <text x="190.00" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Dec</text>
+        <rect x="222.14" y="706.75" width="21.43" height="15.25" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="232.86" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">140</text>
+        <text x="232.86" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Jan</text>
+        <rect x="265.00" y="703.70" width="21.43" height="18.30" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="275.71" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">168</text>
+        <text x="275.71" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Feb</text>
+        <rect x="307.86" y="702.94" width="21.43" height="19.06" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="318.57" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">175</text>
+        <text x="318.57" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Mar</text>
+        <rect x="350.71" y="700.10" width="21.43" height="21.90" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="361.43" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">201</text>
+        <text x="361.43" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Apr</text>
+        <rect x="393.57" y="715.03" width="21.43" height="6.97" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="404.29" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">64</text>
+        <text x="404.29" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">May</text>
+        <rect x="436.43" y="715.68" width="21.43" height="6.32" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="447.14" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">58</text>
+        <text x="447.14" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Jun</text>
+        <rect x="479.29" y="672.00" width="21.43" height="50.00" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="490.00" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">459</text>
+        <text x="490.00" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Jul</text>
+        <rect x="522.14" y="713.94" width="21.43" height="8.06" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="532.86" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">74</text>
+        <text x="532.86" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Aug</text>
+        <rect x="565.00" y="711.87" width="21.43" height="10.13" rx="3.00" fill="#cdc8bf" opacity="0.85" />
+        <text x="575.71" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.75">93</text>
+        <text x="575.71" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Sep</text>
+        <rect x="607.86" y="720.00" width="21.43" height="2.00" rx="3.00" fill="#cdc8bf" opacity="0.12" />
+        <text x="618.57" y="735" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#f1efec" opacity="0.3">0</text>
+        <text x="618.57" y="747" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#635c52">Oct</text></g>
 <text x="40" y="765.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
       fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="12.90s" dur="0.15s" values="0;1" fill="freeze" /></text>
 
