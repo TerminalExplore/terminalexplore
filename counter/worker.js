@@ -2,7 +2,8 @@
 // bumps a KV counter on every request. GitHub proxies README images through
 // camo, so the response is marked uncacheable to make each page load hit us.
 //
-//   GET /?username=TerminalExplore&theme=dark|light
+//   GET /?username=TerminalExplore&theme=dark|light       -> small "views N" badge
+//   GET /card?username=TerminalExplore&theme=dark|light   -> the profile card with the count in its top bar
 
 const THEMES = {
   dark: { bg: "#0d1117", border: "#30363d", label: "#8d96a0", value: "#e6edf3" },
@@ -14,6 +15,10 @@ const FONT_SIZE = 11;
 const CHAR_WIDTH = FONT_SIZE * 0.6;
 const PAD = 8;
 const HEIGHT = 20;
+
+// The card is generated into the repo by scripts/generate-svg.js with a "—"
+// placeholder in the top bar; we fetch it and write the live count in.
+const COUNT_SLOT = /(<tspan id="views-count"[^>]*>)—(<\/tspan>)/;
 
 function badge(count, theme) {
   const t = THEMES[theme] || THEMES.dark;
@@ -39,20 +44,31 @@ export default {
 
     // Only count for the configured profile, so the KV namespace can't be
     // filled with arbitrary keys by anyone who finds the URL.
-    if (request.method !== "GET" || url.pathname !== "/" || username !== env.ALLOWED_USERNAME.toLowerCase()) {
+    if (request.method !== "GET" || !["/", "/card"].includes(url.pathname) || username !== env.ALLOWED_USERNAME.toLowerCase()) {
       return new Response("Not found", { status: 404 });
     }
 
+    const theme = url.searchParams.get("theme") in THEMES ? url.searchParams.get("theme") : "dark";
+    let svg = null;
+    if (url.pathname === "/card") {
+      // Fetch before counting so a failed fetch doesn't burn a view.
+      const source = await fetch(`https://raw.githubusercontent.com/${env.CARD_REPO}/master/assets/terminal-${theme}.svg`, {
+        cf: { cacheTtl: 300, cacheEverything: true },
+      });
+      if (!source.ok) return new Response("Card unavailable", { status: 502 });
+      svg = await source.text();
+    }
+
     const key = `views:${username}`;
-    let count = Number((await env.VIEWS.get(key)) ?? 0) + 1;
+    const count = Number((await env.VIEWS.get(key)) ?? 0) + 1;
     try {
       await env.VIEWS.put(key, String(count));
     } catch {
-      // KV's free tier caps writes per day; keep serving the badge rather
-      // than breaking the image on the profile.
+      // KV's free tier caps writes per day; keep serving the image rather
+      // than breaking it on the profile.
     }
 
-    return new Response(badge(count, url.searchParams.get("theme")), {
+    return new Response(svg === null ? badge(count, theme) : svg.replace(COUNT_SLOT, `$1${count.toLocaleString("en-US")}$2`), {
       headers: {
         "Content-Type": "image/svg+xml; charset=utf-8",
         "Cache-Control": "max-age=0, no-cache, no-store, must-revalidate",

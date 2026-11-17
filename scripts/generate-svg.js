@@ -800,6 +800,8 @@ function render(user) {
     <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite" />
   </circle>
   <text x="640" y="${CHROME_H / 2 + 4}" text-anchor="end" font-family="${FONT_STACK}" font-size="10" fill="${TEXT}">LIVE</text>
+  <!-- The profile-views worker (counter/) swaps the dash for the live count when it serves this card. -->
+  <text x="590" y="${CHROME_H / 2 + 4}" text-anchor="end" font-family="${FONT_STACK}" font-size="10" fill="${TEXT_DIM}">views <tspan id="views-count" fill="${TEXT}">—</tspan></text>
 
   ${parts.join("\n")}
 </svg>

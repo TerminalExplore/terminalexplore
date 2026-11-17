@@ -4,6 +4,7 @@ compatibility_date = "2025-01-01"
 
 [vars]
 ALLOWED_USERNAME = "TerminalExplore"
+CARD_REPO = "TerminalExplore/terminalexplore"
 
 # Namespace created with `npx wrangler kv namespace create VIEWS`.
 [[kv_namespaces]]
