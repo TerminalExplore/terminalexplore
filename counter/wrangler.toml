@@ -1,0 +1,11 @@
+name = "profile-views"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+ALLOWED_USERNAME = "TerminalExplore"
+
+# Namespace created with `npx wrangler kv namespace create VIEWS`.
+[[kv_namespaces]]
+binding = "VIEWS"
+id = "1849c515e60940fdbcc3e505dce9701d"

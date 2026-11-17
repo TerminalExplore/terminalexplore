@@ -7,5 +7,9 @@
 </p>
 
 
-![](https://komarev.com/ghpvc/?username=TerminalExplore&color=grey)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://profile-views.terminalexplore.workers.dev/?username=TerminalExplore&theme=dark">
+  <source media="(prefers-color-scheme: light)" srcset="https://profile-views.terminalexplore.workers.dev/?username=TerminalExplore&theme=light">
+  <img src="https://profile-views.terminalexplore.workers.dev/?username=TerminalExplore&theme=dark" alt="Profile views">
+</picture>
 
