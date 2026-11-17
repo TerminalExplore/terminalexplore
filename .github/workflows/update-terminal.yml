@@ -8,7 +8,6 @@ on:
     branches: [master]
     paths:
       - scripts/generate-svg.js
-      - config/about.txt
 
 permissions:
   contents: write
@@ -35,10 +34,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- assets/terminal.svg; then
+          if [ -z "$(git status --porcelain -- assets)" ]; then
             echo "No changes to commit"
           else
-            git add assets/terminal.svg
-            git commit -m "chore: update terminal.svg [skip ci]"
+            git add assets
+            git commit -m "chore: update terminal svgs [skip ci]"
             git push
           fi

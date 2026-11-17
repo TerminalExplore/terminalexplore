@@ -1,0 +1,478 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 1033">
+  <defs>
+    <linearGradient id="divider-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#818b98" stop-opacity="0" />
+      <stop offset="4%" stop-color="#818b98" stop-opacity="1" />
+      <stop offset="96%" stop-color="#818b98" stop-opacity="1" />
+      <stop offset="100%" stop-color="#818b98" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0.5" y="0.5" width="679" height="1032" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" />
+
+  <line x1="1" y1="34" x2="679" y2="34" stroke="#eaeef2" stroke-width="1" />
+  <circle cx="20" cy="17" r="3.5" fill="#818b98" />
+  <circle cx="31" cy="17" r="3.5" fill="#818b98" />
+  <circle cx="42" cy="17" r="3.5" fill="#818b98" />
+  <text x="60" y="21" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" fill="#59636e">root@terminalexplore</text>
+  <circle cx="604" cy="17" r="3" fill="#1a7f37">
+    <animate attributeName="opacity" values="1;0.35;1" dur="1.8s" repeatCount="indefinite" />
+  </circle>
+  <text x="640" y="21" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328">LIVE</text>
+
+  
+      <clipPath id="type-0">
+        <rect x="38.00" y="62" height="22" width="0">
+          <animate attributeName="width" begin="0.35s" dur="0.66s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;21.50;43.00;64.50;86.00;107.50;129.00;150.50;172.00;193.50;215.00;236.50;258.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="76" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="14"
+        fill="#818b98" opacity="1" textLength="252.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-0)">root@terminalexplore:~$ whoami</text>
+
+      <clipPath id="type-1">
+        <rect x="38.00" y="84" height="26" width="0">
+          <animate attributeName="width" begin="1.11s" dur="0.11s"
+            calcMode="discrete" keyTimes="0.0000;0.2000;0.4000;0.6000;0.8000;1.0000" values="0.00;12.00;24.00;36.00;48.00;60.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="102" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="18" font-weight="700"
+        fill="#000000" opacity="1" textLength="54.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-1)">Artem</text>
+<text x="40" y="127.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
+      fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="1.40s" dur="0.15s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-2">
+        <rect x="38.00" y="140" height="20" width="0">
+          <animate attributeName="width" begin="1.50s" dur="0.20s"
+            calcMode="discrete" keyTimes="0.0000;0.1111;0.2222;0.3333;0.4444;0.5556;0.6667;0.7778;0.8889;1.0000" values="0.00;7.87;15.73;23.60;31.47;39.33;47.20;55.07;62.93;70.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="152" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" font-weight="600"
+        textLength="64.80" lengthAdjust="spacingAndGlyphs" clip-path="url(#type-2)"
+      ><tspan fill="#818b98">[ </tspan><tspan fill="#000000">stats</tspan><tspan fill="#818b98"> ]</tspan></text>
+
+      <clipPath id="type-3">
+        <rect x="38.00" y="164" height="20" width="0">
+          <animate attributeName="width" begin="1.82s" dur="0.12s"
+            calcMode="discrete" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" values="0.00;7.95;15.90;23.85;31.80;39.75;47.70;55.65;63.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="176" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="57.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-3)">» uptime</text>
+
+      <clipPath id="type-4">
+        <rect x="602.00" y="164" height="20" width="0">
+          <animate attributeName="width" begin="1.98s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.2000;0.4000;0.6000;0.8000;1.0000" values="0.00;8.40;16.80;25.20;33.60;42.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="176" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="36.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-4)">1012d</text>
+
+      <clipPath id="type-5">
+        <rect x="38.00" y="188" height="20" width="0">
+          <animate attributeName="width" begin="2.15s" dur="0.10s"
+            calcMode="discrete" keyTimes="0.0000;0.1429;0.2857;0.4286;0.5714;0.7143;0.8571;1.0000" values="0.00;8.06;16.11;24.17;32.23;40.29;48.34;56.40" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="200" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="50.40" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-5)">» repos</text>
+
+      <clipPath id="type-6">
+        <rect x="630.80" y="188" height="20" width="0">
+          <animate attributeName="width" begin="2.29s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;1.0000" values="0.00;13.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="200" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="7.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-6)">4</text>
+
+      <clipPath id="type-7">
+        <rect x="38.00" y="212" height="20" width="0">
+          <animate attributeName="width" begin="2.46s" dur="0.30s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;13.10;26.20;39.30;52.40;65.50;78.60;91.70;104.80;117.90;131.00;144.10;157.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="224" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="151.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-7)">» followers/following</text>
+
+      <clipPath id="type-8">
+        <rect x="602.00" y="212" height="20" width="0">
+          <animate attributeName="width" begin="2.80s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.2000;0.4000;0.6000;0.8000;1.0000" values="0.00;8.40;16.80;25.20;33.60;42.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="224" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="36.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-8)">3 / 1</text>
+
+      <clipPath id="type-9">
+        <rect x="38.00" y="236" height="20" width="0">
+          <animate attributeName="width" begin="2.97s" dur="0.09s"
+            calcMode="discrete" keyTimes="0.0000;0.1667;0.3333;0.5000;0.6667;0.8333;1.0000" values="0.00;8.20;16.40;24.60;32.80;41.00;49.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="248" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="43.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-9)">» orgs</text>
+
+      <clipPath id="type-10">
+        <rect x="234.80" y="236" height="20" width="0">
+          <animate attributeName="width" begin="3.10s" dur="0.50s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;34.10;68.20;102.30;136.40;170.50;204.60;238.70;272.80;306.90;341.00;375.10;409.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="248" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="403.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-10)">Courses-WebProgramming, authecode-community, RuntimeCrew</text>
+
+      <clipPath id="type-11">
+        <rect x="38.00" y="260" height="20" width="0">
+          <animate attributeName="width" begin="3.69s" dur="0.16s"
+            calcMode="discrete" keyTimes="0.0000;0.0909;0.1818;0.2727;0.3636;0.4545;0.5455;0.6364;0.7273;0.8182;0.9091;1.0000" values="0.00;7.75;15.49;23.24;30.98;38.73;46.47;54.22;61.96;69.71;77.45;85.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="272" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="79.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-11)">» last push</text>
+
+      <clipPath id="type-12">
+        <rect x="458.00" y="260" height="20" width="0">
+          <animate attributeName="width" begin="3.90s" dur="0.40s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;15.50;31.00;46.50;62.00;77.50;93.00;108.50;124.00;139.50;155.00;170.50;186.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="272" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="180.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-12)">phantom-pro-linux · today</text>
+
+      <clipPath id="type-13">
+        <rect x="38.00" y="284" height="20" width="0">
+          <animate attributeName="width" begin="4.39s" dur="0.12s"
+            calcMode="discrete" keyTimes="0.0000;0.1250;0.2500;0.3750;0.5000;0.6250;0.7500;0.8750;1.0000" values="0.00;7.95;15.90;23.85;31.80;39.75;47.70;55.65;63.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="296" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="57.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-13)">» streak</text>
+
+      <clipPath id="type-14">
+        <rect x="465.20" y="284" height="20" width="0">
+          <animate attributeName="width" begin="4.55s" dur="0.38s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;14.90;29.80;44.70;59.60;74.50;89.40;104.30;119.20;134.10;149.00;163.90;178.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="296" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="172.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-14)">1d current / 97d longest</text>
+
+      <clipPath id="type-15">
+        <rect x="38.00" y="308" height="20" width="0">
+          <animate attributeName="width" begin="5.02s" dur="0.15s"
+            calcMode="discrete" keyTimes="0.0000;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1.0000" values="0.00;7.80;15.60;23.40;31.20;39.00;46.80;54.60;62.40;70.20;78.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="320" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="72.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-15)">» activity</text>
+
+      <clipPath id="type-16">
+        <rect x="335.60" y="308" height="20" width="0">
+          <animate attributeName="width" begin="5.21s" dur="0.50s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;25.70;51.40;77.10;102.80;128.50;154.20;179.90;205.60;231.30;257.00;282.70;308.40" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="320" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#1f2328" opacity="1" textLength="302.40" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-16)">128 commits · 1 prs · 0 issues · 0 reviews</text>
+<text x="40" y="351.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
+      fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="5.86s" dur="0.15s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-17">
+        <rect x="38.00" y="362" height="20" width="0">
+          <animate attributeName="width" begin="5.96s" dur="0.29s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;8.30;16.60;24.90;33.20;41.50;49.80;58.10;66.40;74.70;83.00;91.30;99.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="374" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" font-weight="600"
+        textLength="93.60" lengthAdjust="spacingAndGlyphs" clip-path="url(#type-17)"
+      ><tspan fill="#818b98">[ </tspan><tspan fill="#000000">languages</tspan><tspan fill="#818b98"> ]</tspan></text>
+
+      <clipPath id="type-18">
+        <rect x="38.00" y="386" height="20" width="0">
+          <animate attributeName="width" begin="6.37s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.2500;0.5000;0.7500;1.0000" values="0.00;8.70;17.40;26.10;34.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="398" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="28.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-18)">Rust</text>
+
+      <rect x="140" y="388" width="440" height="8" rx="2" fill="#eaeef2" opacity="0">
+        <animate attributeName="opacity" begin="6.51s" dur="0.1s" values="0;1" fill="freeze" />
+      </rect>
+
+      <rect x="140" y="388" width="0" height="8" rx="2" fill="#424a53" opacity="0.85">
+        <animate attributeName="width" begin="6.57s" dur="0.35s"
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;198.00" fill="freeze" />
+      </rect>
+<text x="640" y="398" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" fill="#1f2328" opacity="0">45%<animate attributeName="opacity" begin="6.97s" dur="0.1s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-19">
+        <rect x="38.00" y="410" height="20" width="0">
+          <animate attributeName="width" begin="7.15s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="422" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="21.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-19)">C++</text>
+
+      <rect x="140" y="412" width="440" height="8" rx="2" fill="#eaeef2" opacity="0">
+        <animate attributeName="opacity" begin="7.29s" dur="0.1s" values="0;1" fill="freeze" />
+      </rect>
+
+      <rect x="140" y="412" width="0" height="8" rx="2" fill="#424a53" opacity="0.85">
+        <animate attributeName="width" begin="7.35s" dur="0.35s"
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;184.80" fill="freeze" />
+      </rect>
+<text x="640" y="422" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" fill="#1f2328" opacity="0">42%<animate attributeName="opacity" begin="7.75s" dur="0.1s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-20">
+        <rect x="38.00" y="434" height="20" width="0">
+          <animate attributeName="width" begin="7.93s" dur="0.18s"
+            calcMode="discrete" keyTimes="0.0000;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1.0000" values="0.00;7.80;15.60;23.40;31.20;39.00;46.80;54.60;62.40;70.20;78.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="446" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="72.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-20)">JavaScript</text>
+
+      <rect x="140" y="436" width="440" height="8" rx="2" fill="#eaeef2" opacity="0">
+        <animate attributeName="opacity" begin="8.17s" dur="0.1s" values="0;1" fill="freeze" />
+      </rect>
+
+      <rect x="140" y="436" width="0" height="8" rx="2" fill="#424a53" opacity="0.85">
+        <animate attributeName="width" begin="8.23s" dur="0.35s"
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;35.20" fill="freeze" />
+      </rect>
+<text x="640" y="446" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" fill="#1f2328" opacity="0">8%<animate attributeName="opacity" begin="8.63s" dur="0.1s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-21">
+        <rect x="38.00" y="458" height="20" width="0">
+          <animate attributeName="width" begin="8.81s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.2500;0.5000;0.7500;1.0000" values="0.00;8.70;17.40;26.10;34.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="470" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="28.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-21)">HTML</text>
+
+      <rect x="140" y="460" width="440" height="8" rx="2" fill="#eaeef2" opacity="0">
+        <animate attributeName="opacity" begin="8.95s" dur="0.1s" values="0;1" fill="freeze" />
+      </rect>
+
+      <rect x="140" y="460" width="0" height="8" rx="2" fill="#424a53" opacity="0.85">
+        <animate attributeName="width" begin="9.01s" dur="0.35s"
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;13.20" fill="freeze" />
+      </rect>
+<text x="640" y="470" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" fill="#1f2328" opacity="0">3%<animate attributeName="opacity" begin="9.41s" dur="0.1s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-22">
+        <rect x="38.00" y="482" height="20" width="0">
+          <animate attributeName="width" begin="9.59s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="494" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="21.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-22)">CSS</text>
+
+      <rect x="140" y="484" width="440" height="8" rx="2" fill="#eaeef2" opacity="0">
+        <animate attributeName="opacity" begin="9.73s" dur="0.1s" values="0;1" fill="freeze" />
+      </rect>
+
+      <rect x="140" y="484" width="0" height="8" rx="2" fill="#424a53" opacity="0.85">
+        <animate attributeName="width" begin="9.79s" dur="0.35s"
+          calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;4.40" fill="freeze" />
+      </rect>
+<text x="640" y="494" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" fill="#1f2328" opacity="0">1%<animate attributeName="opacity" begin="10.19s" dur="0.1s" values="0;1" fill="freeze" /></text>
+<text x="40" y="525.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
+      fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="10.43s" dur="0.15s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-23">
+        <rect x="38.00" y="536" height="20" width="0">
+          <animate attributeName="width" begin="10.55s" dur="0.39s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;16.10;32.20;48.30;64.40;80.50;96.60;112.70;128.80;144.90;161.00;177.10;193.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="548" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#59636e" opacity="1" textLength="187.20" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-23)">git log --graph --since=1y</text>
+
+      <clipPath id="type-24">
+        <rect x="38.00" y="560" height="20" width="0">
+          <animate attributeName="width" begin="11.04s" dur="0.55s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;26.90;53.80;80.70;107.60;134.50;161.40;188.30;215.20;242.10;269.00;295.90;322.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="572" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="316.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-24)">1888 commits this year · busiest Jul 14 (96)</text>
+<line x1="40" y1="648.5" x2="640" y2="648.5" stroke="#eaeef2" stroke-width="1" opacity="0">
+      <animate attributeName="opacity" begin="11.71s" dur="0.1s" values="0;1" fill="freeze" />
+    </line>
+
+      <clipPath id="chart-25">
+        <rect x="40" y="594.00" height="84" width="0">
+          <animate attributeName="width" begin="11.71s" dur="0.8s"
+            calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;600" fill="freeze" />
+        </rect>
+      </clipPath>
+      <g clip-path="url(#chart-25)">
+        <rect x="51.54" y="640.83" width="23.08" height="7.17" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="63.08" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">66</text>
+        <text x="63.08" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Nov</text>
+        <rect x="97.69" y="635.50" width="23.08" height="12.50" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="109.23" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">115</text>
+        <text x="109.23" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Dec</text>
+        <rect x="143.85" y="632.78" width="23.08" height="15.22" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="155.38" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">140</text>
+        <text x="155.38" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Jan</text>
+        <rect x="190.00" y="629.74" width="23.08" height="18.26" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="201.54" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">168</text>
+        <text x="201.54" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Feb</text>
+        <rect x="236.15" y="628.98" width="23.08" height="19.02" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="247.69" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">175</text>
+        <text x="247.69" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Mar</text>
+        <rect x="282.31" y="626.15" width="23.08" height="21.85" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="293.85" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">201</text>
+        <text x="293.85" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Apr</text>
+        <rect x="328.46" y="641.04" width="23.08" height="6.96" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="340.00" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">64</text>
+        <text x="340.00" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">May</text>
+        <rect x="374.62" y="641.70" width="23.08" height="6.30" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="386.15" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">58</text>
+        <text x="386.15" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Jun</text>
+        <rect x="420.77" y="598.00" width="23.08" height="50.00" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="432.31" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">460</text>
+        <text x="432.31" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Jul</text>
+        <rect x="466.92" y="639.96" width="23.08" height="8.04" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="478.46" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">74</text>
+        <text x="478.46" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Aug</text>
+        <rect x="513.08" y="637.89" width="23.08" height="10.11" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="524.62" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">93</text>
+        <text x="524.62" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Sep</text>
+        <rect x="559.23" y="643.54" width="23.08" height="4.46" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="570.77" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">41</text>
+        <text x="570.77" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Oct</text>
+        <rect x="605.38" y="622.67" width="23.08" height="25.33" rx="3.00" fill="#424a53" opacity="0.85" />
+        <text x="616.92" y="661" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#1f2328" opacity="0.75">233</text>
+        <text x="616.92" y="673" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">Nov</text></g>
+<text x="40" y="691.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
+      fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="12.63s" dur="0.15s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-26">
+        <rect x="38.00" y="702" height="20" width="0">
+          <animate attributeName="width" begin="12.73s" dur="0.37s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;10.70;21.40;32.10;42.80;53.50;64.20;74.90;85.60;96.30;107.00;117.70;128.40" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="714" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" font-weight="600"
+        textLength="122.40" lengthAdjust="spacingAndGlyphs" clip-path="url(#type-26)"
+      ><tspan fill="#818b98">[ </tspan><tspan fill="#000000">contributions</tspan><tspan fill="#818b98"> ]</tspan></text>
+
+      <clipPath id="chart-27">
+        <rect x="40" y="728" height="103" width="0">
+          <animate attributeName="width" begin="13.22s" dur="0.9s"
+            calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;602" fill="freeze" />
+        </rect>
+      </clipPath>
+      <g clip-path="url(#chart-27)"><rect x="40.00" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="40.00" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="40.00" y="752.49" width="9.25" height="9.25" fill="#9be9a8" /><rect x="40.00" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="40.00" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="40.00" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="40.00" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="51.25" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="51.25" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="51.25" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="51.25" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="51.25" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="51.25" y="786.23" width="9.25" height="9.25" fill="#9be9a8" /><rect x="51.25" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="62.49" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="62.49" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="62.49" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="62.49" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="62.49" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="62.49" y="786.23" width="9.25" height="9.25" fill="#9be9a8" /><rect x="62.49" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="73.74" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="73.74" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="73.74" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="73.74" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="73.74" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="73.74" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="73.74" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="84.98" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="84.98" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="84.98" y="752.49" width="9.25" height="9.25" fill="#9be9a8" /><rect x="84.98" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="84.98" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="84.98" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="84.98" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="96.23" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="96.23" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="96.23" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="96.23" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="96.23" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="96.23" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="96.23" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="107.47" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="107.47" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="107.47" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="107.47" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="107.47" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="107.47" y="786.23" width="9.25" height="9.25" fill="#216e39" /><rect x="107.47" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="118.72" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="118.72" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="118.72" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="118.72" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="118.72" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="118.72" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="118.72" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="129.96" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="129.96" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="129.96" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="129.96" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="129.96" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="129.96" y="786.23" width="9.25" height="9.25" fill="#9be9a8" /><rect x="129.96" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="141.21" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="141.21" y="741.25" width="9.25" height="9.25" fill="#30a14e" /><rect x="141.21" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="141.21" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="141.21" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="141.21" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="141.21" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="152.45" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="152.45" y="741.25" width="9.25" height="9.25" fill="#30a14e" /><rect x="152.45" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="152.45" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="152.45" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="152.45" y="786.23" width="9.25" height="9.25" fill="#30a14e" /><rect x="152.45" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="163.70" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="163.70" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="163.70" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="163.70" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="163.70" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="163.70" y="786.23" width="9.25" height="9.25" fill="#216e39" /><rect x="163.70" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="174.94" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="174.94" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="174.94" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="174.94" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="174.94" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="174.94" y="786.23" width="9.25" height="9.25" fill="#30a14e" /><rect x="174.94" y="797.47" width="9.25" height="9.25" fill="#30a14e" /><rect x="186.19" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="186.19" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="186.19" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="186.19" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="186.19" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="186.19" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="186.19" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="197.43" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="197.43" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="197.43" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="197.43" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="197.43" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="197.43" y="786.23" width="9.25" height="9.25" fill="#216e39" /><rect x="197.43" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="208.68" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="208.68" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="208.68" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="208.68" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="208.68" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="208.68" y="786.23" width="9.25" height="9.25" fill="#30a14e" /><rect x="208.68" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="219.92" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="219.92" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="219.92" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="219.92" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="219.92" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="219.92" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="219.92" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="231.17" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="231.17" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="231.17" y="752.49" width="9.25" height="9.25" fill="#9be9a8" /><rect x="231.17" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="231.17" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="231.17" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="231.17" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="242.42" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="242.42" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="242.42" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="242.42" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="242.42" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="242.42" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="242.42" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="253.66" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="253.66" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="253.66" y="752.49" width="9.25" height="9.25" fill="#9be9a8" /><rect x="253.66" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="253.66" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="253.66" y="786.23" width="9.25" height="9.25" fill="#216e39" /><rect x="253.66" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="264.91" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="264.91" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="264.91" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="264.91" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="264.91" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="264.91" y="786.23" width="9.25" height="9.25" fill="#30a14e" /><rect x="264.91" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="276.15" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="276.15" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="276.15" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="276.15" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="276.15" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="276.15" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="276.15" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="287.40" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="287.40" y="741.25" width="9.25" height="9.25" fill="#30a14e" /><rect x="287.40" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="287.40" y="763.74" width="9.25" height="9.25" fill="#40c463" /><rect x="287.40" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="287.40" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="287.40" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="298.64" y="730.00" width="9.25" height="9.25" fill="#30a14e" /><rect x="298.64" y="741.25" width="9.25" height="9.25" fill="#30a14e" /><rect x="298.64" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="298.64" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="298.64" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="298.64" y="786.23" width="9.25" height="9.25" fill="#30a14e" /><rect x="298.64" y="797.47" width="9.25" height="9.25" fill="#40c463" /><rect x="309.89" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="309.89" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="309.89" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="309.89" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="309.89" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="309.89" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="309.89" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="321.13" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="321.13" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="321.13" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="321.13" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="321.13" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="321.13" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="321.13" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="332.38" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="332.38" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="332.38" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="332.38" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="332.38" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="332.38" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="332.38" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="343.62" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="354.87" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="366.11" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="377.36" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="377.36" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="377.36" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="377.36" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="377.36" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="377.36" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="377.36" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="388.60" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="388.60" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="388.60" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="388.60" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="388.60" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="388.60" y="786.23" width="9.25" height="9.25" fill="#9be9a8" /><rect x="388.60" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="399.85" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="399.85" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="399.85" y="752.49" width="9.25" height="9.25" fill="#9be9a8" /><rect x="399.85" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="399.85" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="399.85" y="786.23" width="9.25" height="9.25" fill="#216e39" /><rect x="399.85" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="411.09" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="411.09" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="411.09" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="411.09" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="411.09" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="411.09" y="786.23" width="9.25" height="9.25" fill="#216e39" /><rect x="411.09" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="422.34" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="422.34" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="422.34" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="422.34" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="422.34" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="422.34" y="786.23" width="9.25" height="9.25" fill="#30a14e" /><rect x="422.34" y="797.47" width="9.25" height="9.25" fill="#216e39" /><rect x="433.58" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="433.58" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="433.58" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="433.58" y="763.74" width="9.25" height="9.25" fill="#30a14e" /><rect x="433.58" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="433.58" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="433.58" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="444.83" y="730.00" width="9.25" height="9.25" fill="#40c463" /><rect x="444.83" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="444.83" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="444.83" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="444.83" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="444.83" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="444.83" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="456.08" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="456.08" y="741.25" width="9.25" height="9.25" fill="#30a14e" /><rect x="456.08" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="456.08" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="456.08" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="456.08" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="456.08" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="467.32" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="467.32" y="741.25" width="9.25" height="9.25" fill="#30a14e" /><rect x="467.32" y="752.49" width="9.25" height="9.25" fill="#40c463" /><rect x="467.32" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="467.32" y="774.98" width="9.25" height="9.25" fill="#30a14e" /><rect x="467.32" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="467.32" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="478.57" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="478.57" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="478.57" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="478.57" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="478.57" y="774.98" width="9.25" height="9.25" fill="#9be9a8" /><rect x="478.57" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="478.57" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="489.81" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="489.81" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="489.81" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="489.81" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="489.81" y="774.98" width="9.25" height="9.25" fill="#40c463" /><rect x="489.81" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="489.81" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="501.06" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="501.06" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="501.06" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="501.06" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="501.06" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="501.06" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="501.06" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="512.30" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="512.30" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="512.30" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="512.30" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="512.30" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="512.30" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="512.30" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="523.55" y="730.00" width="9.25" height="9.25" fill="#9be9a8" /><rect x="523.55" y="741.25" width="9.25" height="9.25" fill="#9be9a8" /><rect x="523.55" y="752.49" width="9.25" height="9.25" fill="#9be9a8" /><rect x="523.55" y="763.74" width="9.25" height="9.25" fill="#9be9a8" /><rect x="523.55" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="523.55" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="523.55" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="534.79" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="546.04" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="557.28" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="568.53" y="797.47" width="9.25" height="9.25" fill="#ebedf0" /><rect x="579.77" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="579.77" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="579.77" y="752.49" width="9.25" height="9.25" fill="#30a14e" /><rect x="579.77" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="579.77" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="579.77" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="579.77" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="591.02" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="591.02" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="591.02" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="591.02" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="591.02" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="591.02" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="591.02" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="602.26" y="730.00" width="9.25" height="9.25" fill="#ebedf0" /><rect x="602.26" y="741.25" width="9.25" height="9.25" fill="#216e39" /><rect x="602.26" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="602.26" y="763.74" width="9.25" height="9.25" fill="#216e39" /><rect x="602.26" y="774.98" width="9.25" height="9.25" fill="#216e39" /><rect x="602.26" y="786.23" width="9.25" height="9.25" fill="#40c463" /><rect x="602.26" y="797.47" width="9.25" height="9.25" fill="#30a14e" /><rect x="613.51" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="613.51" y="741.25" width="9.25" height="9.25" fill="#ebedf0" /><rect x="613.51" y="752.49" width="9.25" height="9.25" fill="#216e39" /><rect x="613.51" y="763.74" width="9.25" height="9.25" fill="#ebedf0" /><rect x="613.51" y="774.98" width="9.25" height="9.25" fill="#ebedf0" /><rect x="613.51" y="786.23" width="9.25" height="9.25" fill="#ebedf0" /><rect x="613.51" y="797.47" width="9.25" height="9.25" fill="#9be9a8" /><rect x="624.75" y="730.00" width="9.25" height="9.25" fill="#216e39" /><rect x="624.75" y="741.25" width="9.25" height="9.25" fill="#40c463" /><rect x="624.75" y="752.49" width="9.25" height="9.25" fill="#ebedf0" /><rect x="624.75" y="763.74" width="9.25" height="9.25" fill="#40c463" /><text x="546.4" y="821" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">less</text><rect x="550.40" y="813" width="9" height="9" fill="#ebedf0" /><rect x="562.40" y="813" width="9" height="9" fill="#9be9a8" /><rect x="574.40" y="813" width="9" height="9" fill="#40c463" /><rect x="586.40" y="813" width="9" height="9" fill="#30a14e" /><rect x="598.40" y="813" width="9" height="9" fill="#216e39" /><text x="636" y="821" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="9" fill="#818b98">more</text></g>
+<text x="40" y="840.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
+      fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="14.24s" dur="0.15s" values="0;1" fill="freeze" /></text>
+
+      <clipPath id="type-28">
+        <rect x="38.00" y="851" height="20" width="0">
+          <animate attributeName="width" begin="14.34s" dur="0.35s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;10.10;20.20;30.30;40.40;50.50;60.60;70.70;80.80;90.90;101.00;111.10;121.20" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="863" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" font-weight="600"
+        textLength="115.20" lengthAdjust="spacingAndGlyphs" clip-path="url(#type-28)"
+      ><tspan fill="#818b98">[ </tspan><tspan fill="#000000">repositories</tspan><tspan fill="#818b98"> ]</tspan></text>
+<a href="https://github.com/TerminalExplore/Wiresprite" target="_blank" rel="noopener noreferrer">
+      <clipPath id="type-29">
+        <rect x="38.00" y="875" height="20" width="0">
+          <animate attributeName="width" begin="14.81s" dur="0.16s"
+            calcMode="discrete" keyTimes="0.0000;0.1000;0.2000;0.3000;0.4000;0.5000;0.6000;0.7000;0.8000;0.9000;1.0000" values="0.00;7.80;15.60;23.40;31.20;39.00;46.80;54.60;62.40;70.20;78.00" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="887" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="72.00" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-29)">Wiresprite</text></a>
+
+      <clipPath id="type-30">
+        <rect x="616.40" y="875" height="20" width="0">
+          <animate attributeName="width" begin="15.02s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="887" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#424a53" opacity="0.6" textLength="21.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-30)">★ 0</text>
+<a href="https://github.com/TerminalExplore/Nullroute" target="_blank" rel="noopener noreferrer">
+      <clipPath id="type-31">
+        <rect x="38.00" y="899" height="20" width="0">
+          <animate attributeName="width" begin="15.19s" dur="0.14s"
+            calcMode="discrete" keyTimes="0.0000;0.1111;0.2222;0.3333;0.4444;0.5556;0.6667;0.7778;0.8889;1.0000" values="0.00;7.87;15.73;23.60;31.47;39.33;47.20;55.07;62.93;70.80" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="911" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="64.80" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-31)">Nullroute</text></a>
+
+      <clipPath id="type-32">
+        <rect x="616.40" y="899" height="20" width="0">
+          <animate attributeName="width" begin="15.39s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="911" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#424a53" opacity="0.6" textLength="21.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-32)">★ 0</text>
+<a href="https://github.com/TerminalExplore/phantom-pro-linux" target="_blank" rel="noopener noreferrer">
+      <clipPath id="type-33">
+        <rect x="38.00" y="923" height="20" width="0">
+          <animate attributeName="width" begin="15.56s" dur="0.27s"
+            calcMode="discrete" keyTimes="0.0000;0.0833;0.1667;0.2500;0.3333;0.4167;0.5000;0.5833;0.6667;0.7500;0.8333;0.9167;1.0000" values="0.00;10.70;21.40;32.10;42.80;53.50;64.20;74.90;85.60;96.30;107.00;117.70;128.40" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="40" y="935" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12"
+        fill="#1f2328" opacity="1" textLength="122.40" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-33)">phantom-pro-linux</text></a>
+
+      <clipPath id="type-34">
+        <rect x="616.40" y="923" height="20" width="0">
+          <animate attributeName="width" begin="15.88s" dur="0.08s"
+            calcMode="discrete" keyTimes="0.0000;0.3333;0.6667;1.0000" values="0.00;9.20;18.40;27.60" fill="freeze" />
+        </rect>
+      </clipPath>
+      <text x="640" y="935" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" text-anchor="end"
+        fill="#424a53" opacity="0.6" textLength="21.60" lengthAdjust="spacingAndGlyphs"
+        clip-path="url(#type-34)">★ 0</text>
+<text x="40" y="966.30" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11"
+      fill="url(#divider-fade)" textLength="600.00" lengthAdjust="spacingAndGlyphs" opacity="0">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<animate attributeName="opacity" begin="16.11s" dur="0.15s" values="0;1" fill="freeze" /></text>
+
+    <text x="40" y="989" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace" font-size="12" fill="#818b98" opacity="0">root@terminalexplore:~$ <animate attributeName="opacity" begin="16.23s" dur="0.15s" values="0;1" fill="freeze" /></text>
+    <rect x="212.80" y="977" width="7" height="14" fill="#000000" opacity="0">
+      <animate attributeName="opacity" begin="16.38s" dur="1s" values="0;1;1;0;0" keyTimes="0;0.05;0.5;0.5;1" repeatCount="indefinite" />
+    </rect>
+</svg>

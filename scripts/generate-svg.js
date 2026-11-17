@@ -2,18 +2,17 @@
 // Pure SMIL markup (no JS/script tags) so GitHub renders it as a plain,
 // self-playing image. Data comes live from the GitHub GraphQL API.
 //
-// Visual language matches terminalexplore.org (see tmxpl-site): a flat,
-// square-cornered terminal panel with a chrome bar (dots + host + live dot),
-// bracketed section labels, and the site's exact mono color tokens — not a
-// bespoke palette of its own.
+// Visual language: a terminal panel with a chrome bar (dots + host + live
+// dot) and bracketed section labels, painted in GitHub's own Primer colors.
+// Two files are written (dark + light); the README picks one with <picture>
+// and prefers-color-scheme, which GitHub resolves from the viewer's theme.
 
-import { writeFile, mkdir, readFile } from "node:fs/promises";
+import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 
 const USERNAME = process.env.GH_USERNAME || "TerminalExplore";
 const TOKEN = process.env.GITHUB_TOKEN;
-const OUT_FILE = path.join("assets", "terminal.svg");
-const ABOUT_FILE = path.join("config", "about.txt");
+const OUT_DIR = "assets";
 
 if (!TOKEN) {
   console.error("Missing GITHUB_TOKEN environment variable.");
@@ -75,6 +74,7 @@ const QUERY = /* GraphQL */ `
           weeks {
             contributionDays {
               date
+              weekday
               contributionCount
             }
           }
@@ -106,7 +106,7 @@ async function fetchProfile() {
   return json.data.user;
 }
 
-function topLanguages(repositories, limit = 3) {
+function topLanguages(repositories, limit = 5) {
   const bytesByLanguage = new Map();
   for (const repo of repositories.nodes) {
     for (const edge of repo.languages.edges) {
@@ -225,57 +225,51 @@ function escapeXml(str) {
     .replace(/'/g, "&apos;");
 }
 
-// Naive word-wrap: SVG doesn't reflow text, so we pre-split into tspans.
-function wrapText(text, maxChars) {
-  const words = text.replace(/\s+/g, " ").trim().split(" ");
-  const lines = [];
-  let current = "";
-  for (const word of words) {
-    const candidate = current ? `${current} ${word}` : word;
-    if (candidate.length > maxChars && current) {
-      lines.push(current);
-      current = word;
-    } else {
-      current = candidate;
-    }
-  }
-  if (current) lines.push(current);
-  return lines;
-}
+// ===== GitHub Primer colors =====
+// The palette lives in module-level bindings that applyTheme() reassigns
+// before each render, so the drawing helpers below stay theme-agnostic.
+const THEMES = {
+  dark: {
+    bgPanel: "#0d1117", // canvas.default
+    panelBorder: "#30363d", // border.default
+    borderSoft: "#21262d", // border.muted
+    text: "#e6edf3", // fg.default
+    textMid: "#b1bac4",
+    textDim: "#8d96a0", // fg.muted
+    textFaint: "#6e7681", // fg.subtle
+    accentBright: "#ffffff",
+    ok: "#3fb950", // success.fg
+    heat: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"], // contribution graph
+  },
+  light: {
+    bgPanel: "#ffffff",
+    panelBorder: "#d0d7de",
+    borderSoft: "#eaeef2",
+    text: "#1f2328",
+    textMid: "#424a53",
+    textDim: "#59636e",
+    textFaint: "#818b98",
+    accentBright: "#000000",
+    ok: "#1a7f37",
+    heat: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+  },
+};
 
-// Wraps each source line of about.txt independently (instead of collapsing
-// the whole file into one paragraph) so intentional line breaks — like a
-// signature line sitting on its own — survive, while any single long line
-// still gets auto-wrapped to fit the card.
-function wrapParagraphs(text, maxChars) {
-  return text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0)
-    .flatMap((paragraph) => wrapText(paragraph, maxChars));
-}
+let BG_PANEL, PANEL_BORDER, BORDER_SOFT, TEXT, TEXT_MID, TEXT_DIM, TEXT_FAINT, ACCENT_BRIGHT, OK, HEAT;
 
-// Finds a bare URL or "www." address in a line of text and returns an
-// https:// href for it, or null if the line has no link in it.
-function extractLink(line) {
-  const match = line.match(/(https?:\/\/\S+|www\.\S+)/);
-  if (!match) return null;
-  const raw = match[1].replace(/[).,;:!?]+$/, "");
-  return raw.startsWith("http") ? raw : `https://${raw}`;
+function applyTheme(name) {
+  const t = THEMES[name];
+  BG_PANEL = t.bgPanel;
+  PANEL_BORDER = t.panelBorder;
+  BORDER_SOFT = t.borderSoft;
+  TEXT = t.text;
+  TEXT_MID = t.textMid;
+  TEXT_DIM = t.textDim;
+  TEXT_FAINT = t.textFaint;
+  ACCENT_BRIGHT = t.accentBright;
+  OK = t.ok;
+  HEAT = t.heat;
 }
-
-// ===== terminalexplore.org design tokens (src/index.css on tmxpl-site) =====
-// Kept as literal color strings (not opacity-on-white hacks) so the card
-// reads as the same terminal UI, not a lookalike with its own palette.
-const BG_PANEL = "#0a0a0d"; // ~ rgba(10,10,13,.8) .panel over the site's near-black page bg
-const PANEL_BORDER = "rgba(255, 255, 255, 0.16)"; // --border-2
-const BORDER_SOFT = "rgba(255, 255, 255, 0.11)"; // --border
-const TEXT = "#f1efec"; // --text
-const TEXT_MID = "#cdc8bf"; // --text-mid
-const TEXT_DIM = "#a8a096"; // --text-dim
-const TEXT_FAINT = "#635c52"; // --text-faint
-const ACCENT_BRIGHT = "#ffffff"; // --accent-bright
-const OK = "#4ade80"; // --ok
 
 const FONT_STACK = "'JetBrains Mono', 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace";
 const TYPE_SPEED = 0.022; // seconds per character
@@ -439,18 +433,64 @@ function commitChart({ months, x, width, baselineY, height, begin, id }) {
   return { svg, end: begin + dur, labelBelowHeight };
 }
 
+// GitHub-style contribution heatmap for the last year: one column per week,
+// one row per weekday. Intensity is GitHub's own 4-step
+// green ramp split on the quartiles of non-zero days, so a single
+// outlier day doesn't flatten everything else to the lowest level. Reveals
+// with one left-to-right wipe, like commitChart.
+function contributionHeatmap({ calendar, x, width, y, begin, id }) {
+  const weeks = calendar.weeks;
+  const pitch = width / weeks.length;
+  const cell = Math.max(pitch - 2, 3);
+  const nonZero = weeks
+    .flatMap((w) => w.contributionDays)
+    .map((d) => d.contributionCount)
+    .filter((c) => c > 0)
+    .sort((a, b) => a - b);
+  const quantile = (q) => nonZero[Math.min(nonZero.length - 1, Math.floor(nonZero.length * q))] ?? 1;
+  const cuts = [quantile(0.25), quantile(0.5), quantile(0.75)];
+  const levelOf = (count) => (count === 0 ? 0 : cuts.filter((c) => count > c).length + 1);
+  const fills = HEAT;
+
+  const cells = weeks
+    .flatMap((w, col) =>
+      w.contributionDays.map((d) => {
+        const cx = x + col * pitch;
+        const cy = y + d.weekday * pitch;
+        return `<rect x="${cx.toFixed(2)}" y="${cy.toFixed(2)}" width="${cell.toFixed(2)}" height="${cell.toFixed(2)}" fill="${fills[levelOf(d.contributionCount)]}" />`;
+      })
+    )
+    .join("");
+
+  const gridHeight = Math.round(7 * pitch);
+  const legendY = y + gridHeight + 12;
+  const legendRight = x + width;
+  const moreWidth = 4 * 9 * 0.6;
+  const squaresLeft = legendRight - moreWidth - 4 - fills.length * 12;
+  const legend = fills
+    .map((fill, i) => `<rect x="${(squaresLeft + i * 12).toFixed(2)}" y="${legendY - 8}" width="9" height="9" fill="${fill}" />`)
+    .join("");
+  const legendText = (label, lx, anchor) =>
+    `<text x="${lx}" y="${legendY}" text-anchor="${anchor}" font-family="${FONT_STACK}" font-size="9" fill="${TEXT_FAINT}">${label}</text>`;
+
+  const dur = 0.9;
+  const svg = `
+      <clipPath id="${id}">
+        <rect x="${x}" y="${y - 2}" height="${gridHeight + 24}" width="0">
+          <animate attributeName="width" begin="${begin.toFixed(2)}s" dur="${dur}s"
+            calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" values="0;${width + 6}" fill="freeze" />
+        </rect>
+      </clipPath>
+      <g clip-path="url(#${id})">${cells}${legendText("less", squaresLeft - 4, "end")}${legend}${legendText("more", legendRight, "end")}</g>`;
+  return { svg, end: begin + dur, height: gridHeight + 14 };
+}
+
 const BOOT_START = 0.35;
 
-function render(user, aboutText) {
+function render(user) {
   const languages = topLanguages(user.repositories);
   const streak = computeStreak(user.contributionsCollection.contributionCalendar);
   const uptimeDays = daysSince(user.createdAt);
-  // Each about line gets its own <text> (instead of tspans in one block) so
-  // it can be typed independently with the same reveal mechanism as every
-  // other line — this also avoids tspan/animate interaction quirks some SVG
-  // renderers have with multi-line text blocks.
-  const aboutLines = wrapParagraphs(aboutText, 74).slice(0, 4);
-
   const statRows = [
     ["uptime", `${uptimeDays}d`],
     ["repos", `${user.repositories.totalCount}`],
@@ -539,49 +579,6 @@ function render(user, aboutText) {
   });
   t += 0.06;
   y += 4;
-
-  parts.push(fadeLine(40, y, 640, t));
-  t += 0.1;
-  y += 26;
-
-  // about.md: type command, then type each wrapped line
-  const aboutCmd = typeLine({
-    text: "cat about.md",
-    x: 40,
-    y,
-    fontSize: 12,
-    color: TEXT_DIM,
-    begin: t,
-    id: nextId("type"),
-    speed: 0.018,
-    maxDur: 0.3,
-  });
-  parts.push(aboutCmd.svg);
-  t = aboutCmd.end + 0.12;
-  y += 28;
-
-  aboutLines.forEach((line) => {
-    const el = typeLine({
-      text: line,
-      x: 40,
-      y,
-      fontSize: 13,
-      color: TEXT,
-      begin: t,
-      id: nextId("type"),
-      speed: 0.01,
-      maxDur: 0.7,
-    });
-    // Only actually clickable if the SVG is opened as its own document
-    // (e.g. GitHub's "open raw image" view) — an <img>-embedded SVG in the
-    // README can't be clicked into, that's an HTML limitation, not this file.
-    const href = extractLink(line);
-    parts.push(href ? `<a href="${escapeXml(href)}" target="_blank" rel="noopener noreferrer">${el.svg}</a>` : el.svg);
-    t = el.end + 0.06;
-    y += 20;
-  });
-  t += 0.1;
-  y += 8;
 
   parts.push(fadeLine(40, y, 640, t));
   t += 0.1;
@@ -698,6 +695,28 @@ function render(user, aboutText) {
   t += 0.1;
   y += 26;
 
+  // contribution heatmap: bracket header, then the year grid in one wipe
+  const heatHeader = typeBracket({ text: "contributions", x: 40, y, fontSize: 12, begin: t, id: nextId("type") });
+  parts.push(heatHeader.svg);
+  t = heatHeader.end + 0.12;
+  y += 16;
+
+  const heatmap = contributionHeatmap({
+    calendar: user.contributionsCollection.contributionCalendar,
+    x: 40,
+    width: 596,
+    y,
+    begin: t,
+    id: nextId("chart"),
+  });
+  parts.push(heatmap.svg);
+  t = heatmap.end + 0.12;
+  y += heatmap.height + 14;
+
+  parts.push(fadeLine(40, y, 640, t));
+  t += 0.1;
+  y += 26;
+
   // featured repositories: pinned repos if set, otherwise top-starred owned repos
   const repos = featuredRepos(user);
   const reposHeader = typeBracket({ text: "repositories", x: 40, y, fontSize: 12, begin: t, id: nextId("type") });
@@ -759,9 +778,7 @@ function render(user, aboutText) {
 
   const totalHeight = footerY + 44;
 
-  // Flat, square-cornered terminal panel — matches the site's .panel (no
-  // border-radius anywhere in its UI), with the same dots/host/live chrome
-  // bar as .panel-chrome (see Fastfetch.tsx / ServiceStatus.tsx).
+  // Terminal panel with GitHub's 6px card radius and a dots/host/live chrome bar.
   return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 ${totalHeight}">
   <defs>
     <linearGradient id="divider-fade" x1="0" y1="0" x2="1" y2="0">
@@ -772,9 +789,9 @@ function render(user, aboutText) {
     </linearGradient>
   </defs>
 
-  <rect width="680" height="${totalHeight}" fill="${BG_PANEL}" stroke="${PANEL_BORDER}" stroke-width="1" />
+  <rect x="0.5" y="0.5" width="679" height="${totalHeight - 1}" rx="6" fill="${BG_PANEL}" stroke="${PANEL_BORDER}" stroke-width="1" />
 
-  <line x1="0" y1="${CHROME_H}" x2="680" y2="${CHROME_H}" stroke="${BORDER_SOFT}" stroke-width="1" />
+  <line x1="1" y1="${CHROME_H}" x2="679" y2="${CHROME_H}" stroke="${BORDER_SOFT}" stroke-width="1" />
   <circle cx="20" cy="${CHROME_H / 2}" r="3.5" fill="${TEXT_FAINT}" />
   <circle cx="31" cy="${CHROME_H / 2}" r="3.5" fill="${TEXT_FAINT}" />
   <circle cx="42" cy="${CHROME_H / 2}" r="3.5" fill="${TEXT_FAINT}" />
@@ -790,14 +807,14 @@ function render(user, aboutText) {
 }
 
 async function main() {
-  const [user, aboutText] = await Promise.all([
-    fetchProfile(),
-    readFile(ABOUT_FILE, "utf8"),
-  ]);
-  const svg = render(user, aboutText);
-  await mkdir(path.dirname(OUT_FILE), { recursive: true });
-  await writeFile(OUT_FILE, svg, "utf8");
-  console.log(`Wrote ${OUT_FILE}`);
+  const user = await fetchProfile();
+  await mkdir(OUT_DIR, { recursive: true });
+  for (const theme of Object.keys(THEMES)) {
+    applyTheme(theme);
+    const file = path.join(OUT_DIR, `terminal-${theme}.svg`);
+    await writeFile(file, render(user), "utf8");
+    console.log(`Wrote ${file}`);
+  }
 }
 
 main().catch((err) => {
